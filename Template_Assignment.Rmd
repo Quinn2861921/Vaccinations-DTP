@@ -49,13 +49,20 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
 
 # Load data on health coverage  directly from Dropbox (public direct link)
-url_coverage <- "https://www.dropbox.com/scl/fi/w2km75dq5w2smfprlfnrz/coveragedata.R?rlkey=hfl7yib7q1bzmnrb8h2pjif4w&st=1gqyv5r8&dl=0"
+url_coverage <- "https://www.dropbox.com/scl/fi/w2km75dq5w2smfprlfnrz/coveragedata.R?rlkey=hfl7yib7q1bzmnrb8h2pjif4w&st=1gqyv5r8&dl=1"
+
+#load data on child deaths directly from Dropbox (public direct link)
+url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
 
 # Read the CSV into a dataframe
 raw_healthspending_data <- read.csv(url_spending)
 
 # Read the XLSX into a dataframe
 df <- read_excel(url_coverage, sheet = "Sheet1")
+
+# Read the CSV into a dataframe
+raw_childdeath_data <- read.csv(url_childdeath)
+
 
 # Preview the first few rows to check the import
 head(raw_healthspending_data)
@@ -125,6 +132,17 @@ cleaned_dtpdata <- cleaned_dtpdata %>%
     )
   )
 
+# Select and rename relevant columns from child death data
+childdeath_selected <- raw_childdeath_data %>%
+  select(Region = Location, Year = Period, Deaths = FactValueNumeric)
+
+# Step 2: Ensure Year and Deaths are numeric
+childdeath_typed <- childdeath_selected %>%
+  mutate(
+    Year = as.numeric(Year),
+    Deaths = as.numeric(Deaths)
+  )
+
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
 ## 3.2 Generate necessary variables
@@ -158,7 +176,27 @@ DTPcoverage <- cleaned_dtpdata %>%
     .groups = "drop"
   ) %>%
   arrange(Region)
+# Create period variable
+childdeath_with_period <- childdeath_typed %>%
+  mutate(Period = case_when(
+    Year >= 2000 & Year <= 2004 ~ "2000–2004",
+    Year >= 2005 & Year <= 2009 ~ "2005–2009",
+    Year >= 2010 & Year <= 2014 ~ "2010–2014",
+    Year >= 2015 & Year <= 2019 ~ "2015–2019",
+    Year >= 2020 & Year <= 2022 ~ "2020–2022",
+    TRUE ~ NA_character_
+  ))
 
+
+
+# Step Summarise average child deaths per region and period
+avg_childdeath_by_period <- childdeath_with_period %>%
+filter(!is.na(Period)) %>%
+  group_by(Region, Period) %>%
+  summarise(
+    AvgChildDeath = mean(Deaths, na.rm = TRUE),
+    .groups = "drop"
+  )
 
 ## 3.3 Visualize temporal variation
 
