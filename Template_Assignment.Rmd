@@ -41,9 +41,14 @@ Include the following:
 
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
-```{r loading_data}
-dataset <- midwest
-```
+# Load data on health spending  directly from Dropbox (public direct link)
+url <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
+
+# Read the CSV into a dataframe
+raw_healthspending_data <- read.csv(url)
+
+# Preview the first few rows to check the import
+head(raw_healthspending_data)
 
 midwest is an example dataset included in the tidyverse package
 
