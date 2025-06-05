@@ -11,9 +11,11 @@ output: pdf_document
 install.packages("tidyverse")
 ```
 
-```{r packages}
+``{r packages}
 require(tidyverse)
-```
+# Load necessary libraries
+``library(dplyr)
+
 
 # Title Page
 
@@ -41,9 +43,14 @@ Include the following:
 
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
-```{r loading_data}
-dataset <- midwest
-```
+# Load data on health spending  directly from Dropbox (public direct link)
+url <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
+
+# Read the CSV into a dataframe
+raw_healthspending_data <- read.csv(url)
+
+# Preview the first few rows to check the import
+head(raw_healthspending_data)
 
 midwest is an example dataset included in the tidyverse package
 
@@ -77,23 +84,43 @@ Think of things like:
 
 Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
 
-```{r data_cleaning}
-mean(dataset$percollege)
-```
+# Load and select relevant columns from raw data on health spending
+cleaned_healthspending_data <- raw_healthspending_data %>%
+  select(Region = Location, Year = Period, Spending = Value)
+
+#  Ensure Year and Spending are numeric for health spending
+cleaned_healthspending_data <- cleaned_healthspending_data %>%
+  mutate(
+    Year = as.numeric(Year),
+    Spending = as.numeric(Spending)
+  )
+
+
+`
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
 ## 3.2 Generate necessary variables
 
-Variable 1
+# Create period variable to group years
+healthspending_with_period <- cleaned_healthspending_data %>%
+  mutate(Period = case_when(
+    Year >= 2000 & Year <= 2004 ~ "2000–2004",
+    Year >= 2005 & Year <= 2009 ~ "2005–2009",
+    Year >= 2010 & Year <= 2014 ~ "2010–2014",
+    Year >= 2015 & Year <= 2019 ~ "2015–2019",
+    Year >= 2020 & Year <= 2022 ~ "2020–2022",
+    TRUE ~ NA_character_
+  ))
 
-```{r gen_var1}
-
-```
-
-Variable 2
-
-```{r gen_var2}
+# Summarize to calculate average spending per region and period
+avg_healthspending_by_period <- healthspending_with_period %>% 
+filter(!is.na(Period)) %>%
+  group_by(Region, Period) %>%
+  summarise(
+    AvgSpending = mean(Spending, na.rm = TRUE),
+    .groups = "drop"
+  )
 
 ```
 
