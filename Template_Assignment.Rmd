@@ -17,7 +17,6 @@ install.packages("dplyr")
 library(tidyverse)
 library(readxl)
 library(dplyr)
- 
 ```
 
 # Title Page
@@ -52,14 +51,16 @@ url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-re
 # Load data on health coverage  directly from Dropbox (public direct link)
 url_coverage <- "https://www.dropbox.com/scl/fi/08rf7e6sj3hcq3e5fnp8l/datasetcoverage.xlsx?rlkey=x9iwcifdi2vmqa3j4oy1zs7p3&st=g5kdhaib&dl=1"
 
+# Download het bestand tijdelijk en lees het in
+temp_file <- tempfile(fileext = ".xlsx")
+download.file(url_coverage, destfile = temp_file, mode = "wb")
+df <- read_excel(temp_file)
+
 #load data on child deaths directly from Dropbox (public direct link)
 url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
 
 # Read the CSV into a dataframe
 raw_healthspending_data <- read.csv(url_spending)
-
-# Read the XLSX into a dataframe
-df <- read_excel(url_coverage) 
 
 # Read the CSV into a dataframe
 raw_childdeath_data <- read.csv(url_childdeath)
