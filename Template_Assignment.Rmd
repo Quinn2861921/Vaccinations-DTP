@@ -17,7 +17,7 @@ install.packages("dplyr")
 library(tidyverse)
 library(readxl)
 library(dplyr)
-library(readxl) 
+ 
 ```
 
 # Title Page
@@ -50,7 +50,7 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
 
 # Load data on health coverage  directly from Dropbox (public direct link)
-url_coverage <- "https://www.dropbox.com/scl/fi/w2km75dq5w2smfprlfnrz/coveragedata.R?rlkey=hfl7yib7q1bzmnrb8h2pjif4w&st=1gqyv5r8&dl=1"
+url_coverage <- "https://www.dropbox.com/scl/fi/08rf7e6sj3hcq3e5fnp8l/datasetcoverage.xlsx?rlkey=x9iwcifdi2vmqa3j4oy1zs7p3&st=g5kdhaib&dl=1"
 
 #load data on child deaths directly from Dropbox (public direct link)
 url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
