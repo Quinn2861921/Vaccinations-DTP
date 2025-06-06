@@ -217,7 +217,10 @@ DTPcoverage <- DTPcoverage %>%
     )
   )
 
- 
+ # First, make sure Period column exists in DTPcoverage instead of PeriodGroup
+DTPcoverage <- DTPcoverage %>%
+  rename(Period = PeriodGroup)
+  
 
 # Merge all three datasets by Region and Period
 merged_health_data <- avg_healthspending_by_period %>%
