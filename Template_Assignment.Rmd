@@ -199,6 +199,42 @@ filter(!is.na(Period)) %>%
     AvgChildDeath = mean(Deaths, na.rm = TRUE),
     .groups = "drop"
   )
+  
+  
+  
+  # 3.25 merge datasets together 
+  
+  # Recode WHO region codes to match full region names used in other datasets
+DTPcoverage <- DTPcoverage %>%
+  mutate(
+    Region = recode(Region,
+      "African Region" = "Africa",
+      "Eastern Mediterranean Region" = "Eastern Mediterranean",
+      "European Region" = "Europe",
+      "Region of the Americas" = "Americas",
+      "South-East Asia Region" = "South-East Asia",
+      "Western Pacific Region" = "Western Pacific"
+    )
+  )
+
+ 
+
+# Merge all three datasets by Region and Period
+merged_health_data <- avg_healthspending_by_period %>%
+  inner_join(DTPcoverage, by = c("Region", "Period")) %>%
+  inner_join(avg_childdeath_by_period, by = c("Region", "Period"))
+
+# Add constructed variables
+merged_health_data <- merged_health_data %>%
+  mutate(
+    CoveragePerDollar = AvgCoverage / AvgSpending,
+    DollarPerCoveragePoint = AvgSpending / AvgCoverage,
+    DeathsPerSpending = AvgChildDeath / AvgSpending
+  )
+
+# View final merged dataframe
+print(merged_health_data)
+
 
 ## 3.3 Visualize temporal variation
 
