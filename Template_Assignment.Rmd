@@ -17,7 +17,7 @@ install.packages("dplyr")
 require(tidyverse)
 require(readxl)
 require(dplyr)
-```
+`library(readxl) ``
 
 # Title Page
 
@@ -58,7 +58,7 @@ url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-de
 raw_healthspending_data <- read.csv(url_spending)
 
 # Read the XLSX into a dataframe
-df <- read_excel(url_coverage, sheet = "Sheet1")
+df <- read_excel(url_coverage) 
 
 # Read the CSV into a dataframe
 raw_childdeath_data <- read.csv(url_childdeath)
