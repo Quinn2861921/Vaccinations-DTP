@@ -14,10 +14,11 @@ install.packages("dplyr")
 ```
 
 ```{r packages}
-require(tidyverse)
-require(readxl)
-require(dplyr)
-`library(readxl) ``
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(readxl) 
+```
 
 # Title Page
 
