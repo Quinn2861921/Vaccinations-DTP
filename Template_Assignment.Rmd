@@ -45,6 +45,8 @@ Include the following:
 
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
+```{r load_data}
+
 # Load data on health spending  directly from Dropbox (public direct link)
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
 
@@ -71,7 +73,7 @@ head(raw_healthspending_data)
 head(df)
 
 ## 2.2 Provide a short summary of the dataset(s)
-
+```
 ```{r}
 head(raw_healthspending_data)
 head(df)
@@ -237,6 +239,10 @@ merged_health_data <- merged_health_data %>%
 
 # View final merged dataframe
 print(merged_health_data)
+class(merged_health_data)
+
+# change the merged data from a tibble to a dataframe
+merged_healthdata_df <- as.data.frame(merged_health_data)
 
 
 ## 3.3 Visualize temporal variation
@@ -258,9 +264,12 @@ Here you provide a description of why the plot above is relevant to your specifi
 What is the poverty rate by state?
 
 ```{r visualise_subpopulations}
-dataset$inmetro <- dataset$inmetro %>% as.factor()
+library(ggplot2)
+data("midwest")
+
+midwest$inmetro <- midwest$inmetro %>% as.factor()
 # Boxplot of poverty rate by state using the 'midwest' dataset
-ggplot(dataset, aes(x = inmetro, y = percadultpoverty)) +
+ggplot(midwest, aes(x = inmetro, y = percadultpoverty)) +
   geom_boxplot() +
   labs(
     title = "Distribution of Poverty Rates by Metropolitan status (Midwest counties)",
