@@ -45,7 +45,7 @@ Include the following:
 
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
-```{r load_data}
+```{r}
 
 # Load data on health spending  directly from Dropbox (public direct link)
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
@@ -248,18 +248,23 @@ merged_healthdata_df <- as.data.frame(merged_health_data)
 ## 3.3 Visualize temporal variation
 
 ```{r}
-
+#vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
 
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
-
+#map per WHO regio de vaccinatiegraad laten zien.
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
 ## 3.5 Visualize sub-population variation
+
+```{r visualise_map}
+# continenten indelen op healthspending per capita om vervolgens te vergelijken in vaccinatiegraad en childdeath.
+
+```
 
 What is the poverty rate by state?
 
