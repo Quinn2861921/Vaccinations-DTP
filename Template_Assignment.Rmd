@@ -239,6 +239,10 @@ merged_health_data <- merged_health_data %>%
 
 # View final merged dataframe
 print(merged_health_data)
+class(merged_health_data)
+
+# change the merged data from a tibble to a dataframe
+merged_healthdata_df <- as.data.frame(merged_health_data)
 
 
 ## 3.3 Visualize temporal variation
