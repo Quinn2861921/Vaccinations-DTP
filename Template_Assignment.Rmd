@@ -1,6 +1,6 @@
 ---
 title: "Template"
-author: "Studentnames and studentnumbers here"
+author: "Tristan Verbeek, 2864049"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
@@ -202,9 +202,9 @@ filter(!is.na(Period)) %>%
   
   
   
-  # 3.25 merge datasets together 
+# 3.25 merge datasets together 
   
-  # Recode WHO region codes to match full region names used in other datasets
+# Recode WHO region codes to match full region names used in other datasets
 DTPcoverage <- DTPcoverage %>%
   mutate(
     Region = recode(Region,
