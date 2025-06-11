@@ -248,6 +248,18 @@ merged_healthdata_df <- as.data.frame(merged_health_data)
 ## 3.3 Visualize temporal variation
 
 ```{r}
+library(ggplot2)
+library(hrbrthemes)
+
+ggplot(merged_healthdata_df, aes(x = AvgSpending, y = AvgCoverage)) +
+  geom_point( size = 3) +
+  geom_smooth(method=lm , color="red", se=FALSE) +
+  labs( 
+    title = "Linear relationship between Health Spending and Vaccination Coverage", x = "Average Health Spending", y = "Average Vaccination Coverage"
+        )
+  theme_ipsum()
+
+
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
 
