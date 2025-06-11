@@ -281,12 +281,19 @@ p2 <- ggplot(data, aes(x=my_x, y=my_y)) +
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
 library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
 
 who_regions_points <- data.frame(
   Region = c("Africa", "Americas", "Europe", "Eastern Mediterranean", "South-East Asia", "Western Pacific"),
   lon = c(20, -60, 20, 45, 90, 130),
-  lat = c(0, 10, 50, 25, 20, 0)
+  lat = c(0, 10, 50, 25, 20, 0),
+  VaccinationRate = c(72, 89, 94, 85, 91, 88)
 )  
 
 who_regions_sf <- st_as_sf(who_regions_points, coords = c("lon", "lat"), crs = 4326)
@@ -299,8 +306,9 @@ ggplot(who_regions_sf) +
 
 
 
-p <- ggplot(who_regions_sf) +
-  geom_sf(aes(fill = nb_equip), linewidth = 0, alpha = 0.9) +
+p <- ggplot() +
+  geom_sf(data = world, fill = "gray90", color = "white") +
+  geom_sf(data = who_regions_sf, aes(fill = VaccinationRate), size = 5, shape = 21, color = "black") +
   theme_void() +
   scale_fill_viridis_c(
     trans = "log", breaks = c(50, 60, 70, 80, 90),
