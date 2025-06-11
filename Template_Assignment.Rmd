@@ -281,8 +281,24 @@ p2 <- ggplot(data, aes(x=my_x, y=my_y)) +
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
-#map per WHO regio de vaccinatiegraad laten zien.
-```
+library(sf)
+
+who_regions_points <- data.frame(
+  Region = c("Africa", "Americas", "Europe", "Eastern Mediterranean", "South-East Asia", "Western Pacific"),
+  lon = c(20, -60, 20, 45, 90, 130),
+  lat = c(0, 10, 50, 25, 20, 0)
+)  
+
+who_regions_sf <- st_as_sf(who_regions_points, coords = c("lon", "lat"), crs = 4326)
+
+library(ggplot2)
+ggplot(who_regions_sf) +
+  geom_sf(aes(color = Region), size = 5) +
+  theme_minimal() +
+  labs(title = "WHO Regions (punten)")
+
+
+
 p <- ggplot(my_sf_merged) +
   geom_sf(aes(fill = nb_equip), linewidth = 0, alpha = 0.9) +
   theme_void() +
@@ -334,6 +350,8 @@ p <- ggplot(my_sf_merged) +
   )
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
+#map per WHO regio de vaccinatiegraad laten zien.
+```
 ## 3.5 Visualize sub-population variation
 
 ```{r visualise_map}
