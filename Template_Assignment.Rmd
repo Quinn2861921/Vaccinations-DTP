@@ -281,8 +281,11 @@ p2 <- ggplot(data, aes(x=my_x, y=my_y)) +
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
+
 install.packages("rnaturalearth")
 install.packages("rnaturalearthdata")
+
+
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
@@ -291,6 +294,7 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 
 who_regions_points <- data.frame(
   Region = c("Africa", "Americas", "Europe", "Eastern Mediterranean", "South-East Asia", "Western Pacific"),
+
   lon = c(20, -60, 20, 45, 90, 130),
   lat = c(0, 10, 50, 25, 20, 0),
   VaccinationRate = c(72, 89, 94, 85, 91, 88)
