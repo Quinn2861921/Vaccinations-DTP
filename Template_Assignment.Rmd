@@ -250,6 +250,11 @@ merged_healthdata_df <- as.data.frame(merged_health_data)
 ```{r}
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
+# with linear trend
+p2 <- ggplot(data, aes(x=my_x, y=my_y)) +
+  geom_point() +
+  geom_smooth(method=lm , color="red", se=FALSE) +
+  theme_ipsum()
 
 ## 3.4 Visualize spatial variation
 
