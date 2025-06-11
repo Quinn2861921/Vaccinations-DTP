@@ -102,7 +102,7 @@ Think of things like:
 ## 3.1 Data cleaning
 
 Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
-
+```{r}
 # Load and select relevant columns from raw data on health spending
 cleaned_healthspending_data <- raw_healthspending_data %>%
   select(Region = Location, Year = Period, Spending = Value)
@@ -135,7 +135,9 @@ cleaned_dtpdata <- cleaned_dtpdata %>%
       Year >= 2020 & Year <= 2022 ~ "2020–2022"
     )
   )
+```
 
+```{r}
 # Select and rename relevant columns from child death data
 childdeath_selected <- raw_childdeath_data %>%
   select(Region = Location, Year = Period, Deaths = FactValueNumeric)
@@ -146,11 +148,13 @@ childdeath_typed <- childdeath_selected %>%
     Year = as.numeric(Year),
     Deaths = as.numeric(Deaths)
   )
+```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
 ## 3.2 Generate necessary variables
 
+```{r}
 # Create period variable to group years
 healthspending_with_period <- cleaned_healthspending_data %>%
   mutate(Period = case_when(
@@ -190,9 +194,9 @@ childdeath_with_period <- childdeath_typed %>%
     Year >= 2020 & Year <= 2022 ~ "2020–2022",
     TRUE ~ NA_character_
   ))
+```
 
-
-
+```{r}
 # Step Summarise average child deaths per region and period
 avg_childdeath_by_period <- childdeath_with_period %>%
 filter(!is.na(Period)) %>%
@@ -201,11 +205,11 @@ filter(!is.na(Period)) %>%
     AvgChildDeath = mean(Deaths, na.rm = TRUE),
     .groups = "drop"
   )
-  
+```  
   
   
 # 3.25 merge datasets together 
-  
+```{r}  
 # Recode WHO region codes to match full region names used in other datasets
 DTPcoverage <- DTPcoverage %>%
   mutate(
@@ -222,8 +226,9 @@ DTPcoverage <- DTPcoverage %>%
  # First, make sure Period column exists in DTPcoverage instead of PeriodGroup
 DTPcoverage <- DTPcoverage %>%
   rename(Period = PeriodGroup)
-  
+```
 
+```{r}
 # Merge all three datasets by Region and Period
 merged_health_data <- avg_healthspending_by_period %>%
   inner_join(DTPcoverage, by = c("Region", "Period")) %>%
@@ -243,7 +248,7 @@ class(merged_health_data)
 
 # change the merged data from a tibble to a dataframe
 merged_healthdata_df <- as.data.frame(merged_health_data)
-
+```
 
 ## 3.3 Visualize temporal variation
 
@@ -255,10 +260,15 @@ ggplot(merged_healthdata_df, aes(x = AvgSpending, y = AvgCoverage)) +
   geom_point( size = 3) +
   geom_smooth(method=lm , color="red", se=FALSE) +
   labs( 
-    title = "Linear relationship between Health Spending and Vaccination Coverage", x = "Average Health Spending (USD per Capita)", y = "Average Vaccination Coverage (%)"
+    title = "The average linear relationship between HS and VC over a period of 5 years", x = "Average Health Spending (USD per Capita)", y = "Average Vaccination Coverage (%)"
         ) 
- + theme_ipsum()
 
+ggplot(merged_healthdata_df, aes(x = AvgChildDeath, y = AvgCoverage)) +
+  geom_point( size = 3) +
+  geom_smooth(method=lm , color="magenta", se=FALSE) +
+  labs( 
+    title = "The average linear relationship between CD and VC over a period of 5 years", x = "Average Child Death", y = "Average Vaccination Coverage (%)"
+        ) 
 
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
@@ -280,7 +290,7 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 What is the poverty rate by state?
 
-```{r visualise_subpopulations}
+
 library(ggplot2)
 data("midwest")
 
@@ -305,9 +315,9 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 Analyze the relationship between two variables.
 
-```{r analysis}
 
-```
+
+
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
