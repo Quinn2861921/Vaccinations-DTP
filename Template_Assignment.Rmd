@@ -299,12 +299,12 @@ ggplot(who_regions_sf) +
 
 
 
-p <- ggplot(my_sf_merged) +
+p <- ggplot(who_regions_sf) +
   geom_sf(aes(fill = nb_equip), linewidth = 0, alpha = 0.9) +
   theme_void() +
   scale_fill_viridis_c(
-    trans = "log", breaks = c(1, 5, 10, 20, 50, 100),
-    name = "Number of restaurant",
+    trans = "log", breaks = c(50, 60, 70, 80, 90),
+    name = "Vaccination Grade",
     guide = guide_legend(
       keyheight = unit(3, units = "mm"),
       keywidth = unit(12, units = "mm"),
@@ -314,9 +314,8 @@ p <- ggplot(my_sf_merged) +
     )
   ) +
   labs(
-    title = "South of France Restaurant concentration",
-    subtitle = "Number of restaurant per city district",
-    caption = "Data: INSEE | Creation: Yan Holtz | r-graph-gallery.com"
+    title = "Vaccination coverage concentration",
+    subtitle = "Vaccination grade per WHO region"
   ) +
   theme(
     text = element_text(color = "#22211d"),
@@ -348,7 +347,6 @@ p <- ggplot(my_sf_merged) +
     ),
     legend.position = c(0.7, 0.09)
   )
-Here you provide a description of why the plot above is relevant to your specific social problem.
 
 #map per WHO regio de vaccinatiegraad laten zien.
 ```
