@@ -275,6 +275,32 @@ ggplot(merged_healthdata_df, aes(x = AvgChildDeath, y = AvgCoverage)) +
   labs( 
     title = "The average linear relationship between CD and VC over a period of 5 years", x = "Average Child Death", y = "Average Vaccination Coverage (%)"
         ) 
+merged_healthdata_df$Period <- factor(
+  merged_healthdata_df$Period,
+  levels = c("2000–2004", "2005–2009", "2010–2014", "2015–2019", "2020–2022")
+)
+
+ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group = Region, color = Region)) +
+  geom_line(size = 1) +      
+  geom_point(size = 2) +     
+  labs(
+    title = "Dollar per Coverage Point over Tijd",
+    x = "Periode",
+    y = "Dollar per Coverage Point",
+    color = "Regio"
+  ) +
+  theme_minimal() 
+
+ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Region, color = Region)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Child Deaths per Spending over Tijd",
+    x = "Periode",
+    y = "Child Deaths per Spending",
+    color = "Regio"
+  ) +
+  theme_minimal() 
 
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
