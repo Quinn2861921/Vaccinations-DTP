@@ -394,8 +394,31 @@ cleaned_dtpdata$Continent <- cleaned_dtpdata$Continent
 childdeath_with_period$Continent <- childdeath_with_period$Continent
 
 
-# Filter op jaar 2022 en bereken gemiddelden per 'Continent' (Region)
-# Filter op jaar 2022 en bereken gemiddelden per continent
+# Make sure all 3 datasets align with one another
+region_map <- c(
+  "african region" = "africa",
+  "region of the americas" = "americas",
+  "european region" = "europe",
+  "eastern mediterranean region" = "eastern mediterranean",
+  "south-east asia region" = "south-east asia",
+  "western pacific region" = "western pacific",
+  "african" = "africa",
+  "european" = "europe",
+  "region of the americas" = "americas"
+)
+
+clean_names <- function(x) {
+  x %>%
+    tolower() %>%
+    str_trim() %>%
+    recode(!!!region_map)
+}
+
+cleaned_healthspending_data$Continent <- clean_names(cleaned_healthspending_data$Continent)
+cleaned_dtpdata$Continent <- clean_names(cleaned_dtpdata$Continent)
+childdeath_with_period$Continent <- clean_names(childdeath_with_period$Continent)
+
+# 📆 Filter en bereken gemiddelden per regio (2022)
 spending_2022 <- cleaned_healthspending_data %>%
   filter(Year == 2022) %>%
   group_by(Continent) %>%
@@ -411,47 +434,47 @@ childdeath_2022 <- childdeath_with_period %>%
   group_by(Continent) %>%
   summarise(AvgChildDeath = mean(Deaths, na.rm = TRUE))
 
-# Combineer alle data op Continent
+# 🔗 Combineer alles op Continent
 combined <- spending_2022 %>%
   inner_join(coverage_2022, by = "Continent") %>%
   inner_join(childdeath_2022, by = "Continent")
 
-# Stap 4: Selecteer bottom 3 en top 3 continenten zonder overlap
-combined_sorted <- combined %>% arrange(Spending)
+# 🏆 Top 3 & Bottom 3 op basis van spending
+top3 <- combined %>% arrange(desc(Spending)) %>% slice(1:3) %>%
+  mutate(Group = "Top 3")
 
-bottom3 <- combined_sorted %>% slice(1:3)
+bottom3 <- combined %>% arrange(Spending) %>% slice(1:3) %>%
+  mutate(Group = "Bottom 3")
 
-top3 <- combined_sorted %>%
-  filter(!(Continent %in% bottom3$Continent)) %>%
-  slice_tail(n = 3)
+# 📊 Bereken gemiddelde per groep
+grouped_summary <- bind_rows(top3, bottom3) %>%
+  group_by(Group) %>%
+  summarise(
+    Spending = mean(Spending, na.rm = TRUE),
+    AvgCoverage = mean(AvgCoverage, na.rm = TRUE),
+    AvgChildDeath = mean(AvgChildDeath, na.rm = TRUE)
+  )
 
-selected <- bind_rows(top3, bottom3)
-
-# Zet data lang voor ggplot
-plot_data <- selected %>%
+# 🔄 Zet om naar lang formaat voor plotten
+plot_data <- grouped_summary %>%
   pivot_longer(cols = c(Spending, AvgCoverage, AvgChildDeath),
                names_to = "Metric",
-               values_to = "Value")
-
-# Factorlevels voor nette volgorde in plot
-plot_data$Continent <- factor(plot_data$Continent,
-                             levels = unique(selected$Continent))
-
-# Optioneel: schaal de waarden per Metric tussen 0 en 1
-plot_data <- plot_data %>%
+               values_to = "Value") %>%
   group_by(Metric) %>%
-  mutate(Value_scaled = (Value - min(Value)) / (max(Value) - min(Value))) %>%
+ plot_data <- plot_data %>%
+  mutate(Value_scaled = (Value - min(Value)) / (max(Value) - min(Value)))
   ungroup()
 
-# Plot grouped barplot met geschaalde waarden
-ggplot(plot_data, aes(x = Continent, y = Value_scaled, fill = Metric)) +
+# 🖼️ Maak barplot
+ggplot(plot_data, aes(x = Group, y = Value_scaled, fill = Metric)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_text(aes(label = round(Value, 2)),
-            position = position_dodge(width = 0.9), vjust = -0.5, size = 3) +
+  geom_text(aes(label = round(Value, 1)),
+            position = position_dodge(width = 0.9), vjust = -0.4, size = 4) +
   labs(
-    title = "Vergelijking per continent: Gezondheidsuitgaven, Vaccinatiegraad & Kindersterfte (2022) (geschaald)",
-    x = "Continent / Regio",
-    y = "Geschaalde waarde (0-1)"
+    title = "Gemiddelden van Top & Bottom 3 WHO-regio’s (2022)",
+    subtitle = "Health spending per capita, DTP3 coverage en kindersterfte",
+    x = NULL,
+    y = "Geschaalde waarde (0–1)"
   ) +
   scale_fill_manual(values = c(
     Spending = "#1f77b4",
