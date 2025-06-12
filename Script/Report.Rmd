@@ -54,7 +54,7 @@ library(grid)
 **Course:** Programming for Economists  
 **Institute:** Vrije Universiteit Amsterdam
 
-
+---
 
 # Problem Motivation and Literature
 
@@ -84,11 +84,13 @@ While many studies have examined DTP coverage and its determinants, there is lim
 
 This report aims to fill that gap by analyzing how government healthcare spending correlates with DTP vaccination coverage across low-, middle-, and high-income countries. This research will provide new insights into whether increased public investment in health translates into better immunization outcomes. This could inform both global health policy and economic development strategies, especially in resource-constrained settings.
 
+---
+
 # Data Sourcing
 
 ## Load in Data
 
-```{r}
+```{r Load in data}
 
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
 
@@ -97,7 +99,7 @@ url_coverage <- "https://www.dropbox.com/scl/fi/08rf7e6sj3hcq3e5fnp8l/datasetcov
 url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
 ```
 
-```{r include=FALSE}
+```{r Convert data, include=FALSE}
 # Download het bestand tijdelijk en lees het in
 temp_file <- tempfile(fileext = ".xlsx")
 download.file(url_coverage, destfile = temp_file, mode = "wb")
@@ -115,7 +117,233 @@ raw_childdeath_data <- read.csv(url_childdeath)
 
 
 ## Provide a short summary of the datasets
-```{r echo=FALSE}
+```{r summary data, echo=FALSE}
 head(raw_healthspending_data)
 head(df)
 ```
+
+## Metadata
+
+### WHO DTP Vaccination Coverage
+
+- **Antigen:** DTP1 and DTP3  
+- **Coverage:** Vaccinated target population  
+  - **Units:** Percentage  
+- **Target Population:** Target population for the given vaccine  
+- **Years Covered:** 1980–2023  
+- **Region:** WHO regions  
+- **Frequency:** Annual  
+- **Source:** WHO/UNICEF Joint Reporting Form and surveys (e.g., DHS, MICS)  
+- **Estimation Method:** Combination of administrative data, surveys, and expert review  
+
+### World Bank Health Spending
+
+- **Indicator:** Current health expenditure per capita  
+- **Years Covered:** 2000–2023  
+- **Region:** WHO regions  
+- **Frequency:** Annual  
+- **Units:** US dollars  
+- **Source:** WHO Global Health Expenditure Database  
+
+## Suitability for the Research Topic
+
+The research question investigates the relationship between government healthcare spending and DTP vaccination coverage across income groups. These datasets are ideal because:
+
+- They are comprehensive and global, enabling cross-country comparisons.  
+- They are updated annually, supporting time-series or cross-sectional analysis.  
+- They are standardized and well-documented, ensuring data quality and reproducibility.  
+
+## Data Limitations
+
+Despite their strengths, both datasets have limitations:
+
+### WHO DTP Coverage
+
+- Some countries have missing or estimated values, especially in conflict zones.  
+- Coverage estimates may be influenced by reporting biases or survey recall errors.  
+- The data may not fully reflect subnational disparities in vaccination access.  
+
+### World Bank Health Spending
+
+- Spending data are in current US dollars, which may be affected by inflation and exchange rate fluctuations.  
+- The data do not indicate how funds are allocated (e.g., toward immunization vs. other services).  
+- Some countries have incomplete or outdated records for recent years.  
+
+These limitations mean that while the analysis can reveal correlations, it cannot establish causality or account for all contextual factors.
+
+---
+
+# Quantifying
+
+## Data Cleaning
+
+To prepare the datasets for analysis, we performed several cleaning steps to ensure consistency, accuracy, and compatibility across sources.
+
+### Health Spending Data
+
+We began by selecting the relevant columns from the raw health spending dataset and renaming them for clarity. We also ensured that the `Year` and `Spending` columns were numeric to support time-based analysis:
+
+```{r}
+cleaned_healthspending_data <- raw_healthspending_data %>%
+  select(Region = Location, Year = Period, Spending = Value) %>%
+  mutate(
+    Year = as.numeric(Year),
+    Spending = as.numeric(Spending)
+  )
+```
+
+This step was essential to align the data with the DTP vaccination dataset, which also uses `Region` and `Year` as key identifiers.
+
+### DTP Vaccination Coverage Data
+
+Next, we filtered the immunization dataset to include only WHO regions and WUENIC estimates, which are considered the most reliable. We also created a new variable, `PeriodGroup`, to group years into meaningful intervals for trend analysis:
+
+```{r}
+cleaned_dtpdata <- df %>%
+  filter(
+    COVERAGE_CATEGORY == "WUENIC",
+    GROUP == "WHO_REGIONS"
+  ) %>%
+  select(Region = NAME, Year = YEAR, Coverage = COVERAGE) %>%
+  mutate(
+    Year = as.numeric(Year),
+    Coverage = as.numeric(Coverage),
+    PeriodGroup = case_when(
+      Year >= 2000 & Year <= 2004 ~ "2000–2004",
+      Year >= 2005 & Year <= 2009 ~ "2005–2009",
+      Year >= 2010 & Year <= 2014 ~ "2010–2014",
+      Year >= 2015 & Year <= 2019 ~ "2015–2019",
+      Year >= 2020 & Year <= 2022 ~ "2020–2022"
+    )
+  )
+```
+
+This transformation allows us to analyze changes in vaccination coverage over time in a more interpretable way.
+
+### Child Mortality Data
+
+We also prepared the child mortality dataset by selecting and renaming relevant columns, and converting values to numeric types:
+
+```{r}
+childdeath_selected <- raw_childdeath_data %>%
+  select(Region = Location, Year = Period, Deaths = FactValueNumeric)
+
+childdeath_typed <- childdeath_selected %>%
+  mutate(
+    Year = as.numeric(Year),
+    Deaths = as.numeric(Deaths)
+  )
+```
+
+This ensures that the dataset can be merged with the others on `Region` and `Year`.
+
+
+### Error Handling and Fixes
+
+During the cleaning process, we encountered several common issues:
+
+- **Missing values (`NA`)**: These were removed using `na.omit()` or filtered out using `filter(!is.na(...))` to ensure clean merges.
+- **Non-numeric values**: Some columns were read as character types and had to be converted using `as.numeric()`.
+- **Inconsistent region names**: We verified that region names matched across datasets. In an ideal scenario, standardized region codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.
+- **Data alignment**: We ensured that all datasets used the same time format and level of aggregation (annual, by WHO region).
+
+## Necessary Variable
+
+To analyze trends over time, we created a **period variable** for each dataset to group years into meaningful intervals. This allows us to compare average values across consistent time blocks.
+
+### Health Spending
+
+We created a new variable `Period` in the health spending dataset using `mutate()` and `case_when()`:
+
+```{r}
+healthspending_with_period <- cleaned_healthspending_data %>%
+  mutate(Period = case_when(
+    Year >= 2000 & Year <= 2004 ~ "2000–2004",
+    Year >= 2005 & Year <= 2009 ~ "2005–2009",
+    Year >= 2010 & Year <= 2014 ~ "2010–2014",
+    Year >= 2015 & Year <= 2019 ~ "2015–2019",
+    Year >= 2020 & Year <= 2022 ~ "2020–2022",
+    TRUE ~ NA_character_
+  ))
+```
+
+We then calculated the **average health spending** per region and period:
+
+```{r}
+avg_healthspending_by_period <- healthspending_with_period %>% 
+  filter(!is.na(Period)) %>%
+  group_by(Region, Period) %>%
+  summarise(
+    AvgSpending = mean(Spending, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+
+- **Variables used**: `Spending`, `Region`, `Period`  
+- **Purpose**: Calculates average health spending per region and period.  
+- **Usefulness**: Highlights regional differences and trends in health investment.  
+- **Intended analysis**: Visualize and compare health spending across time and regions.
+
+### DTP Vaccination Coverage
+
+For the DTP dataset, we used an existing variable `PeriodGroup` (created earlier) and calculated the **average vaccination coverage** per region and period:
+
+```{r}
+DTPcoverage <- cleaned_dtpdata %>%
+  filter(!is.na(PeriodGroup)) %>%
+  group_by(Region, PeriodGroup) %>%
+  summarise(
+    AvgCoverage = mean(Coverage, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(Region)
+```
+
+- **Variables used**: `Coverage`, `Region`, `PeriodGroup`  
+- **Purpose**: Computes average DTP vaccine coverage per region and period.  
+- **Usefulness**: Evaluates immunization program effectiveness.  
+- **Intended analysis**: Track vaccine coverage trends and relate to health outcomes
+
+### Child Mortality
+
+We also created a `Period` variable for the child mortality dataset:
+
+```{r}
+childdeath_with_period <- childdeath_typed %>%
+  mutate(Period = case_when(
+    Year >= 2000 & Year <= 2004 ~ "2000–2004",
+    Year >= 2005 & Year <= 2009 ~ "2005–2009",
+    Year >= 2010 & Year <= 2014 ~ "2010–2014",
+    Year >= 2015 & Year <= 2019 ~ "2015–2019",
+    Year >= 2020 & Year <= 2022 ~ "2020–2022",
+    TRUE ~ NA_character_
+  ))
+```
+
+We then summarized the **average number of child deaths** per region and period:
+
+```{r}
+avg_childdeath_by_period <- childdeath_with_period %>%
+  filter(!is.na(Period)) %>%
+  group_by(Region, Period) %>%
+  summarise(
+    AvgChildDeath = mean(Deaths, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+- **Variables used**: `Deaths`, `Region`, `Period`  
+- **Purpose**: Calculates average child deaths per region and period.  
+- **Usefulness**: Measures health outcomes and can be linked to spending and coverage.  
+- **Intended analysis**: Identify regions with high or declining child mortality and explore correlations.
+
+
+
+These variables allow us to compare trends in health spending, vaccination coverage, and child mortality across WHO regions and over time.
+
+
+
+
+
+

@@ -375,6 +375,7 @@ T.M.V. Verbeek (student number)</p></h4>
 <strong>Tutorial Group:</strong> Tutorial group 1<br />
 <strong>Course:</strong> Programming for Economists<br />
 <strong>Institute:</strong> Vrije Universiteit Amsterdam</p>
+<hr />
 </div>
 <div id="problem-motivation-and-literature" class="section level1">
 <h1>Problem Motivation and Literature</h1>
@@ -442,6 +443,7 @@ insights into whether increased public investment in health translates
 into better immunization outcomes. This could inform both global health
 policy and economic development strategies, especially in
 resource-constrained settings.</p>
+<hr />
 </div>
 </div>
 <div id="data-sourcing" class="section level1">
@@ -481,6 +483,290 @@ url_childdeath &lt;- &quot;https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/
 ## 6 WHO_REGIONS AFR   African…  2022 DTPCV3  DTP-containing vac… WUENIC           
 ## # ℹ 4 more variables: COVERAGE_CATEGORY_DESCRIPTION &lt;chr&gt;, TARGET_NUMBER &lt;dbl&gt;,
 ## #   DOSES &lt;dbl&gt;, COVERAGE &lt;dbl&gt;</code></pre>
+</div>
+<div id="metadata" class="section level2">
+<h2>Metadata</h2>
+<div id="who-dtp-vaccination-coverage" class="section level3">
+<h3>WHO DTP Vaccination Coverage</h3>
+<ul>
+<li><strong>Antigen:</strong> DTP1 and DTP3<br />
+</li>
+<li><strong>Coverage:</strong> Vaccinated target population
+<ul>
+<li><strong>Units:</strong> Percentage<br />
+</li>
+</ul></li>
+<li><strong>Target Population:</strong> Target population for the given
+vaccine<br />
+</li>
+<li><strong>Years Covered:</strong> 1980–2023<br />
+</li>
+<li><strong>Region:</strong> WHO regions<br />
+</li>
+<li><strong>Frequency:</strong> Annual<br />
+</li>
+<li><strong>Source:</strong> WHO/UNICEF Joint Reporting Form and surveys
+(e.g., DHS, MICS)<br />
+</li>
+<li><strong>Estimation Method:</strong> Combination of administrative
+data, surveys, and expert review</li>
+</ul>
+</div>
+<div id="world-bank-health-spending" class="section level3">
+<h3>World Bank Health Spending</h3>
+<ul>
+<li><strong>Indicator:</strong> Current health expenditure per
+capita<br />
+</li>
+<li><strong>Years Covered:</strong> 2000–2023<br />
+</li>
+<li><strong>Region:</strong> WHO regions<br />
+</li>
+<li><strong>Frequency:</strong> Annual<br />
+</li>
+<li><strong>Units:</strong> US dollars<br />
+</li>
+<li><strong>Source:</strong> WHO Global Health Expenditure Database</li>
+</ul>
+</div>
+</div>
+<div id="suitability-for-the-research-topic" class="section level2">
+<h2>Suitability for the Research Topic</h2>
+<p>The research question investigates the relationship between
+government healthcare spending and DTP vaccination coverage across
+income groups. These datasets are ideal because:</p>
+<ul>
+<li>They are comprehensive and global, enabling cross-country
+comparisons.<br />
+</li>
+<li>They are updated annually, supporting time-series or cross-sectional
+analysis.<br />
+</li>
+<li>They are standardized and well-documented, ensuring data quality and
+reproducibility.</li>
+</ul>
+</div>
+<div id="data-limitations" class="section level2">
+<h2>Data Limitations</h2>
+<p>Despite their strengths, both datasets have limitations:</p>
+<div id="who-dtp-coverage" class="section level3">
+<h3>WHO DTP Coverage</h3>
+<ul>
+<li>Some countries have missing or estimated values, especially in
+conflict zones.<br />
+</li>
+<li>Coverage estimates may be influenced by reporting biases or survey
+recall errors.<br />
+</li>
+<li>The data may not fully reflect subnational disparities in
+vaccination access.</li>
+</ul>
+</div>
+<div id="world-bank-health-spending-1" class="section level3">
+<h3>World Bank Health Spending</h3>
+<ul>
+<li>Spending data are in current US dollars, which may be affected by
+inflation and exchange rate fluctuations.<br />
+</li>
+<li>The data do not indicate how funds are allocated (e.g., toward
+immunization vs. other services).<br />
+</li>
+<li>Some countries have incomplete or outdated records for recent
+years.</li>
+</ul>
+<p>These limitations mean that while the analysis can reveal
+correlations, it cannot establish causality or account for all
+contextual factors.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="quantifying" class="section level1">
+<h1>Quantifying</h1>
+<div id="data-cleaning" class="section level2">
+<h2>Data Cleaning</h2>
+<p>To prepare the datasets for analysis, we performed several cleaning
+steps to ensure consistency, accuracy, and compatibility across
+sources.</p>
+<div id="health-spending-data" class="section level3">
+<h3>Health Spending Data</h3>
+<p>We began by selecting the relevant columns from the raw health
+spending dataset and renaming them for clarity. We also ensured that the
+<code>Year</code> and <code>Spending</code> columns were numeric to
+support time-based analysis:</p>
+<pre class="r"><code>cleaned_healthspending_data &lt;- raw_healthspending_data %&gt;%
+  select(Region = Location, Year = Period, Spending = Value) %&gt;%
+  mutate(
+    Year = as.numeric(Year),
+    Spending = as.numeric(Spending)
+  )</code></pre>
+<p>This step was essential to align the data with the DTP vaccination
+dataset, which also uses <code>Region</code> and <code>Year</code> as
+key identifiers.</p>
+</div>
+<div id="dtp-vaccination-coverage-data" class="section level3">
+<h3>DTP Vaccination Coverage Data</h3>
+<p>Next, we filtered the immunization dataset to include only WHO
+regions and WUENIC estimates, which are considered the most reliable. We
+also created a new variable, <code>PeriodGroup</code>, to group years
+into meaningful intervals for trend analysis:</p>
+<pre class="r"><code>cleaned_dtpdata &lt;- df %&gt;%
+  filter(
+    COVERAGE_CATEGORY == &quot;WUENIC&quot;,
+    GROUP == &quot;WHO_REGIONS&quot;
+  ) %&gt;%
+  select(Region = NAME, Year = YEAR, Coverage = COVERAGE) %&gt;%
+  mutate(
+    Year = as.numeric(Year),
+    Coverage = as.numeric(Coverage),
+    PeriodGroup = case_when(
+      Year &gt;= 2000 &amp; Year &lt;= 2004 ~ &quot;2000–2004&quot;,
+      Year &gt;= 2005 &amp; Year &lt;= 2009 ~ &quot;2005–2009&quot;,
+      Year &gt;= 2010 &amp; Year &lt;= 2014 ~ &quot;2010–2014&quot;,
+      Year &gt;= 2015 &amp; Year &lt;= 2019 ~ &quot;2015–2019&quot;,
+      Year &gt;= 2020 &amp; Year &lt;= 2022 ~ &quot;2020–2022&quot;
+    )
+  )</code></pre>
+<p>This transformation allows us to analyze changes in vaccination
+coverage over time in a more interpretable way.</p>
+</div>
+<div id="child-mortality-data" class="section level3">
+<h3>Child Mortality Data</h3>
+<p>We also prepared the child mortality dataset by selecting and
+renaming relevant columns, and converting values to numeric types:</p>
+<pre class="r"><code>childdeath_selected &lt;- raw_childdeath_data %&gt;%
+  select(Region = Location, Year = Period, Deaths = FactValueNumeric)
+
+childdeath_typed &lt;- childdeath_selected %&gt;%
+  mutate(
+    Year = as.numeric(Year),
+    Deaths = as.numeric(Deaths)
+  )</code></pre>
+<p>This ensures that the dataset can be merged with the others on
+<code>Region</code> and <code>Year</code>.</p>
+</div>
+<div id="error-handling-and-fixes" class="section level3">
+<h3>Error Handling and Fixes</h3>
+<p>During the cleaning process, we encountered several common
+issues:</p>
+<ul>
+<li><strong>Missing values (<code>NA</code>)</strong>: These were
+removed using <code>na.omit()</code> or filtered out using
+<code>filter(!is.na(...))</code> to ensure clean merges.</li>
+<li><strong>Non-numeric values</strong>: Some columns were read as
+character types and had to be converted using
+<code>as.numeric()</code>.</li>
+<li><strong>Inconsistent region names</strong>: We verified that region
+names matched across datasets. In an ideal scenario, standardized region
+codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.</li>
+<li><strong>Data alignment</strong>: We ensured that all datasets used
+the same time format and level of aggregation (annual, by WHO
+region).</li>
+</ul>
+</div>
+</div>
+<div id="necessary-variable" class="section level2">
+<h2>Necessary Variable</h2>
+<p>To analyze trends over time, we created a <strong>period
+variable</strong> for each dataset to group years into meaningful
+intervals. This allows us to compare average values across consistent
+time blocks.</p>
+<div id="health-spending" class="section level3">
+<h3>Health Spending</h3>
+<p>We created a new variable <code>Period</code> in the health spending
+dataset using <code>mutate()</code> and <code>case_when()</code>:</p>
+<pre class="r"><code>healthspending_with_period &lt;- cleaned_healthspending_data %&gt;%
+  mutate(Period = case_when(
+    Year &gt;= 2000 &amp; Year &lt;= 2004 ~ &quot;2000–2004&quot;,
+    Year &gt;= 2005 &amp; Year &lt;= 2009 ~ &quot;2005–2009&quot;,
+    Year &gt;= 2010 &amp; Year &lt;= 2014 ~ &quot;2010–2014&quot;,
+    Year &gt;= 2015 &amp; Year &lt;= 2019 ~ &quot;2015–2019&quot;,
+    Year &gt;= 2020 &amp; Year &lt;= 2022 ~ &quot;2020–2022&quot;,
+    TRUE ~ NA_character_
+  ))</code></pre>
+<p>We then calculated the <strong>average health spending</strong> per
+region and period:</p>
+<pre class="r"><code>avg_healthspending_by_period &lt;- healthspending_with_period %&gt;% 
+  filter(!is.na(Period)) %&gt;%
+  group_by(Region, Period) %&gt;%
+  summarise(
+    AvgSpending = mean(Spending, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )</code></pre>
+<ul>
+<li><strong>Variables used</strong>: <code>Spending</code>,
+<code>Region</code>, <code>Period</code> </li>
+<li><strong>Purpose</strong>: Calculates average health spending per
+region and period. </li>
+<li><strong>Usefulness</strong>: Highlights regional differences and
+trends in health investment. </li>
+<li><strong>Intended analysis</strong>: Visualize and compare health
+spending across time and regions.</li>
+</ul>
+</div>
+<div id="dtp-vaccination-coverage" class="section level3">
+<h3>DTP Vaccination Coverage</h3>
+<p>For the DTP dataset, we used an existing variable
+<code>PeriodGroup</code> (created earlier) and calculated the
+<strong>average vaccination coverage</strong> per region and period:</p>
+<pre class="r"><code>DTPcoverage &lt;- cleaned_dtpdata %&gt;%
+  filter(!is.na(PeriodGroup)) %&gt;%
+  group_by(Region, PeriodGroup) %&gt;%
+  summarise(
+    AvgCoverage = mean(Coverage, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  ) %&gt;%
+  arrange(Region)</code></pre>
+<ul>
+<li><strong>Variables used</strong>: <code>Coverage</code>,
+<code>Region</code>, <code>PeriodGroup</code> </li>
+<li><strong>Purpose</strong>: Computes average DTP vaccine coverage per
+region and period. </li>
+<li><strong>Usefulness</strong>: Evaluates immunization program
+effectiveness. </li>
+<li><strong>Intended analysis</strong>: Track vaccine coverage trends
+and relate to health outcomes</li>
+</ul>
+</div>
+<div id="child-mortality" class="section level3">
+<h3>Child Mortality</h3>
+<p>We also created a <code>Period</code> variable for the child
+mortality dataset:</p>
+<pre class="r"><code>childdeath_with_period &lt;- childdeath_typed %&gt;%
+  mutate(Period = case_when(
+    Year &gt;= 2000 &amp; Year &lt;= 2004 ~ &quot;2000–2004&quot;,
+    Year &gt;= 2005 &amp; Year &lt;= 2009 ~ &quot;2005–2009&quot;,
+    Year &gt;= 2010 &amp; Year &lt;= 2014 ~ &quot;2010–2014&quot;,
+    Year &gt;= 2015 &amp; Year &lt;= 2019 ~ &quot;2015–2019&quot;,
+    Year &gt;= 2020 &amp; Year &lt;= 2022 ~ &quot;2020–2022&quot;,
+    TRUE ~ NA_character_
+  ))</code></pre>
+<p>We then summarized the <strong>average number of child
+deaths</strong> per region and period:</p>
+<pre class="r"><code>avg_childdeath_by_period &lt;- childdeath_with_period %&gt;%
+  filter(!is.na(Period)) %&gt;%
+  group_by(Region, Period) %&gt;%
+  summarise(
+    AvgChildDeath = mean(Deaths, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )</code></pre>
+<ul>
+<li><strong>Variables used</strong>: <code>Deaths</code>,
+<code>Region</code>, <code>Period</code><br />
+</li>
+<li><strong>Purpose</strong>: Calculates average child deaths per region
+and period.<br />
+</li>
+<li><strong>Usefulness</strong>: Measures health outcomes and can be
+linked to spending and coverage.<br />
+</li>
+<li><strong>Intended analysis</strong>: Identify regions with high or
+declining child mortality and explore correlations.</li>
+</ul>
+<p>These variables allow us to compare trends in health spending,
+vaccination coverage, and child mortality across WHO regions and over
+time.</p>
+</div>
 </div>
 </div>
 
