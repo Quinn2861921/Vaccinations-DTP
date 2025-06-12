@@ -11,12 +11,12 @@ output: pdf_document
 install.packages("tidyverse")
 install.packages("readxl")
 install.packages("dplyr")
-install.packages(sf)
-install.packages(rnaturalearth)
-install.packages(rnaturalearthdata)
-install.packages(ggplot2)
-install.packages(viridis)
-install.packages(grid)
+install.packages("sf")
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
+install.packages("ggplot2")
+install.packages("viridis")
+install.packages("grid")
 ```
 
 ```{r packages}
@@ -301,7 +301,7 @@ world <- world %>%
   mutate(
     WHORegion = case_when(
       region_wb == "Sub-Saharan Africa" ~ "Africa",
-      region_wb == "Latin America & Caribbean" ~ "Americas",
+      region_wb %in% c("Latin America & Caribbean", "North America") ~ "Americas",
       region_wb == "Europe & Central Asia" ~ "Europe",
       region_wb == "Middle East & North Africa" ~ "Eastern Mediterranean",
       region_wb == "South Asia" ~ "South-East Asia",
