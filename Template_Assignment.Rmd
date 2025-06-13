@@ -388,10 +388,10 @@ library(ggplot2)
 library(dplyr)
 library(countrycode)
 
-# continenten indelen op healthspending per capita om vervolgens te vergelijken in vaccinatiegraad en childdeath.
-cleaned_healthspending_data$Continent <- cleaned_healthspending_data$Continent
-cleaned_dtpdata$Continent <- cleaned_dtpdata$Continent
-childdeath_with_period$Continent <- childdeath_with_period$Continent
+# continenten indelen op healthspending per capita om vervolgens te vergelijken in vaccinatiegraad en childdeath.(was nodig voor oudere versie, nu niet meer)
+# cleaned_healthspending_data$Continent <- cleaned_healthspending_data$Continent
+# cleaned_dtpdata$Continent <- cleaned_dtpdata$Continent
+# childdeath_with_period$Continent <- childdeath_with_period$Continent
 
 
 # Make sure all 3 datasets align with one another
@@ -455,33 +455,43 @@ grouped_summary <- bind_rows(top3, bottom3) %>%
     AvgChildDeath = mean(AvgChildDeath, na.rm = TRUE)
   )
 
-# 🔄 Zet om naar lang formaat voor plotten
+# 🔄 Zet om naar long formaat
 plot_data <- grouped_summary %>%
   pivot_longer(cols = c(Spending, AvgCoverage, AvgChildDeath),
                names_to = "Metric",
-               values_to = "Value") %>%
-  group_by(Metric) %>%
- plot_data <- plot_data %>%
-  mutate(Value_scaled = (Value - min(Value)) / (max(Value) - min(Value)))
-  ungroup()
+               values_to = "Value")
+plot_data <- plot_data %>%
+  mutate(FillGroup = paste(Group, Metric, sep = " - "))
 
-# 🖼️ Maak barplot
-ggplot(plot_data, aes(x = Group, y = Value_scaled, fill = Metric)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  geom_text(aes(label = round(Value, 1)),
-            position = position_dodge(width = 0.9), vjust = -0.4, size = 4) +
-  labs(
-    title = "Gemiddelden van Top & Bottom 3 WHO-regio’s (2022)",
-    subtitle = "Health spending per capita, DTP3 coverage en kindersterfte",
-    x = NULL,
-    y = "Geschaalde waarde (0–1)"
-  ) +
+ggplot(plot_data, aes(x = Group, y = Value, fill = FillGroup)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = round(Value, 1)), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, size = 4, color = "black") +
+  facet_wrap(~ Metric, scales = "free_y") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
   scale_fill_manual(values = c(
-    Spending = "#1f77b4",
-    AvgCoverage = "#2ca02c",
-    AvgChildDeath = "#d62728"
+    "Top 3 - Spending"        = "#1f77b4",  # Blauw
+    "Bottom 3 - Spending"     = "#aec7e8",  # Lichtblauw
+    "Top 3 - AvgCoverage"     = "#2ca02c",  # Donkergroen
+    "Bottom 3 - AvgCoverage"  = "#98df8a",  # Lichtgroen
+    "Top 3 - AvgChildDeath"   = "#9467bd",  # Donkerpaars
+    "Bottom 3 - AvgChildDeath"= "#c5b0d5"   # Lichtpaars
   )) +
-  theme_minimal()
+  labs(
+    title = "Gemiddelde waarden voor Top & Bottom 3 WHO-regio’s (2022)",
+    subtitle = "Gezondheidsuitgaven, vaccinatiegraad en kindersterfte per categorie",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(face = "bold"),
+    axis.text = element_text(color = "#333333")
+  )
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
