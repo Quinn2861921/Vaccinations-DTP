@@ -1,5 +1,5 @@
 ---
-title: "DTP vaccinations"
+title: "DTP vaccinations Report"
 author: |
   G.J.R. Weydemuller (student number)  
   L. Waaijenberg (2862154)  
@@ -24,6 +24,7 @@ install.packages("rnaturalearthdata")
 install.packages("ggplot2")
 install.packages("viridis")
 install.packages("grid")
+install.packages("countrycode")
 ```
 
 ```{r setup, include=FALSE}
@@ -39,16 +40,9 @@ library(grid)
 ```
 
 
-# Report
 
-**G.J.R. Weydemuller** (student number)  
-**L. Waaijenberg** (2862154)  
-**P. Gandra Rodrigues** (2870539)  
-**Q. Faber** (2861921)  
-**R.A. Kali** (2850680)  
-**T. Adam** (student number)  
-**T.M.V. Verbeek** (student number)  
 ---
+
 **Tutor:** J.F. Fitzgerald  
 **Tutorial Group:** Tutorial group 1  
 **Course:** Programming for Economists  
@@ -58,11 +52,11 @@ library(grid)
 
 # Problem Motivation and Literature
 
-## Why is DTP vaccination a social problem?
+## Why is DTP Vaccination a Social Problem?
 
-DTP vaccination, protecting against diphtheria, tetanus, and pertussis, is a cornerstone of global public health. Despite its proven effectiveness and inclusion in nearly all national immunization schedules, millions of children worldwide remain under-vaccinated or entirely unvaccinated. This gap in coverage leads to preventable illness, long-term disability, and death, particularly in low- and middle-income countries. The issue is not merely medical but deeply social, as it reflects and reinforces inequalities in access to healthcare, education, and infrastructure.
+DTP vaccination, protecting against diphtheria, tetanus, and pertussis, is a cornerstone of global public health. It is one of the most cost-effective interventions, preventing an estimated 4.4 million deaths annually (UNICEF, 2024). Despite its proven effectiveness and inclusion in nearly all national immunization schedules, millions of children worldwide remain under-vaccinated or entirely unvaccinated. In 2023 alone, approximately 21 million children were either unvaccinated or under-vaccinated, with 14.5 million receiving no vaccines at all (UNICEF, 2024). This gap in coverage leads to preventable illness, long-term disability, and death, particularly in low- and middle-income countries (Our World in Data, sd). The issue is not merely medical but deeply social, as it reflects and reinforces inequalities in access to healthcare, education, and infrastructure (UNICEF, 2024).
 
-Vaccination coverage is also a proxy for the strength of a country’s healthcare system. Low DTP coverage often signals broader systemic issues such as poverty, conflict, misinformation, and weak governance. These factors disproportionately affect vulnerable populations, making DTP vaccination a critical indicator of social justice and equity.
+Vaccination coverage is also a proxy for the strength of a country’s healthcare system. Low DTP coverage often signals broader systemic issues such as poverty, conflict, misinformation, and weak governance. These factors disproportionately affect vulnerable populations, making DTP vaccination a critical indicator of social justice and equity (UNICEF, 2024).
 
 ## Research Question
 
@@ -78,7 +72,7 @@ Vaccination coverage is also a proxy for the strength of a country’s healthcar
 
 ## What Has Not Been Fully Researched
 
-While many studies have examined DTP coverage and its determinants, there is limited comparative analysis across income groups that links government healthcare spending per capita directly to national DTP vaccination rates. Most existing research focuses on either micro-level determinants (e.g., parental education, rural access) or macro-level trends without integrating economic policy variables.
+While many studies have examined DTP coverage and its determinants, there is limited comparative analysis across income groups that links government healthcare spending per capita directly to national DTP vaccination rates. Most existing research focuses on either micro-level determinants (e.g., parental education, rural access) or macro-level trends without integrating economic policy variables. UNICEF notes that while DTP3 coverage is widely used as a marker of how well countries provide routine immunization, disparities persist, and economic factors such as national healthcare investment are often underexplored in comparative frameworks (UNICEF, 2024).
 
 ## Contribution of This Report
 
@@ -99,6 +93,27 @@ url_coverage <- "https://www.dropbox.com/scl/fi/08rf7e6sj3hcq3e5fnp8l/datasetcov
 url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
 ```
 
+### Data Source Credibility
+
+Source 1: DTP Vaccination Coverage
+
+- Credibility: This dataset is published by the World Health Organization (WHO), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data (World Health Organization, 2024).
+- Data Quality: The dataset includes WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), which are based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
+- Relevance: It directly provides the DTP3 coverage rates, which are central to the research question. The data is also disaggregated by region and year, allowing for temporal and cross-regional analysis.
+
+Source 2: Government Healthcare Spending
+
+- Credibility: The World Bank is a globally respected institution that provides standardized economic and development data. It sources health expenditure data from the WHO Global Health Expenditure Database (World Bank, 2024).
+- Data Quality: The data is collected using internationally accepted methodologies and is updated annually. It includes consistent country-level indicators, making it ideal for cross-country comparisons.
+- Relevance: This dataset provides the independent variable in the analysis—government health spending per capita—which is used to explore its correlation with vaccination coverage.
+
+Source 3: Child Death Rates
+
+- Credibility: This data is also from the World Health Organization, specifically its Global Health Observatory (GHO), which is the main repository for WHO’s health-related statistics (World Health Organization, 2024).
+- Data Quality: The under-five mortality data is compiled from national vital registration systems, surveys, and statistical modeling, and is reviewed by global health experts.
+- Relevance: While not part of the main correlation analysis, this dataset provides valuable contextual insight into the broader social impact of vaccination coverage and healthcare investment.
+
+## Provide a short summary of the datasets
 ```{r Convert data, include=FALSE}
 # Download het bestand tijdelijk en lees het in
 temp_file <- tempfile(fileext = ".xlsx")
@@ -115,8 +130,6 @@ select(Indicator, Location, Period, Value)
 raw_childdeath_data <- read.csv(url_childdeath)
 ```
 
-
-## Provide a short summary of the datasets
 ```{r summary data, echo=FALSE}
 head(raw_healthspending_data)
 head(df)
@@ -339,11 +352,112 @@ avg_childdeath_by_period <- childdeath_with_period %>%
 - **Intended analysis**: Identify regions with high or declining child mortality and explore correlations.
 
 
-
 These variables allow us to compare trends in health spending, vaccination coverage, and child mortality across WHO regions and over time.
 
+## Merging Datasets
+
+To analyze the relationship between healthcare spending, DTP vaccination coverage, and child mortality, it was necessary to combine all three datasets into a single, unified structure. This required several preparatory steps:
+
+Standardizing Region Names
+The Region variable in the DTP dataset used full WHO region names (e.g., "African Region"), while the other datasets used shorter or slightly different labels (e.g., "Africa"). To ensure consistency, I used mutate() and recode() to align the region names across datasets:
+
+```{r}
+DTPcoverage <- DTPcoverage %>%
+mutate( Region = recode(Region, "African Region" = "Africa", "Eastern Mediterranean Region" = "Eastern Mediterranean", "European Region" = "Europe", "Region of the Americas" = "Americas", "South-East Asia Region" = "South-East Asia", "Western Pacific Region" = "Western Pacific" ) )
+```
+
+Renaming the Time Variable
+The DTP dataset used PeriodGroup to represent grouped years (e.g., "2000–2004"), while the other datasets used Period. To match the column names for merging, I renamed PeriodGroup to Period:
+
+```{r}
+DTPcoverage <- DTPcoverage %>% rename(Period = PeriodGroup)
+```
+
+Merging the Datasets
+I used inner_join() to merge the three datasets by Region and Period. This ensures that only rows with matching region-period combinations across all datasets are included:
+
+```{r} 
+merged_health_data <- avg_healthspending_by_period %>% inner_join(DTPcoverage, by = c("Region", "Period")) %>% inner_join(avg_childdeath_by_period, by = c("Region", "Period"))
+```
+
+Creating New Variables
+To enrich the analysis, I constructed new variables that express relationships between the indicators:
+
+```{r} 
+merged_health_data <- merged_health_data %>%
+  mutate( CoveragePerDollar = AvgCoverage / AvgSpending, DollarPerCoveragePoint = AvgSpending / AvgCoverage, DeathsPerSpending = AvgChildDeath / AvgSpending )
+```
+
+Final Formatting
+The merged tibble was converted to a standard data frame for compatibility with certain functions:
+
+```{r} 
+merged_healthdata_df <- as.data.frame(merged_health_data)
+```
+
+This merged dataset forms the foundation for the correlation analysis and visualizations that follow.
+
+---
+
+# Visualization
+
+## Spatial Visualization
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("Map.png")
+```
+
+### Interpretation and Relevance
+This choropleth map visualizes the average DTP3 vaccination coverage across WHO regions for the period 2020–2022. It aligns directly with the research question—“How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunisations in low-, middle-, and high-income countries?”—by providing a geographic perspective on one of the key outcome variables: vaccination coverage.
+
+By mapping regional averages, the visualization highlights geographical disparities in immunization performance. For example, regions such as Europe and the Western Pacific show high coverage rates, while others like Africa and the Eastern Mediterranean lag behind. These patterns help contextualize the statistical analysis by showing where coverage gaps are most pronounced and where policy interventions may be most needed.
+
+This map also complements the merged dataset by visually reinforcing the regional dimension of the correlation analysis between healthcare spending, vaccination coverage, and child mortality.
+
+## Temporal Visualization
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("CD and spending.png")
+```
+
+### Interpetation and Relevance
+This plot visualizes the trend of child deaths per unit of healthcare spending across different global regions from 2000 to 2022. It shows a general decline in child mortality relative to spending, suggesting that increased investment in healthcare is associated with improved child health outcomes. This aligns with the research question by highlighting the potential impact of government healthcare spending on public health indicators—such as vaccination coverage—which are critical in reducing preventable child deaths. The regional breakdown also supports comparative analysis across income levels, reinforcing the study’s focus on low-, middle-, and high-income countries.
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("USD and coverage.png")
+```
+
+### Interpetation and Relevance
+This plot illustrates the cost-efficiency of vaccination coverage over time by showing the dollar amount spent per coverage point across six global regions from 2000 to 2022. A lower value on the y-axis indicates more efficient spending—achieving higher vaccination coverage with less financial input. This directly supports the research question by providing insight into how government healthcare spending translates into vaccination outcomes. By comparing trends across regions with varying income levels, the plot helps assess whether increased spending consistently leads to better vaccination coverage, and how efficiently different regions convert spending into immunization success.
+
+## Sub-Population Visualization
 
 
+### Interpetation and Relevance
 
+
+## Event Analysis
+
+
+### Interpetation and Relevance
+
+---
+
+# Discussion
+
+---
+
+# Reproducibility
+
+## Github repository link
+
+## Refrence list
+
+- WHO Media Team. (2025, April 24). Increases in vaccine-preventable disease outbreaks threaten years of progress, warn WHO, UNICEF, Gavi . Retrieved from World Health Organization:             https://www.who.int/news/item/24-04-2025-increases-in-vaccine-preventable-disease-outbreaks-threaten-years-of-progress--warn-who--unicef--gavi
+- UNICEF. (n.d.). Vaccines and the diseases they prevent. Retrieved from UNICEF: https://www.unicef.org/parenting/health/vaccines-and-diseases-they-prevent
+- Xinhu Wang; Mamadou Diallo. (2019, September 24). UNICEF. Retrieved from How tracking DTP vaccine dropout rates helps protect children from preventable diseases: https://data.unicef.org/data-for-action/tracking-dtp-vaccine-dropout-rates-protects-children-from-preventable-diseases/
+- unicef. (2024, July). Immunization. Retrieved from unicef: https://data.unicef.org/topic/child-health/immunization/
+- Our World in Data. (n.d.). Deaths caused by vaccine-preventable diseases, World. Retrieved from Our World in Data: https://ourworldindata.org/grapher/deaths-caused-by-vaccine-preventable-diseases-over-time
+- UNICEF. (2024, March). Vaccination & Immunization Statistics - UNICEF Data. Retrieved from UNICEF: https://knowledge.unicef.org/resource/vaccination-immunization-statistics-unicef-data
 
 
