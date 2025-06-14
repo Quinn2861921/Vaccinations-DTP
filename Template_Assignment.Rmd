@@ -414,30 +414,30 @@ clean_names <- function(x) {
     recode(!!!region_map)
 }
 
-cleaned_healthspending_data$Continent <- clean_names(cleaned_healthspending_data$Continent)
-cleaned_dtpdata$Continent <- clean_names(cleaned_dtpdata$Continent)
-childdeath_with_period$Continent <- clean_names(childdeath_with_period$Continent)
+cleaned_healthspending_data$Region <- clean_names(cleaned_healthspending_data$Region)
+cleaned_dtpdata$Region <- clean_names(cleaned_dtpdata$Region)
+childdeath_with_period$Region <- clean_names(childdeath_with_period$Region)
 
 # 📆 Filter en bereken gemiddelden per regio (2022)
 spending_2022 <- cleaned_healthspending_data %>%
   filter(Year == 2022) %>%
-  group_by(Continent) %>%
+  group_by(Region) %>%
   summarise(Spending = mean(Spending, na.rm = TRUE))
 
 coverage_2022 <- cleaned_dtpdata %>%
   filter(Year == 2022) %>%
-  group_by(Continent) %>%
+  group_by(Region) %>%
   summarise(AvgCoverage = mean(Coverage, na.rm = TRUE))
 
 childdeath_2022 <- childdeath_with_period %>%
   filter(Year == 2022) %>%
-  group_by(Continent) %>%
+  group_by(Region) %>%
   summarise(AvgChildDeath = mean(Deaths, na.rm = TRUE))
 
 # 🔗 Combineer alles op Continent
 combined <- spending_2022 %>%
-  inner_join(coverage_2022, by = "Continent") %>%
-  inner_join(childdeath_2022, by = "Continent")
+  inner_join(coverage_2022, by = "Region") %>%
+  inner_join(childdeath_2022, by = "Region")
 
 # 🏆 Top 3 & Bottom 3 op basis van spending
 top3 <- combined %>% arrange(desc(Spending)) %>% slice(1:3) %>%
