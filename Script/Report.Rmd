@@ -416,24 +416,91 @@ This map also complements the merged dataset by visually reinforcing the regiona
 
 ## Temporal Visualization
 
+
 ```{r echo=FALSE, out.width="80%"}
 knitr::include_graphics("CD and spending.png")
 ```
 
-### Interpetation and Relevance
-This plot visualizes the trend of child deaths per unit of healthcare spending across different global regions from 2000 to 2022. It shows a general decline in child mortality relative to spending, suggesting that increased investment in healthcare is associated with improved child health outcomes. This aligns with the research question by highlighting the potential impact of government healthcare spending on public health indicators—such as vaccination coverage—which are critical in reducing preventable child deaths. The regional breakdown also supports comparative analysis across income levels, reinforcing the study’s focus on low-, middle-, and high-income countries.
 
 ```{r echo=FALSE, out.width="80%"}
 knitr::include_graphics("USD and coverage.png")
 ```
 
-### Interpetation and Relevance
-This plot illustrates the cost-efficiency of vaccination coverage over time by showing the dollar amount spent per coverage point across six global regions from 2000 to 2022. A lower value on the y-axis indicates more efficient spending—achieving higher vaccination coverage with less financial input. This directly supports the research question by providing insight into how government healthcare spending translates into vaccination outcomes. By comparing trends across regions with varying income levels, the plot helps assess whether increased spending consistently leads to better vaccination coverage, and how efficiently different regions convert spending into immunization success.
+
+### Temporal Trends in Health Investment and Outcomes
+
+These two line graphs visualize how healthcare efficiency and outcomes have evolved across WHO regions over five-year periods from 2000 to 2022. They align closely with the research question by showing how healthcare spending relates to vaccination coverage and child mortality over time.
+
+#### Graph 1: Child Deaths per Spending over Time
+
+- **What it shows**: The number of child deaths per unit of healthcare spending.
+- **Trend**: A clear downward trend across all regions, indicating improved outcomes per dollar spent.
+- **Notable pattern**: Africa and Europe show the most significant declines, suggesting major gains in healthcare efficiency or effectiveness.
+- **Interpretation**: This trend reflects global progress in reducing child mortality, likely due to better-targeted spending, improved healthcare delivery, and expanded immunization coverage.
+
+#### Graph 2: Dollar per Coverage Point over Time
+
+- **What it shows**: The average cost (in USD) required to increase DTP3 vaccination coverage by one percentage point.
+- **Trend**: Most regions show a relatively stable or slightly increasing cost over time.
+- **Notable pattern**: The Western Pacific region shows a significant increase in cost per coverage point in recent years, suggesting rising marginal costs or reduced efficiency.
+- **Interpretation**: While some regions maintain cost-effectiveness, others may be facing diminishing returns on investment in immunization programs.
+
+#### Comparison and Dynamics
+
+- **Efficiency vs. Outcome**: While the cost of achieving additional vaccination coverage is rising or stabilizing, the impact of spending on reducing child deaths is improving.
+- **Temporal Insight**: These trends highlight the evolving dynamics of global health investment—where spending may be increasing, but so is its effectiveness in saving lives.
+
+#### Implications
+
+- Policymakers should consider both cost and outcome metrics when evaluating healthcare strategies.
+- The rising cost per coverage point in some regions may call for more efficient delivery models or targeted interventions.
+- The declining child deaths per spending metric is a positive signal of global health progress and a justification for continued investment.
+
 
 ## Sub-Population Visualization
 
 
-### Interpetation and Relevance
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("subpopulation.png")
+```
+
+### Subgroup Analysis: Top vs Bottom 3 WHO Regions (2022)
+
+This bar chart compares the top 3 and bottom 3 WHO regions based on average healthcare spending per capita in 2022. It visualizes three key metrics:
+
+- **Average Health Spending (USD per capita)**
+- **Average DTP3 Vaccination Coverage (%)**
+- **Average Child Deaths**
+
+#### Alignment with Research Topic
+
+This visualization directly supports the research question:  
+*"How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunisations?"*
+
+By dividing regions into high- and low-spending groups, the plot highlights how investment levels relate to health outcomes across sub-populations.
+
+#### Group Differences (Quantified)
+
+| Metric       | Top 3 Regions | Bottom 3 Regions | Difference       |
+|--------------|----------------|------------------|------------------|
+| Spending     | \$1852.7       | \$305.9           | +\$1546.8        |
+| Coverage     | 91%            | 82%               | +9%              |
+| Child Deaths | 149,154.7      | 1,516,736.3       | −1,367,581.6     |
+
+- Top 3 regions spend over **6 times more** per capita on healthcare.
+- They achieve **9 percentage points higher** vaccination coverage.
+- They experience nearly **10 times fewer** child deaths.
+
+#### Evaluation of Subgroup Analysis
+
+This subgroup comparison reveals a clear gradient: higher spending is associated with better vaccination outcomes and significantly lower child mortality. The differences are not only statistically meaningful but also socially and ethically significant, especially in the context of global health equity.
+
+#### Implications
+
+- **Policy Insight**: The data suggests that increasing healthcare investment in underfunded regions could substantially improve immunization coverage and reduce child mortality.
+- **Equity Concern**: The stark contrast in child death rates underscores the urgent need for targeted support in low-spending regions.
+- **Further Research**: This analysis invites deeper exploration into how efficiently funds are used and what other systemic factors (e.g., governance, infrastructure) influence outcomes.
+
 
 
 ## Event Analysis
