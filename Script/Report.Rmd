@@ -407,12 +407,22 @@ This merged dataset forms the foundation for the correlation analysis and visual
 knitr::include_graphics("Map.png")
 ```
 
-### Interpretation and Relevance
-This choropleth map visualizes the average DTP3 vaccination coverage across WHO regions for the period 2020–2022. It aligns directly with the research question—“How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunisations in low-, middle-, and high-income countries?”—by providing a geographic perspective on one of the key outcome variables: vaccination coverage.
+### Spatial Analysis of DTP3 Vaccination Coverage (2020–2022)
 
-By mapping regional averages, the visualization highlights geographical disparities in immunization performance. For example, regions such as Europe and the Western Pacific show high coverage rates, while others like Africa and the Eastern Mediterranean lag behind. These patterns help contextualize the statistical analysis by showing where coverage gaps are most pronounced and where policy interventions may be most needed.
+This world map visualizes average DTP3 vaccination coverage by WHO region from 2020 to 2022, using a color gradient from purple (60%) to yellow (100%). The map reveals clear regional disparities: high-income regions such as Europe and the Western Pacific generally exhibit higher coverage (light green to yellow), while lower-income regions like Africa and parts of the Eastern Mediterranean show lower coverage (purple to blue). 
 
-This map also complements the merged dataset by visually reinforcing the regional dimension of the correlation analysis between healthcare spending, vaccination coverage, and child mortality.
+#### Spatial Anomalies and Regional Comparisons
+
+Notably, some middle-income regions, such as parts of South-East Asia, achieve relatively high coverage despite lower spending levels, suggesting efficient immunization programs. Conversely, certain countries in the Americas show unexpectedly moderate coverage despite higher average spending, indicating potential inefficiencies or access barriers.
+
+#### Interpretation and Mapping Critique
+
+The map effectively communicates broad regional trends but may obscure within-region variation due to aggregation. For example, large countries with internal disparities (e.g., India, Brazil) are represented by a single color, which may oversimplify complex national dynamics. Additionally, the use of discrete color bands may exaggerate differences between countries near category thresholds.
+
+#### Mapping Choices
+
+While the color scheme is intuitive and accessible, a continuous gradient or country-level granularity could enhance interpretability. Including data labels or interactive elements (in a web-based version) would further support detailed analysis. Despite these limitations, the map serves as a compelling visual summary of global immunization equity and supports the research question by highlighting spatial patterns in vaccination coverage relative to regional healthcare investment.
+
 
 ## Temporal Visualization
 
