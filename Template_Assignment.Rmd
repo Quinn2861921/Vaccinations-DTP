@@ -94,15 +94,20 @@ raw_childdeath_data <- read.csv(url_childdeath)
 
 # Preview the first few rows to check the import
 head(raw_healthspending_data)
-head(df)
+head(raw_coverage_data)
 
-## 2.2 Provide a short summary of the dataset(s)
 ```
 
 ```{r}
 head(raw_healthspending_data)
-head(df)
+head(raw_coverage_data)
 ```
+
+``` r
+inline_code = TRUE
+```
+
+## 2.2 Provide a short summary of the dataset(s)
 
 **Source 1: DTP Vaccination Coverage**
 
@@ -128,17 +133,101 @@ head(df)
 
 \- Relevance: While not part of your main correlation analysis, this dataset provides valuable contextual insight into the broader social impact of vaccination coverage and healthcare investment.
 
-``` r
-inline_code = TRUE
-```
+## Complementarity of the Datasets
+
+These datasets are complementary in structure and purpose:
+
+· The DTP dataset provides the dependent variable (vaccination coverage).
+
+· The health spending dataset provides the independent variable (government health expenditure per capita).
+
+· The child death dataset provides the independent variable (child death)
+
+Together, they allow for a cross-country analysis of how public investment in health and child death correlates with immunization outcomes.
+
+## Suitability for the Research Topic
+
+The research question investigates the relationship between government healthcare spending and DTP vaccination coverage across income groups. These datasets are ideal because:
+
+· They are comprehensive and global, enabling cross-country comparisons.
+
+· They are updated annually, supporting time-series or cross-sectional analysis.
+
+· They are standardized and well-documented, ensuring data quality and reproducibility.
+
+## Data Limitations
+
+Despite their strengths, the datasets have limitations:
+
+WHO DTP Coverage & WHO child death:
+
+· Some countries have missing or estimated values, especially in conflict zones.
+
+· Coverage estimates may be influenced by reporting biases or survey recall errors.
+
+· The data may not fully reflect subnational disparities in vaccination access.
+
+World Bank Health Spending:
+
+· Spending data are in current US dollars, which may be affected by inflation and exchange rate fluctuations.
+
+· The data do not indicate how funds are allocated (e.g., toward immunization vs. other services).
+
+· Some countries have incomplete or outdated records for recent years.
+
+These limitations mean that while the analysis can reveal correlations, it cannot establish causality or account for all contextual factors.
 
 ## 2.3 Describe the type of variables included
 
-Think of things like:
+WHO DTP Vaccination Coverage:
 
--   Do the variables contain health information or SES information?
+-   Antigen: DTP1 and DTP3
 
--   Have they been measured by interviewing individuals or is the data coming from administrative sources?
+-   Coverage: vaccinated target population
+
+-   Units: percentage
+
+-   Target_Pop: target population for the given vaccine
+
+-    Years Covered: 1980–2023
+
+-    Region: WHO regions
+
+-    Frequency: Annual
+
+-    Source: WHO/UNICEF Joint Reporting Form and surveys (e.g., DHS, MICS)
+
+-    Estimation Method: Combination of administrative data, surveys, and expert review.
+
+World Bank Health Spending:
+
+-    Indicator: Current health expenditure per capita
+
+-    Years Covered: 2000–2023
+
+-    Region: WHO regions
+
+-    Frequency: Annual
+
+-    Units: US dollars
+
+-    Source: WHO Global Health Expenditure Database[[KR(1]](#_msocom_1) 
+
+WHO child deaths among children under five:
+
+-   Indicator: Mortality rate under children under five
+
+-   Target_Pop: population of children aged 0–4 years
+
+-   Years covered: 1980-2023
+
+-   Region: WHO regions
+
+-   Frequency: Annual
+
+-   Source: WHO/UNICEF GHO, national civil registration, surveys (DHS, MICS)
+
+-   Estimation method: Combination of available national data (CRVS, surveys) and adjustments by statistical methods and expert review.
 
 # Part 3 - Quantifying
 
@@ -191,8 +280,6 @@ childdeath_typed <- childdeath_selected %>%
     Deaths = as.numeric(Deaths)
   )
 ```
-
-Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
 ## 3.2 Generate necessary variables
 
