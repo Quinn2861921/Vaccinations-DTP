@@ -1,5 +1,5 @@
 ---
-title: "Template"
+title: "DTP coverage"
 author: "Tristan Verbeek, 2864049"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -39,11 +39,29 @@ Use APA referencing throughout your document. [Here's a link to some explanation
 
 ## 1.1 Describe the Social Problem
 
-Include the following:
+## Why is DTP vaccination a social problem?
 
--   Why is this relevant?
+DTP vaccination, protecting against diphtheria, tetanus, and pertussis, is a cornerstone of global public health. It is one of the most cost-effective interventions, preventing an estimated 4.4 million deaths annually (unicef, 2024). Despite its proven effectiveness and inclusion in nearly all national immunization schedules, millions of children worldwide remain under-vaccinated or entirely unvaccinated. In 2023 alone, approximately 21 million children were either unvaccinated or under-vaccinated, with 14.5 million receiving no vaccines at all (unicef, 2024). This gap in coverage leads to preventable illness, long-term disability, and death, particularly in low- and middle-income countries (Our World in Data, sd). The issue is not merely medical but deeply social, as it reflects and reinforces inequalities in access to healthcare, education, and infrastructure (unicef, 2024).
 
--   ...
+Vaccination coverage is also a proxy for the strength of a country’s healthcare system. Low DTP coverage often signals broader systemic issues such as poverty, conflict, misinformation, and weak governance. These factors disproportionately affect vulnerable populations, making DTP vaccination a critical indicator of social justice and equity (unicef, 2024).
+
+Research question: "How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunizations in low-, middle-, and high-income countries?"
+
+## Sources identifying DTP vaccination as a social problem
+
+World Health Organization (WHO) and UNICEF have jointly warned that vaccine-preventable diseases, including diphtheria, are resurging due to declining immunization coverage, misinformation, and funding cuts. They emphasize that millions of children are at risk, and urgent investment in immunization is needed to prevent a reversal of decades of progress (WHO Media Team, 2025).
+
+UNICEF outlines the severe consequences of DTP-preventable diseases. Diphtheria can cause heart and nerve damage, tetanus is often fatal even with treatment, and pertussis can lead to pneumonia and death in infants. These diseases disproportionately affect children in low-resource settings, highlighting the social dimension of under-vaccination (UNICEF, sd).
+
+A UNICEF data report on DTP vaccine dropout rates shows that millions of children start but do not complete the DTP series. This dropout is especially prevalent in low-income countries and is linked to systemic barriers such as healthcare access, education, and infrastructure (Wang; et al., 2019).
+
+## What has not been fully researched
+
+While many studies have examined DTP coverage and its determinants, there is limited comparative analysis across income groups that links government healthcare spending per capita directly to national DTP vaccination rates. Most existing research focuses on either micro-level determinants (e.g., parental education, rural access) or macro-level trends without integrating economic policy variables. UNICEF notes that while DTP3 coverage is widely used as a marker of how well countries provide routine immunization, disparities persist, and economic factors such as national healthcare investment are often underexplored in comparative frameworks (UNICEF, 2024).
+
+## Contribution of this report
+
+This report aims to fill that gap by analyzing how government healthcare spending correlates with DTP vaccination coverage across low-, middle-, and high-income countries. This research will provide new insights into whether increased public investment in health translates into better immunization outcomes. This could inform both global health policy and economic development strategies, especially in resource-constrained settings.
 
 # Part 2 - Data Sourcing
 
@@ -59,12 +77,12 @@ url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-re
 # Load data on health coverage  directly from Dropbox (public direct link)
 url_coverage <- "https://www.dropbox.com/scl/fi/08rf7e6sj3hcq3e5fnp8l/datasetcoverage.xlsx?rlkey=x9iwcifdi2vmqa3j4oy1zs7p3&st=g5kdhaib&dl=1"
 
-# Download het bestand tijdelijk en lees het in
+# Download the file temporarily and read it in
 temp_file <- tempfile(fileext = ".xlsx")
 download.file(url_coverage, destfile = temp_file, mode = "wb")
-df <- read_excel(temp_file)
+raw_coverage_data <- read_excel(temp_file)
 
-#load data on child deaths directly from Dropbox (public direct link)
+# Load data on child deaths directly from Dropbox (public direct link)
 url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-death.csv?rlkey=mfqw1b76522vtjqxcz7grvtmb&st=v0q288at&dl=1"
 
 # Read the CSV into a dataframe
@@ -80,18 +98,39 @@ head(df)
 
 ## 2.2 Provide a short summary of the dataset(s)
 ```
+
 ```{r}
 head(raw_healthspending_data)
 head(df)
 ```
 
-In this case we see 28 variables, but we miss some information on what units they are in. We also don't know anything about the year/moment in which this data has been captured.
+**Source 1: DTP Vaccination Coverage**
+
+\- Credibility: This data is published by the World Health Organization (WHO), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data.
+
+\- Data Quality: The dataset includes WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), which are based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
+
+\- Relevance: It directly provides the DTP3 coverage rates, which are central to your research question. The data is also disaggregated by region and year, allowing for temporal and cross-regional analysis.
+
+**Source 2: Government Healthcare Spending**
+
+\- Credibility: The World Bank is a globally respected institution that provides standardized economic and development data. It sources health expenditure data from the WHO Global Health Expenditure Database.
+
+\- Data Quality: The data is collected using internationally accepted methodologies and is updated annually. It includes consistent country-level indicators, making it ideal for cross-country comparisons.
+
+\- Relevance: This dataset provides the independent variable in your analysis—government health spending per capita—which you are correlating with vaccination coverage.
+
+**Source 3: Child Death Rates**
+
+\- Credibility: This data is also from the World Health Organization, specifically its Global Health Observatory (GHO), which is the main repository for WHO’s health-related statistics.
+
+\- Data Quality: The under-five mortality data is compiled from national vital registration systems, surveys, and statistical modeling, and is reviewed by global health experts.
+
+\- Relevance: While not part of your main correlation analysis, this dataset provides valuable contextual insight into the broader social impact of vaccination coverage and healthcare investment.
 
 ``` r
 inline_code = TRUE
 ```
-
-These are things that are usually included in the metadata of the dataset. For your project, you need to provide us with the information from your metadata that we need to understand your dataset of choice.
 
 ## 2.3 Describe the type of variables included
 
@@ -101,13 +140,10 @@ Think of things like:
 
 -   Have they been measured by interviewing individuals or is the data coming from administrative sources?
 
-*For the sake of this example, I will continue with the assignment...*
-
 # Part 3 - Quantifying
 
 ## 3.1 Data cleaning
 
-Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
 ```{r}
 # Load and select relevant columns from raw data on health spending
 cleaned_healthspending_data <- raw_healthspending_data %>%
@@ -211,11 +247,11 @@ filter(!is.na(Period)) %>%
     AvgChildDeath = mean(Deaths, na.rm = TRUE),
     .groups = "drop"
   )
-```  
-  
-  
-# 3.25 merge datasets together 
-```{r}  
+```
+
+# 3.25 merge datasets together
+
+```{r}
 # Recode WHO region codes to match full region names used in other datasets
 DTPcoverage <- DTPcoverage %>%
   mutate(
@@ -285,9 +321,9 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group =
   geom_point(size = 2) +     
   labs(
     title = "Dollar per Coverage Point over time",
-    x = "Periode",
+    x = "Period",
     y = "Dollar per Coverage Point",
-    color = "Regio"
+    color = "Region"
   ) +
   theme_minimal()
 
@@ -296,19 +332,18 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
   geom_point(size = 2) +
   labs(
     title = "Child Deaths per Spending over time",
-    x = "Periode",
+    x = "Period",
     y = "Child Deaths per Spending",
-    color = "Regio"
+    color = "Region"
   ) +
   theme_minimal()
 
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
+
 # with linear trend
-p2 <- ggplot(data, aes(x=my_x, y=my_y)) +
-  geom_point() +
-  geom_smooth(method=lm , color="red", se=FALSE) +
-  theme_ipsum()
+
+p2 \<- ggplot(data, aes(x=my_x, y=my_y)) + geom_point() + geom_smooth(method=lm , color="red", se=FALSE) + theme_ipsum()
 
 ## 3.4 Visualize spatial variation
 
@@ -499,10 +534,6 @@ Here you provide a description of why the plot above is relevant to your specifi
 ## 3.6 Event analysis
 
 Analyze the relationship between two variables.
-
-
-
-
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
