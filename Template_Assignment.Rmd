@@ -157,7 +157,7 @@ cleaned_healthspending_data <- cleaned_healthspending_data %>%
   )
 
 # Filter only WUENIC data from WHO regions and select relevant columns from the immunization dataset:
-cleaned_dtpdata <- df %>%
+cleaned_dtpdata <- raw_coverage_data %>%
   filter(
     COVERAGE_CATEGORY == "WUENIC",
     GROUP == "WHO_REGIONS"
