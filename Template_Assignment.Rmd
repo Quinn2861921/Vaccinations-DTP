@@ -189,29 +189,29 @@ WHO DTP Vaccination Coverage:
 
 -   Target_Pop: target population for the given vaccine
 
--    Years Covered: 1980–2023
+-   Years Covered: 1980–2023
 
--    Region: WHO regions
+-   Region: WHO regions
 
--    Frequency: Annual
+-   Frequency: Annual
 
--    Source: WHO/UNICEF Joint Reporting Form and surveys (e.g., DHS, MICS)
+-   Source: WHO/UNICEF Joint Reporting Form and surveys (e.g., DHS, MICS)
 
--    Estimation Method: Combination of administrative data, surveys, and expert review.
+-   Estimation Method: Combination of administrative data, surveys, and expert review.
 
 World Bank Health Spending:
 
--    Indicator: Current health expenditure per capita
+-   Indicator: Current health expenditure per capita
 
--    Years Covered: 2000–2023
+-   Years Covered: 2000–2023
 
--    Region: WHO regions
+-   Region: WHO regions
 
--    Frequency: Annual
+-   Frequency: Annual
 
--    Units: US dollars
+-   Units: US dollars
 
--    Source: WHO Global Health Expenditure Database[[KR(1]](#_msocom_1) 
+-   Source: WHO Global Health Expenditure Database[[KR(1]](#_msocom_1) 
 
 WHO child deaths among children under five:
 
@@ -620,7 +620,35 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 ## 3.6 Event analysis
 
-Analyze the relationship between two variables.
+```{r}
+# Take the temporal variation plots and add a vertical line at 2015-2019
+ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group = Region, color = Region)) +
+  geom_line(size = 1) +      
+  geom_point(size = 2) +     
+  labs(
+    title = "Dollar per Coverage Point over time",
+    x = "Period",
+    y = "Dollar per Coverage Point",
+    color = "Region"
+  ) +
+  theme_minimal() + 
+  geom_vline(xintercept = 4, size = 0.75) +
+  annotate("text", x = 3.5, y = 30, size = 3.5, label = "Pre- / during\nCOVID-19")
+
+ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Region, color = Region)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Child Deaths per Spending over time",
+    x = "Period",
+    y = "Child Deaths per Spending",
+    color = "Region"
+  ) +
+  theme_minimal() +
+  geom_vline(xintercept = 4, size = 0.75) +
+  annotate("text", x = 3.5, y = 62500, size = 3.5, label = "Pre- / during\nCOVID-19")
+```
+
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
