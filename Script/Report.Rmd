@@ -97,8 +97,8 @@ url_childdeath <- "https://www.dropbox.com/scl/fi/wuopfxxyux4dccc9rbibn/child-de
 
 Source 1: DTP Vaccination Coverage
 
-- Credibility: This dataset is published by the World Health Organization (WHO), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data (World Health Organization, 2024).
-- Data Quality: The dataset includes WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), which are based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
+- Credibility: This dataset is published by the WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data (World Health Organization, 2024).
+- Data Quality: The data is based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
 - Relevance: It directly provides the DTP3 coverage rates, which are central to the research question. The data is also disaggregated by region and year, allowing for temporal and cross-regional analysis.
 
 Source 2: Government Healthcare Spending
