@@ -515,13 +515,13 @@ This subgroup comparison reveals a clear gradient: higher spending is associated
 
 ## Event Analysis
 
-Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2010 to 2014 where there were numerous transformative developments in global health administration.
+Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2020 to 2022 which relates to the COVID-19 pandemic. Unlike gradual policy reforms during the 2010-2014 period such as GAVI's (source https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015) innovative financing mechanisms which introduced market-based incentives to lower vaccine pricing and availability structure, the pandemic created an acute simultaneous shock to every healtchare system worldwide. This situation enables a unique opportunity to examine how external crises affect government healthcare spending per capita and national vaccination coverage rates worldwide.
 
-From 2011 to 2015 the thrid strategic phase of the Global Alliance for Vaccines and Immunization flourished. This measure introduced market-based incentives which altered vaccine pricing and availability structures. (source https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015)
+During COVID-19 routine immunizations were suspended or decreased as worldwide healthcare systems had to respond to the pandemic, meaning that regardless of funding levels directed to vaccinations, their coverage still dropped. (source https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef).
 
-The WHO's launch of the Decade of Vaccines (2011-2020) during the aforementioned period established exciting targets and standardized frameworks focused on increasing data collection and policy coordination amongs different regions.(sourcehttps://iris.who.int/handle/10665/78141)
+Due to global lockdowns and border restrictions another major disruption was on the supply chain, as the struggle to transport vaccinations across borders and maintain cold storage systems increased, leading to decreased vaccination availability. Increasingly relevant to this study, a decrease in 7.7% DTP3 vaccine coverage worldwide was recognized compared to expected doses delivered in the absence of COVID. (source https://www.thelancet.com/article/S0140-6736%2821%2901337-4/fulltext)
 
-
+The child deaths per spending data ( 
 
 
 
