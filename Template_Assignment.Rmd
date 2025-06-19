@@ -47,7 +47,7 @@ R.A. Kali (2850680)
 
 T. Adam (student number)
 
-T.M.V. Verbeek (student number)
+T.M.V. Verbeek (2864049)
 
 Tutor: J.F. Fitzgerald
 
@@ -59,11 +59,7 @@ Institute: Vrije Universiteit Amsterdam
 
 # Part 1 - Identify a Social Problem
 
-Use APA referencing throughout your document. [Here's a link to some explanation.](https://www.mendeley.com/guides/apa-citation-guide/)
-
 ## 1.1 Describe the Social Problem
-
-## Why is DTP vaccination a social problem?
 
 DTP vaccination, protecting against diphtheria, tetanus, and pertussis, is a cornerstone of global public health. It is one of the most cost-effective interventions, preventing an estimated 4.4 million deaths annually (unicef, 2024). Despite its proven effectiveness and inclusion in nearly all national immunization schedules, millions of children worldwide remain under-vaccinated or entirely unvaccinated. In 2023 alone, approximately 21 million children were either unvaccinated or under-vaccinated, with 14.5 million receiving no vaccines at all (unicef, 2024). This gap in coverage leads to preventable illness, long-term disability, and death, particularly in low- and middle-income countries (Our World in Data, sd). The issue is not merely medical but deeply social, as it reflects and reinforces inequalities in access to healthcare, education, and infrastructure (unicef, 2024).
 
