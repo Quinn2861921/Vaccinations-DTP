@@ -7,6 +7,14 @@ output: pdf_document
 
 # Set-up your environment
 
+```{r include=FALSE}
+## sets WD to the file’s folder when you hit ‘Run’ or ‘Knit’
+if (requireNamespace("rstudioapi", quietly = TRUE) &&
+    rstudioapi::isAvailable()) {
+  setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+}
+```
+
 ```{r package_install, include=FALSE}
 install.packages("tidyverse")
 install.packages("readxl")
@@ -27,11 +35,27 @@ library(dplyr)
 
 # Title Page
 
-Include your names
+By: G.J.R. Weydemuller (student number)
 
-Include the tutorial group number
+L. Waaijenberg (2862154)
 
-Include your tutorial lecturer's name
+P. Gandra Rodrigues (2870539)
+
+Q. Faber (2861921)
+
+R.A. Kali (2850680)
+
+T. Adam (student number)
+
+T.M.V. Verbeek (student number)
+
+Tutor: J.F. Fitzgerald
+
+Tutorial group: Tutorial group 1
+
+Course: Programming for Economists
+
+Institute: Vrije Universiteit Amsterdam
 
 # Part 1 - Identify a Social Problem
 
@@ -233,7 +257,7 @@ WHO child deaths among children under five:
 
 ## 3.1 Data cleaning
 
-```{r}
+```{r include=FALSE}
 # Load and select relevant columns from raw data on health spending
 cleaned_healthspending_data <- raw_healthspending_data %>%
   select(Region = Location, Year = Period, Spending = Value)
@@ -268,7 +292,7 @@ cleaned_dtpdata <- cleaned_dtpdata %>%
   )
 ```
 
-```{r}
+```{r include=FALSE}
 # Select and rename relevant columns from child death data
 childdeath_selected <- raw_childdeath_data %>%
   select(Region = Location, Year = Period, Deaths = FactValueNumeric)
@@ -283,7 +307,7 @@ childdeath_typed <- childdeath_selected %>%
 
 ## 3.2 Generate necessary variables
 
-```{r}
+```{r include=FALSE}
 # Create period variable to group years
 healthspending_with_period <- cleaned_healthspending_data %>%
   mutate(Period = case_when(
@@ -325,7 +349,7 @@ childdeath_with_period <- childdeath_typed %>%
   ))
 ```
 
-```{r}
+```{r include=FALSE}
 # Step Summarise average child deaths per region and period
 avg_childdeath_by_period <- childdeath_with_period %>%
 filter(!is.na(Period)) %>%
@@ -338,7 +362,7 @@ filter(!is.na(Period)) %>%
 
 # 3.25 merge datasets together
 
-```{r}
+```{r include=FALSE}
 # Recode WHO region codes to match full region names used in other datasets
 DTPcoverage <- DTPcoverage %>%
   mutate(
@@ -357,7 +381,7 @@ DTPcoverage <- DTPcoverage %>%
   rename(Period = PeriodGroup)
 ```
 
-```{r}
+```{r include=FALSE}
 # Merge all three datasets by Region and Period
 merged_health_data <- avg_healthspending_by_period %>%
   inner_join(DTPcoverage, by = c("Region", "Period")) %>%
@@ -381,28 +405,17 @@ merged_healthdata_df <- as.data.frame(merged_health_data)
 
 ## 3.3 Visualize temporal variation
 
-```{r}
+```{r include=FALSE}
 library(ggplot2)
 library(hrbrthemes)
 
-ggplot(merged_healthdata_df, aes(x = AvgSpending, y = AvgCoverage)) +
-  geom_point( size = 3) +
-  geom_smooth(method=lm , color="red", se=FALSE) +
-  labs( 
-    title = "The average linear relationship between HS and VC over a period of 5 years", x = "Average Health Spending (USD per Capita)", y = "Average Vaccination Coverage (%)"
-        ) 
-
-ggplot(merged_healthdata_df, aes(x = AvgChildDeath, y = AvgCoverage)) +
-  geom_point( size = 3) +
-  geom_smooth(method=lm , color="magenta", se=FALSE) +
-  labs( 
-    title = "The average linear relationship between CD and VC over a period of 5 years", x = "Average Child Death", y = "Average Vaccination Coverage (%)"
-        ) 
 merged_healthdata_df$Period <- factor(
   merged_healthdata_df$Period,
   levels = c("2000–2004", "2005–2009", "2010–2014", "2015–2019", "2020–2022")
 )
+```
 
+```{r echo=FALSE}
 ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group = Region, color = Region)) +
   geom_line(size = 1) +      
   geom_point(size = 2) +     
@@ -434,7 +447,7 @@ p2 \<- ggplot(data, aes(x=my_x, y=my_y)) + geom_point() + geom_smooth(method=lm 
 
 ## 3.4 Visualize spatial variation
 
-```{r visualise_map}
+```{r include=FALSE}
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
@@ -466,7 +479,9 @@ coverage_mapdata <- merged_health_data %>%
 
 # Voeg echte vaccinatiecijfers toe aan wereldkaart
 world <- left_join(world, coverage_mapdata, by = "WHORegion")
+```
 
+```{r visualise_map, echo=FALSE}
 # Plot choropleth map met echte vaccinatiecijfers
 ggplot(world) +
   geom_sf(aes(fill = AvgCoverage), color = "white", size = 0.2) +
@@ -503,7 +518,7 @@ ggplot(world) +
 
 ## 3.5 Visualize sub-population variation
 
-```{r visualise_map}
+```{r include=FALSE}
 library(tidyverse)
 library(readxl)
 library(ggplot2)
@@ -584,7 +599,9 @@ plot_data <- grouped_summary %>%
                values_to = "Value")
 plot_data <- plot_data %>%
   mutate(FillGroup = paste(Group, Metric, sep = " - "))
+```
 
+```{r visualise_map, echo=FALSE}
 ggplot(plot_data, aes(x = Group, y = Value, fill = FillGroup)) +
   geom_col(position = "dodge") +
   geom_text(aes(label = round(Value, 1)), 
@@ -620,7 +637,7 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 ## 3.6 Event analysis
 
-```{r}
+```{r echo=FALSE}
 # Take the temporal variation plots and add a vertical line at 2015-2019
 ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group = Region, color = Region)) +
   geom_line(size = 1) +      
@@ -663,4 +680,22 @@ Provide the link to your PUBLIC repository here: ...
 
 ## 5.2 Reference list
 
-Use APA referencing throughout your document.
+**References**
+
+Our World in Data. (n.d.). *Deaths caused by vaccine-preventable diseases, World*. Retrieved from Our World in Data: <https://ourworldindata.org/grapher/deaths-caused-by-vaccine-preventable-diseases-over-time>
+
+unicef. (2024, July). *Immunization*. Retrieved from unicef: <https://data.unicef.org/topic/child-health/immunization/>
+
+UNICEF. (2024, March). *Vaccination & Immunization Statistics - UNICEF Data*. Retrieved from UNICEF: <https://knowledge.unicef.org/resource/vaccination-immunization-statistics-unicef-data>
+
+UNICEF. (n.d.). *Vaccines and the diseases they prevent*. Retrieved from UNICEF: <https://www.unicef.org/parenting/health/vaccines-and-diseases-they-prevent>
+
+WHO. (2023). *global.* Retrieved from immunizationdata: [https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=](https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=)
+
+WHO. (2023). *Indicators.* Retrieved from who: <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths>
+
+WHO. (2025). *Health expenditure.* Retrieved from who: [https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar](https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar)
+
+WHO Media Team. (2025, April 24). *Increases in vaccine-preventable disease outbreaks threaten years of progress, warn WHO, UNICEF, Gavi* . Retrieved from World Health Organization: <https://www.who.int/news/item/24-04-2025-increases-in-vaccine-preventable-disease-outbreaks-threaten-years-of-progress--warn-who--unicef--gavi>
+
+Xinhu Wang; Mamadou Diallo. (2019, September 24). *UNICEF*. Retrieved from How tracking DTP vaccine dropout rates helps protect children from preventable diseases: <https://data.unicef.org/data-for-action/tracking-dtp-vaccine-dropout-rates-protects-children-from-preventable-diseases/>
