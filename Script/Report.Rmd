@@ -532,11 +532,27 @@ Finally, the dollar per coverage point data shows a sudden spike in costs, which
 
 ### Interpretation and Relevance
 
-Over the course of the analysis of the relation between all four graphs and COVID-19, strong temporal evidence has come to light, hinting a pandemic-related causation rather than coincidental trends. This challenges theories which assume stable and linear relationships between government healthcare spending and vaccination coverages
+Over the course of the analysis of the relation between all four graphs and COVID-19, strong temporal evidence has come to light, hinting a pandemic-related causation rather than coincidental trends. This challenges theories which assume stable and linear relationships between government healthcare spending and vaccination coverages. Three key insights emerge from the analysis:
+
+Crisis-state exception: Traditional vaccination coverage models operate under the assumption of stability and predictability, meaning that major disruptions such as COVID-19 can crumble healthcare systems if these are not equipped with dynamic frameworks addressing both normal and crisis-states.
+
+System resilience hierarchy: An unrecognized hiearchy of system resilience between regions emerged with this study, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (source https://pubmed.ncbi.nlm.nih.gov/38963883/) demonstrated certain poorer areas have superior crisis adaptability compared to other highly bureacratic systems in richer countries. This insights allows for the discussion diving into the potential vulnerability that comes with highly institutionalized systems.
+
+Resource Mobilization Capacity: The cost spike related to supply chain disruptions highlights the importance of rapidly scaling spending in response to crises. Similar to Keynes' view, this insight challenges static spending-outcome models by introducing varied increase in resources as a better option.
+
+One key takeaway from the study is how resilient delivery systems are key to react to sudden disruptors. The superior performance of community-based systems might lead to conversations on how even more developed countries should emphasize on decentralized, locally-controlled delivery mechanisms to maintain healthcare standards during major events. 
+
+Furthemore over-sophisticated health systems and its shortcomings could direct policy makers to evaluate the efficiency advantages or disadvantages of complex and integrated systems. Finally, the varied regional responses to the pandemic era disclose poor international coordination, with each region managing responses independently. Advocating once more for more flexible, decentralized international response frameworks. 
 
 # Discussion
 
----
+Our most significant finding was that sophisticated, well-funded healthcare systems suffered the greatest efficiency losses during the pandemic, whereas simpler, less-funded systems proved resilience. Europe maintained >90% coverage but had dramatic cost increases from $25 to $31 per coverage point during COVID. On the other hand, african regions maintained stable child deaths per spending ratios despite having the lowest spending levels.
+
+Traditional income classifications were deemed flawed to predict pandemic resilience. In turn, system design characteristics such as degree of centralization and institutional complexity became the main differentiator between regions' adaptability to extremely impactful events. Community-based systems' adaptive capacity prevailed over highly institutionalized systems' tendency to create multiple failure points, requiring major resource mobilization.
+
+Pre-pandemic data showed a predictable improvement amongst all regions, but when the pandemic struck, dramatic changes were observed that altered spending-outcome relationships. 
+
+The findings of this study challenge core health economics assumptions and suggests the need for dynamic models, capable to adapt to stable and unstable environments. For policy implementation, the superior performance of community-based systems drags the topic of pandemic preparedness to a more decentralized approach. 
 
 # Reproducibility
 
