@@ -1,0 +1,1093 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={DTP coverage},
+  pdfauthor={Tristan Verbeek, 2864049},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{DTP coverage}
+\author{Tristan Verbeek, 2864049}
+\date{2025-06-19}
+
+\begin{document}
+\maketitle
+
+\section{Set-up your environment}\label{set-up-your-environment}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.2     v tibble    3.3.0
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.0.4     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Title Page}\label{title-page}
+
+By: G.J.R. Weydemuller (student number)
+
+L. Waaijenberg (2862154)
+
+P. Gandra Rodrigues (2870539)
+
+Q. Faber (2861921)
+
+R.A. Kali (2850680)
+
+T. Adam (student number)
+
+T.M.V. Verbeek (student number)
+
+Tutor: J.F. Fitzgerald
+
+Tutorial group: Tutorial group 1
+
+Course: Programming for Economists
+
+Institute: Vrije Universiteit Amsterdam
+
+\section{Part 1 - Identify a Social
+Problem}\label{part-1---identify-a-social-problem}
+
+Use APA referencing throughout your document.
+\href{https://www.mendeley.com/guides/apa-citation-guide/}{Here's a link
+to some explanation.}
+
+\subsection{1.1 Describe the Social
+Problem}\label{describe-the-social-problem}
+
+\subsection{Why is DTP vaccination a social
+problem?}\label{why-is-dtp-vaccination-a-social-problem}
+
+DTP vaccination, protecting against diphtheria, tetanus, and pertussis,
+is a cornerstone of global public health. It is one of the most
+cost-effective interventions, preventing an estimated 4.4 million deaths
+annually (unicef, 2024). Despite its proven effectiveness and inclusion
+in nearly all national immunization schedules, millions of children
+worldwide remain under-vaccinated or entirely unvaccinated. In 2023
+alone, approximately 21 million children were either unvaccinated or
+under-vaccinated, with 14.5 million receiving no vaccines at all
+(unicef, 2024). This gap in coverage leads to preventable illness,
+long-term disability, and death, particularly in low- and middle-income
+countries (Our World in Data, sd). The issue is not merely medical but
+deeply social, as it reflects and reinforces inequalities in access to
+healthcare, education, and infrastructure (unicef, 2024).
+
+Vaccination coverage is also a proxy for the strength of a country's
+healthcare system. Low DTP coverage often signals broader systemic
+issues such as poverty, conflict, misinformation, and weak governance.
+These factors disproportionately affect vulnerable populations, making
+DTP vaccination a critical indicator of social justice and equity
+(unicef, 2024).
+
+Research question: ``How does government healthcare spending per capita
+correlate with national vaccination coverage rates for routine
+immunizations in low-, middle-, and high-income countries?''
+
+\subsection{Sources identifying DTP vaccination as a social
+problem}\label{sources-identifying-dtp-vaccination-as-a-social-problem}
+
+World Health Organization (WHO) and UNICEF have jointly warned that
+vaccine-preventable diseases, including diphtheria, are resurging due to
+declining immunization coverage, misinformation, and funding cuts. They
+emphasize that millions of children are at risk, and urgent investment
+in immunization is needed to prevent a reversal of decades of progress
+(WHO Media Team, 2025).
+
+UNICEF outlines the severe consequences of DTP-preventable diseases.
+Diphtheria can cause heart and nerve damage, tetanus is often fatal even
+with treatment, and pertussis can lead to pneumonia and death in
+infants. These diseases disproportionately affect children in
+low-resource settings, highlighting the social dimension of
+under-vaccination~(UNICEF, sd).
+
+A UNICEF data report on DTP vaccine dropout rates shows that millions of
+children start but do not complete the DTP series. This dropout is
+especially prevalent in low-income countries and is linked to systemic
+barriers such as healthcare access, education, and infrastructure (Wang;
+et al., 2019).
+
+\subsection{What has not been fully
+researched}\label{what-has-not-been-fully-researched}
+
+While many studies have examined DTP coverage and its determinants,
+there is limited comparative analysis across income groups that links
+government healthcare spending per capita directly to national DTP
+vaccination rates. Most existing research focuses on either micro-level
+determinants (e.g., parental education, rural access) or macro-level
+trends without integrating economic policy variables. UNICEF notes that
+while DTP3 coverage is widely used as a marker of how well countries
+provide routine immunization, disparities persist, and economic factors
+such as national healthcare investment are often underexplored in
+comparative frameworks (UNICEF, 2024).
+
+\subsection{Contribution of this
+report}\label{contribution-of-this-report}
+
+This report aims to fill that gap by analyzing how government healthcare
+spending correlates with DTP vaccination coverage across low-, middle-,
+and high-income countries. This research will provide new insights into
+whether increased public investment in health translates into better
+immunization outcomes. This could inform both global health policy and
+economic development strategies, especially in resource-constrained
+settings.
+
+\section{Part 2 - Data Sourcing}\label{part-2---data-sourcing}
+
+\subsection{2.1 Load in the data}\label{load-in-the-data}
+
+Source 1 (DTP vaccination coverage):
+\url{https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=}
+
+Source 2 (Government healthcare spending):
+\url{https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar}
+
+Source 3 (Child death rates):
+\url{https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(raw\_healthspending\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            IndicatorCode                                          Indicator
+## 1 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+## 2 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+## 3 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+## 4 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+## 5 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+## 6 GHED_CHE_pc_US_SHA2011 Current health expenditure (CHE) per capita in US$
+##   ValueType ParentLocationCode ParentLocation Location.type SpatialDimValueCode
+## 1   numeric             GLOBAL         Global    WHO region                 AMR
+## 2   numeric             GLOBAL         Global    WHO region                 AFR
+## 3   numeric             GLOBAL         Global    WHO region                 WPR
+## 4   numeric             GLOBAL         Global    WHO region                SEAR
+## 5   numeric             GLOBAL         Global    WHO region                 EUR
+## 6   numeric             GLOBAL         Global    WHO region                 EMR
+##                Location Period.type Period IsLatestYear Dim1.type Dim1
+## 1              Americas        Year   2022         true        NA   NA
+## 2                Africa        Year   2022         true        NA   NA
+## 3       Western Pacific        Year   2022         true        NA   NA
+## 4       South-East Asia        Year   2022         true        NA   NA
+## 5                Europe        Year   2022         true        NA   NA
+## 6 Eastern Mediterranean        Year   2022         true        NA   NA
+##   Dim1ValueCode Dim2.type Dim2 Dim2ValueCode Dim3.type Dim3 Dim3ValueCode
+## 1            NA        NA   NA            NA        NA   NA            NA
+## 2            NA        NA   NA            NA        NA   NA            NA
+## 3            NA        NA   NA            NA        NA   NA            NA
+## 4            NA        NA   NA            NA        NA   NA            NA
+## 5            NA        NA   NA            NA        NA   NA            NA
+## 6            NA        NA   NA            NA        NA   NA            NA
+##   DataSourceDimValueCode DataSource FactValueNumericPrefix FactValueNumeric
+## 1                     NA         NA                     NA           1256.0
+## 2                     NA         NA                     NA            132.6
+## 3                     NA         NA                     NA           1364.0
+## 4                     NA         NA                     NA            241.0
+## 5                     NA         NA                     NA           2938.0
+## 6                     NA         NA                     NA            544.2
+##   FactValueUoM FactValueNumericLowPrefix FactValueNumericLow
+## 1           NA                        NA                  NA
+## 2           NA                        NA                  NA
+## 3           NA                        NA                  NA
+## 4           NA                        NA                  NA
+## 5           NA                        NA                  NA
+## 6           NA                        NA                  NA
+##   FactValueNumericHighPrefix FactValueNumericHigh   Value
+## 1                         NA                   NA 1256.40
+## 2                         NA                   NA  132.58
+## 3                         NA                   NA 1363.92
+## 4                         NA                   NA  240.99
+## 5                         NA                   NA 2937.83
+## 6                         NA                   NA  544.24
+##   FactValueTranslationID FactComments Language             DateModified
+## 1                     NA           NA       EN 2024-12-09T23:00:00.000Z
+## 2                     NA           NA       EN 2024-12-09T23:00:00.000Z
+## 3                     NA           NA       EN 2025-04-03T22:00:00.000Z
+## 4                     NA           NA       EN 2025-04-03T22:00:00.000Z
+## 5                     NA           NA       EN 2024-12-09T23:00:00.000Z
+## 6                     NA           NA       EN 2024-12-09T23:00:00.000Z
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(raw\_coverage\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##   GROUP       CODE  NAME      YEAR ANTIGEN ANTIGEN_DESCRIPTION COVERAGE_CATEGORY
+##   <chr>       <chr> <chr>    <dbl> <chr>   <chr>               <chr>            
+## 1 WHO_REGIONS AFR   African~  2023 DTPCV3  DTP-containing vac~ WUENIC           
+## 2 WHO_REGIONS EMR   Eastern~  2023 DTPCV3  DTP-containing vac~ WUENIC           
+## 3 WHO_REGIONS EUR   Europea~  2023 DTPCV3  DTP-containing vac~ WUENIC           
+## 4 WHO_REGIONS AMR   Region ~  2023 DTPCV3  DTP-containing vac~ WUENIC           
+## 5 WHO_REGIONS SEAR  South-E~  2023 DTPCV3  DTP-containing vac~ WUENIC           
+## 6 WHO_REGIONS AFR   African~  2022 DTPCV3  DTP-containing vac~ WUENIC           
+## # i 4 more variables: COVERAGE_CATEGORY_DESCRIPTION <chr>, TARGET_NUMBER <dbl>,
+## #   DOSES <dbl>, COVERAGE <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inline\_code }\OtherTok{=} \ConstantTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{2.2 Provide a short summary of the
+dataset(s)}\label{provide-a-short-summary-of-the-datasets}
+
+\textbf{Source 1: DTP Vaccination Coverage}
+
+- Credibility: This dataset is published by the WHO/UNICEF Estimates of
+National Immunization Coverage (WUENIC), the leading global authority on
+public health. WHO collaborates with national governments and UNICEF to
+compile and validate immunization data (World Health Organization,
+2024).
+
+- Data Quality: The data is based on a combination of administrative
+data, household surveys, and expert review. This triangulation improves
+accuracy and reliability.
+
+- Relevance: It directly provides the DTP3 coverage rates, which are
+central to your research question. The data is also disaggregated by
+region and year, allowing for temporal and cross-regional analysis.
+
+\textbf{Source 2: Government Healthcare Spending}
+
+- Credibility: The World Bank is a globally respected institution that
+provides standardized economic and development data. It sources health
+expenditure data from the WHO Global Health Expenditure Database (World
+Bank, 2024).
+
+- Data Quality: The data is collected using internationally accepted
+methodologies and is updated annually. It includes consistent
+country-level indicators, making it ideal for cross-country comparisons.
+
+- Relevance: This dataset provides the independent variable in your
+analysis---government health spending per capita---which you are
+correlating with vaccination coverage.
+
+\textbf{Source 3: Child Death Rates}
+
+- Credibility: This data is also from the World Health Organization,
+specifically its Global Health Observatory (GHO), which is the main
+repository for WHO's health-related statistics (World Health
+Organization, 2024).
+
+- Data Quality: The under-five mortality data is compiled from national
+vital registration systems, surveys, and statistical modeling, and is
+reviewed by global health experts.
+
+- Relevance: While not part of your main correlation analysis, this
+dataset provides valuable contextual insight into the broader social
+impact of vaccination coverage and healthcare investment.
+
+\subsection{Complementarity of the
+Datasets}\label{complementarity-of-the-datasets}
+
+These datasets are complementary in structure and purpose:
+
+· The~DTP dataset~provides the~dependent variable~(vaccination
+coverage).
+
+· The~health spending dataset~provides the~independent
+variable~(government health expenditure per capita).
+
+· The child death dataset provides the independent variable (child
+death)
+
+Together, they allow for a cross-country analysis of how public
+investment in health and child death correlates with immunization
+outcomes.
+
+\subsection{Suitability for the Research
+Topic}\label{suitability-for-the-research-topic}
+
+The research question investigates the relationship between government
+healthcare spending and DTP vaccination coverage across income groups.
+These datasets are ideal because:
+
+· They are~comprehensive and global, enabling cross-country comparisons.
+
+· They are~updated annually, supporting time-series or cross-sectional
+analysis.
+
+· They are~standardized and well-documented, ensuring data quality and
+reproducibility.
+
+\subsection{Data Limitations}\label{data-limitations}
+
+Despite their strengths, the datasets have limitations:
+
+WHO DTP Coverage \& WHO child death:
+
+· Some countries have~missing or estimated values, especially in
+conflict zones.
+
+· Coverage estimates may be influenced by~reporting biases~or~survey
+recall errors.
+
+· The data may not fully reflect~subnational disparities~in vaccination
+access.
+
+World Bank Health Spending:
+
+· Spending data are in~current US dollars, which may be affected by
+inflation and exchange rate fluctuations.
+
+· The data do not indicate~how funds are allocated~(e.g., toward
+immunization vs.~other services).
+
+· Some countries have~incomplete or outdated records~for recent years.
+
+These limitations mean that while the analysis can reveal correlations,
+it cannot establish causality or account for all contextual factors.
+
+\subsection{2.3 Describe the type of variables
+included}\label{describe-the-type-of-variables-included}
+
+WHO DTP Vaccination Coverage:
+
+\begin{itemize}
+\item
+  Antigen: DTP 1 and DTP3
+\item
+  Coverage: vaccinated target population
+\item
+  Units: percentage
+\item
+  Target\_Pop: target population for the given vaccine
+\item
+  Years Covered: 1980--2023
+\item
+  Region: WHO regions
+\item
+  Frequency: Annual
+\item
+  Source: WHO/UNICEF Joint Reporting Form and surveys (e.g., DHS, MICS)
+\item
+  Estimation Method: Combination of administrative data, surveys, and
+  expert review.
+\end{itemize}
+
+World Bank Health Spending:
+
+\begin{itemize}
+\item
+  Indicator: Current health expenditure per capita
+\item
+  Years Covered: 2000--2023
+\item
+  Region: WHO regions
+\item
+  Frequency: Annual
+\item
+  Units: US dollars
+\item
+  Source: WHO Global Health Expenditure
+  Database\hyperref[_msocom_1]{{[}KR(1{]}}~
+\end{itemize}
+
+WHO child deaths among children under five:
+
+\begin{itemize}
+\item
+  Indicator: Mortality rate under children under five
+\item
+  Target\_Pop: population of children aged 0--4 years
+\item
+  Years covered: 1980-2023
+\item
+  Region: WHO regions
+\item
+  Frequency: Annual
+\item
+  Source: WHO/UNICEF GHO, national civil registration, surveys (DHS,
+  MICS)
+\item
+  Estimation method: Combination of available national data (CRVS,
+  surveys) and adjustments by statistical methods and expert review.
+\end{itemize}
+
+\section{Part 3 - Quantifying}\label{part-3---quantifying}
+
+\subsection{3.1 Data cleaning}\label{data-cleaning}
+
+\subsubsection{Health Spending Data}\label{health-spending-data}
+
+We began by selecting the relevant columns from the raw health spending
+dataset and renaming them for clarity. We also ensured that the
+\texttt{Year} and \texttt{Spending} columns were numeric to support
+time-based analysis. This step was essential to align the data with the
+DTP vaccination dataset, which also uses \texttt{Region} and
+\texttt{Year} as key identifiers.
+
+\subsubsection{DTP Vaccination Coverage
+Data}\label{dtp-vaccination-coverage-data}
+
+Next, we filtered the immunization dataset to include only WHO regions
+and WUENIC estimates, which are considered the most reliable. We also
+created a new variable, \texttt{PeriodGroup}, to group years into
+meaningful intervals for trend analysis. This transformation allows us
+to analyze changes in vaccination coverage over time in a more
+interpretable way.
+
+\subsubsection{Child Mortality Data}\label{child-mortality-data}
+
+We also prepared the child mortality dataset by selecting and renaming
+relevant columns, and converting values to numeric types. This ensures
+that the dataset can be merged with the others on \texttt{Region} and
+\texttt{Year}.
+
+\subsubsection{Error Handling and Fixes}\label{error-handling-and-fixes}
+
+During the cleaning process, we encountered several common issues:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Missing values (\texttt{NA})}: These were removed using
+  \texttt{na.omit()} or filtered out using \texttt{filter(!is.na(...))}
+  to ensure clean merges.
+\item
+  \textbf{Non-numeric values}: Some columns were read as character types
+  and had to be converted using \texttt{as.numeric()}.
+\item
+  \textbf{Inconsistent region names}: We verified that region names
+  matched across datasets. In an ideal scenario, standardized region
+  codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.
+\item
+  \textbf{Data alignment}: We ensured that all datasets used the same
+  time format and level of aggregation (annual, by WHO region).
+\end{itemize}
+
+\subsection{3.2 Generate necessary
+variables}\label{generate-necessary-variables}
+
+To analyze trends over time, we created a \textbf{period variable} for
+each dataset to group years into meaningful intervals. This allows us to
+compare average values across consistent time blocks.
+
+\subsubsection{Health Spending}\label{health-spending}
+
+We created a new variable \texttt{Period} in the health spending dataset
+using \texttt{mutate()} and \texttt{case\_when()}. We then calculated
+the \textbf{average health spending} per region and period.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Variables used}: \texttt{Spending}, \texttt{Region},
+  \texttt{Period}~
+\item
+  \textbf{Purpose}: Calculates average health spending per region and
+  period.~
+\item
+  \textbf{Usefulness}: Highlights regional differences and trends in
+  health investment.~
+\item
+  \textbf{Intended analysis}: Visualize and compare health spending
+  across time and regions.
+\end{itemize}
+
+\subsubsection{DTP Vaccination Coverage}\label{dtp-vaccination-coverage}
+
+For the DTP dataset, we used an existing variable \texttt{PeriodGroup}
+(created earlier) and calculated the \textbf{average vaccination
+coverage} per region and period.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Variables used}: \texttt{Coverage}, \texttt{Region},
+  \texttt{PeriodGroup}~
+\item
+  \textbf{Purpose}: Computes average DTP vaccine coverage per region and
+  period.~
+\item
+  \textbf{Usefulness}: Evaluates immunization program effectiveness.~
+\item
+  \textbf{Intended analysis}: Track vaccine coverage trends and relate
+  to health outcomes
+\end{itemize}
+
+\subsubsection{Child Mortality}\label{child-mortality}
+
+We also created a \texttt{Period} variable for the child mortality
+dataset. We then summarized the \textbf{average number of child deaths}
+per region and period:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Variables used}: \texttt{Deaths}, \texttt{Region},
+  \texttt{Period}\\
+\item
+  \textbf{Purpose}: Calculates average child deaths per region and
+  period.\\
+\item
+  \textbf{Usefulness}: Measures health outcomes and can be linked to
+  spending and coverage.\\
+\item
+  \textbf{Intended analysis}: Identify regions with high or declining
+  child mortality and explore correlations.
+\end{itemize}
+
+These variables allow us to compare trends in health spending,
+vaccination coverage, and child mortality across WHO regions and over
+time.
+
+\section{3.25 merge datasets together}\label{merge-datasets-together}
+
+\subsection{3.3 Visualize temporal
+variation}\label{visualize-temporal-variation}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/unnamed-chunk-11-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/unnamed-chunk-11-2.pdf}}
+
+\subsubsection{Temporal Trends in Health Investment and
+Outcomes}\label{temporal-trends-in-health-investment-and-outcomes}
+
+These two line graphs visualize how healthcare efficiency and outcomes
+have evolved across WHO regions over five-year periods from 2000 to
+2022. They align closely with the research question by showing how
+healthcare spending relates to vaccination coverage and child mortality
+over time.
+
+\paragraph{Graph 1: Child Deaths per Spending over
+Time}\label{graph-1-child-deaths-per-spending-over-time}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{What it shows}: The number of child deaths per unit of
+  healthcare spending.
+\item
+  \textbf{Trend}: A clear downward trend across all regions, indicating
+  improved outcomes per dollar spent.
+\item
+  \textbf{Notable pattern}: Africa and Europe show the most significant
+  declines, suggesting major gains in healthcare efficiency or
+  effectiveness.
+\item
+  \textbf{Interpretation}: This trend reflects global progress in
+  reducing child mortality, likely due to better-targeted spending,
+  improved healthcare delivery, and expanded immunization coverage.
+\end{itemize}
+
+\paragraph{Graph 2: Dollar per Coverage Point over
+Time}\label{graph-2-dollar-per-coverage-point-over-time}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{What it shows}: The average cost (in USD) required to increase
+  DTP3 vaccination coverage by one percentage point.
+\item
+  \textbf{Trend}: Most regions show a relatively stable or slightly
+  increasing cost over time.
+\item
+  \textbf{Notable pattern}: The Western Pacific region shows a
+  significant increase in cost per coverage point in recent years,
+  suggesting rising marginal costs or reduced efficiency.
+\item
+  \textbf{Interpretation}: While some regions maintain
+  cost-effectiveness, others may be facing diminishing returns on
+  investment in immunization programs.
+\end{itemize}
+
+\paragraph{Comparison and Dynamics}\label{comparison-and-dynamics}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Efficiency vs.~Outcome}: While the cost of achieving
+  additional vaccination coverage is rising or stabilizing, the impact
+  of spending on reducing child deaths is improving.
+\item
+  \textbf{Temporal Insight}: These trends highlight the evolving
+  dynamics of global health investment---where spending may be
+  increasing, but so is its effectiveness in saving lives.
+\end{itemize}
+
+\paragraph{Implications}\label{implications}
+
+\begin{itemize}
+\tightlist
+\item
+  Policymakers should consider both cost and outcome metrics when
+  evaluating healthcare strategies.
+\item
+  The rising cost per coverage point in some regions may call for more
+  efficient delivery models or targeted interventions.
+\item
+  The declining child deaths per spending metric is a positive signal of
+  global health progress and a justification for continued investment.
+\end{itemize}
+
+\subsection{3.4 Visualize spatial
+variation}\label{visualize-spatial-variation}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/unnamed-chunk-13-1.pdf}}
+
+\subsubsection{Spatial Analysis of DTP3 Vaccination Coverage
+(2020--2022)}\label{spatial-analysis-of-dtp3-vaccination-coverage-20202022}
+
+This world map visualizes average DTP3 vaccination coverage by WHO
+region from 2020 to 2022, using a color gradient from purple (60\%) to
+yellow (100\%). The map reveals clear regional disparities: high-income
+regions such as Europe and the Western Pacific generally exhibit higher
+coverage (light green to yellow), while lower-income regions like Africa
+and parts of the Eastern Mediterranean show lower coverage (purple to
+blue).
+
+\paragraph{Spatial Anomalies and Regional
+Comparisons}\label{spatial-anomalies-and-regional-comparisons}
+
+Notably, some middle-income regions, such as parts of South-East Asia,
+achieve relatively high coverage despite lower spending levels,
+suggesting efficient immunization programs. Conversely, certain
+countries in the Americas show unexpectedly moderate coverage despite
+higher average spending, indicating potential inefficiencies or access
+barriers.
+
+\paragraph{Interpretation and Mapping
+Critique}\label{interpretation-and-mapping-critique}
+
+The map effectively communicates broad regional trends but may obscure
+within-region variation due to aggregation. For example, large countries
+with internal disparities (e.g., India, Brazil) are represented by a
+single color, which may oversimplify complex national dynamics.
+Additionally, the use of discrete color bands may exaggerate differences
+between countries near category thresholds.
+
+\paragraph{Mapping Choices}\label{mapping-choices}
+
+While the color scheme is intuitive and accessible, a continuous
+gradient or country-level granularity could enhance interpretability.
+Including data labels or interactive elements (in a web-based version)
+would further support detailed analysis. Despite these limitations, the
+map serves as a compelling visual summary of global immunization equity
+and supports the research question by highlighting spatial patterns in
+vaccination coverage relative to regional healthcare investment.
+
+\subsection{3.5 Visualize sub-population
+variation}\label{visualize-sub-population-variation}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/visualise_map-1.pdf}}
+
+\subsubsection{Subgroup Analysis: Top vs Bottom 3 WHO Regions
+(2022)}\label{subgroup-analysis-top-vs-bottom-3-who-regions-2022}
+
+This bar chart compares the top 3 and bottom 3 WHO regions based on
+average healthcare spending per capita in 2022. It visualizes three key
+metrics:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Average Health Spending (USD per capita)}
+\item
+  \textbf{Average DTP3 Vaccination Coverage (\%)}
+\item
+  \textbf{Average Child Deaths}
+\end{itemize}
+
+\paragraph{Alignment with Research
+Topic}\label{alignment-with-research-topic}
+
+This visualization directly supports the research question:\\
+\emph{``How does government healthcare spending per capita correlate
+with national vaccination coverage rates for routine immunisations?''}
+
+By dividing regions into high- and low-spending groups, the plot
+highlights how investment levels relate to health outcomes across
+sub-populations.
+
+\paragraph{Group Differences
+(Quantified)}\label{group-differences-quantified}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Metric & Top 3 Regions & Bottom 3 Regions & Difference \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Spending & \$1852.7 & \$305.9 & +\$1546.8 \\
+Coverage & 91\% & 82\% & +9\% \\
+Child Deaths & 149,154.7 & 1,516,736.3 & −1,367,581.6 \\
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  Top 3 regions spend over \textbf{6 times more} per capita on
+  healthcare.
+\item
+  They achieve \textbf{9 percentage points higher} vaccination coverage.
+\item
+  They experience nearly \textbf{10 times fewer} child deaths.
+\end{itemize}
+
+\paragraph{Evaluation of Subgroup
+Analysis}\label{evaluation-of-subgroup-analysis}
+
+This subgroup comparison reveals a clear gradient: higher spending is
+associated with better vaccination outcomes and significantly lower
+child mortality. The differences are not only statistically meaningful
+but also socially and ethically significant, especially in the context
+of global health equity.
+
+\paragraph{Implications}\label{implications-1}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Policy Insight}: The data suggests that increasing healthcare
+  investment in underfunded regions could substantially improve
+  immunization coverage and reduce child mortality.
+\item
+  \textbf{Equity Concern}: The stark contrast in child death rates
+  underscores the urgent need for targeted support in low-spending
+  regions.
+\item
+  \textbf{Further Research}: This analysis invites deeper exploration
+  into how efficiently funds are used and what other systemic factors
+  (e.g., governance, infrastructure) influence outcomes.
+\end{itemize}
+
+\subsection{3.6 Event analysis}\label{event-analysis}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/unnamed-chunk-15-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Template_Assignment_files/figure-latex/unnamed-chunk-15-2.pdf}}
+Applying the findings related to the correlation between government
+healthcare spending per capita and national vaccination coverage rates
+worldwide, we can analyse a critical event period from 2020 to 2022
+which relates to the COVID-19 pandemic. Unlike gradual policy reforms
+during the 2010-2014 period such as GAVI's (source
+\url{https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015})
+innovative financing mechanisms which introduced market-based incentives
+to lower vaccine pricing and availability structure, the pandemic
+created an acute simultaneous shock to every healtchare system
+worldwide. This situation enables a unique opportunity to examine how
+external crises affect government healthcare spending per capita and
+national vaccination coverage rates worldwide.
+
+During COVID-19 routine immunizations were suspended or decreased as
+worldwide healthcare systems had to respond to the pandemic, meaning
+that regardless of funding levels directed to vaccinations, their
+coverage still dropped. (source
+\url{https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef}).
+
+Due to global lockdowns and border restrictions another major disruption
+was on the supply chain, as the struggle to transport vaccinations
+across borders and maintain cold storage systems increased, leading to
+decreased vaccination availability. Increasingly relevant to this study,
+a decrease in 7.7\% DTP3 vaccine coverage worldwide was recognized
+compared to expected doses delivered in the absence of COVID. (source
+\url{https://www.thelancet.com/article/S0140-6736\%2821\%2901337-4/fulltext})
+
+The child deaths per spending data reveals a steady improvement
+trajectory up until before COVID-19 where regions started to show signs
+of stagnation. African regions kept stable child deaths per spending
+through the pandemic which suggests this region had resilience
+strategies such as communtiy health worker programs which focused on
+under-five care while more formal systems were focused on COVID related
+health issues. Regardless of staffing shortages and movement
+restriction, these pre-established networks prevented many childrens'
+deaths in this region. (source
+\url{https://pubmed.ncbi.nlm.nih.gov/38963883/}) This data might however
+have overstated results as it may reflect COVID-19 related deaths and
+healthcare access disruptions which caused an increased number of infant
+mortality, complciating the interepretation of spending efficiency
+across this time period.
+
+The global coverage map strucks with regional disparities during the
+2020-2022 period, ranging from 60\% to close to 100\% in some WHO
+regions. This suggests that pre-existing health care systems' resilience
+and adaptive mechanisms worldwide varied greatly upon facing the
+pandemic. Whereas most childhood vaccines declined in coverage
+worldwide, it was more prominent in low and lower-middle income
+countries (source
+\url{https://pmc.ncbi.nlm.nih.gov/articles/PMC10249397/}?) , which
+reinstates that more developed countries with better precautionary
+health systems can keep a more stable vaccination coverage even during
+more strenuous moments on the healthcare system.
+
+Similarly the comparison between subpopulations shows how bottom
+performing regions, namely africa, maintained a 82\% coverage during the
+pandemic while top performing regions achieved 91\%. This data aligns
+with the previous graph, showing that stronger health systems in Europe
+can much better mitigate coverage maintenance challenges compared to
+African regions.
+
+Finally, the dollar per coverage point data shows a sudden spike in
+costs, which suggests that it became much more expensive to maintain
+coverage during the pandemic. The aforementioned supply chain disruption
+provides an explanation to this spike. Service suspensions and
+supply-chain delays caused vaccination volumes to drop, meaning that the
+delivery costs such as personnel and cold chains had to be spread over
+fewer doses, signficantly increasing the per-point cost.
+
+Here you provide a description of why the plot above is relevant to your
+specific social problem.
+
+\section{Part 4 - Discussion}\label{part-4---discussion}
+
+Over the course of the analysis of the relation between all four graphs
+and COVID-19, strong temporal evidence has come to light, hinting a
+pandemic-related causation rather than coincidental trends. This
+challenges theories which assume stable and linear relationships between
+government healthcare spending and vaccination coverages. Three key
+insights emerge from the analysis:
+
+Crisis-state exception: Traditional vaccination coverage models operate
+under the assumption of stability and predictability, meaning that major
+disruptions such as COVID-19 can crumble healthcare systems if these are
+not equipped with dynamic frameworks addressing both normal and
+crisis-states.
+
+System resilience hierarchy: An unrecognized hiearchy of system
+resilience between regions emerged with this study, slicing through
+traditional income classifications. Community-based delivery systems
+such as the ones in Rwanda and Bangladesh (source
+\url{https://pubmed.ncbi.nlm.nih.gov/38963883/}) demonstrated certain
+poorer areas have superior crisis adaptability compared to other highly
+bureacratic systems in richer countries. This insights allows for the
+discussion diving into the potential vulnerability that comes with
+highly institutionalized systems.
+
+Resource Mobilization Capacity: The cost spike related to supply chain
+disruptions highlights the importance of rapidly scaling spending in
+response to crises. Similar to Keynes' view, this insight challenges
+static spending-outcome models by introducing varied increase in
+resources as a better option.
+
+One key takeaway from the study is how resilient delivery systems are
+key to react to sudden disruptors. The superior performance of
+community-based systems might lead to conversations on how even more
+developed countries should emphasize on decentralized,
+locally-controlled delivery mechanisms to maintain healthcare standards
+during major events.
+
+Furthemore over-sophisticated health systems and its shortcomings could
+direct policy makers to evaluate the efficiency advantages or
+disadvantages of complex and integrated systems. Finally, the varied
+regional responses to the pandemic era disclose poor international
+coordination, with each region managing responses independently.
+Advocating once more for more flexible, decentralized international
+response frameworks.
+
+\subsection{4.1 Discuss your findings}\label{discuss-your-findings}
+
+Our most significant finding was that sophisticated, well-funded
+healthcare systems suffered the greatest efficiency losses during the
+pandemic, whereas simpler, less-funded systems proved resilience. Europe
+maintained \textgreater90\% coverage but had dramatic cost increases
+from \$25 to \$31 per coverage point during COVID. On the other hand,
+african regions maintained stable child deaths per spending ratios
+despite having the lowest spending levels.
+
+Traditional income classifications were deemed flawed to predict
+pandemic resilience. In turn, system design characteristics such as
+degree of centralization and institutional complexity became the main
+differentiator between regions' adaptability to extremely impactful
+events. Community-based systems' adaptive capacity prevailed over highly
+institutionalized systems' tendency to create multiple failure points,
+requiring major resource mobilization.
+
+Pre-pandemic data showed a predictable improvement amongst all regions,
+but when the pandemic struck, dramatic changes were observed that
+altered spending-outcome relationships.
+
+The findings of this study challenge core health economics assumptions
+and suggests the need for dynamic models, capable to adapt to stable and
+unstable environments. For policy implementation, the superior
+performance of community-based systems drags the topic of pandemic
+preparedness to a more decentralized approach.
+
+\section{Part 5 - Reproducibility}\label{part-5---reproducibility}
+
+\subsection{5.1 Github repository link}\label{github-repository-link}
+
+Provide the link to your PUBLIC repository here: \ldots{}
+
+\subsection{5.2 Reference list}\label{reference-list}
+
+\textbf{References}
+
+Our World in Data. (n.d.). \emph{Deaths caused by vaccine-preventable
+diseases, World}. Retrieved from Our World in Data:
+\url{https://ourworldindata.org/grapher/deaths-caused-by-vaccine-preventable-diseases-over-time}
+
+unicef. (2024, July). \emph{Immunization}. Retrieved from unicef:
+\url{https://data.unicef.org/topic/child-health/immunization/}
+
+UNICEF. (2024, March). \emph{Vaccination \& Immunization Statistics -
+UNICEF Data}. Retrieved from UNICEF:
+\url{https://knowledge.unicef.org/resource/vaccination-immunization-statistics-unicef-data}
+
+UNICEF. (n.d.). \emph{Vaccines and the diseases they prevent}. Retrieved
+from UNICEF:
+\url{https://www.unicef.org/parenting/health/vaccines-and-diseases-they-prevent}
+
+WHO. (2023). \emph{global.} Retrieved from immunizationdata:
+\url{https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=}
+
+WHO. (2023). \emph{Indicators.} Retrieved from who:
+\url{https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths}
+
+WHO. (2025). \emph{Health expenditure.} Retrieved from who:
+\url{https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar}
+
+WHO Media Team. (2025, April 24). \emph{Increases in vaccine-preventable
+disease outbreaks threaten years of progress, warn WHO, UNICEF, Gavi} .
+Retrieved from World Health Organization:
+\url{https://www.who.int/news/item/24-04-2025-increases-in-vaccine-preventable-disease-outbreaks-threaten-years-of-progress--warn-who--unicef--gavi}
+
+Xinhu Wang; Mamadou Diallo. (2019, September 24). \emph{UNICEF}.
+Retrieved from How tracking DTP vaccine dropout rates helps protect
+children from preventable diseases:
+\url{https://data.unicef.org/data-for-action/tracking-dtp-vaccine-dropout-rates-protects-children-from-preventable-diseases/}
+
+\end{document}

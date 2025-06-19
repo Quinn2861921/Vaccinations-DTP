@@ -143,15 +143,15 @@ inline_code = TRUE
 
 **Source 1: DTP Vaccination Coverage**
 
-\- Credibility: This data is published by the World Health Organization (WHO), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data.
+\- Credibility: This dataset is published by the WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), the leading global authority on public health. WHO collaborates with national governments and UNICEF to compile and validate immunization data (World Health Organization, 2024).
 
-\- Data Quality: The dataset includes WHO/UNICEF Estimates of National Immunization Coverage (WUENIC), which are based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
+\- Data Quality: The data is based on a combination of administrative data, household surveys, and expert review. This triangulation improves accuracy and reliability.
 
 \- Relevance: It directly provides the DTP3 coverage rates, which are central to your research question. The data is also disaggregated by region and year, allowing for temporal and cross-regional analysis.
 
 **Source 2: Government Healthcare Spending**
 
-\- Credibility: The World Bank is a globally respected institution that provides standardized economic and development data. It sources health expenditure data from the WHO Global Health Expenditure Database.
+\- Credibility: The World Bank is a globally respected institution that provides standardized economic and development data. It sources health expenditure data from the WHO Global Health Expenditure Database (World Bank, 2024).
 
 \- Data Quality: The data is collected using internationally accepted methodologies and is updated annually. It includes consistent country-level indicators, making it ideal for cross-country comparisons.
 
@@ -159,7 +159,7 @@ inline_code = TRUE
 
 **Source 3: Child Death Rates**
 
-\- Credibility: This data is also from the World Health Organization, specifically its Global Health Observatory (GHO), which is the main repository for WHO’s health-related statistics.
+\- Credibility: This data is also from the World Health Organization, specifically its Global Health Observatory (GHO), which is the main repository for WHO’s health-related statistics (World Health Organization, 2024).
 
 \- Data Quality: The under-five mortality data is compiled from national vital registration systems, surveys, and statistical modeling, and is reviewed by global health experts.
 
@@ -313,6 +313,27 @@ childdeath_typed <- childdeath_selected %>%
   )
 ```
 
+### Health Spending Data
+
+We began by selecting the relevant columns from the raw health spending dataset and renaming them for clarity. We also ensured that the `Year` and `Spending` columns were numeric to support time-based analysis. This step was essential to align the data with the DTP vaccination dataset, which also uses `Region` and `Year` as key identifiers.
+
+### DTP Vaccination Coverage Data
+
+Next, we filtered the immunization dataset to include only WHO regions and WUENIC estimates, which are considered the most reliable. We also created a new variable, `PeriodGroup`, to group years into meaningful intervals for trend analysis. This transformation allows us to analyze changes in vaccination coverage over time in a more interpretable way.
+
+### Child Mortality Data
+
+We also prepared the child mortality dataset by selecting and renaming relevant columns, and converting values to numeric types. This ensures that the dataset can be merged with the others on `Region` and `Year`.
+
+### Error Handling and Fixes
+
+During the cleaning process, we encountered several common issues:
+
+- **Missing values (`NA`)**: These were removed using `na.omit()` or filtered out using `filter(!is.na(...))` to ensure clean merges.
+- **Non-numeric values**: Some columns were read as character types and had to be converted using `as.numeric()`.
+- **Inconsistent region names**: We verified that region names matched across datasets. In an ideal scenario, standardized region codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.
+- **Data alignment**: We ensured that all datasets used the same time format and level of aggregation (annual, by WHO region).
+
 ## 3.2 Generate necessary variables
 
 ```{r include=FALSE}
@@ -367,6 +388,37 @@ filter(!is.na(Period)) %>%
     .groups = "drop"
   )
 ```
+
+To analyze trends over time, we created a **period variable** for each dataset to group years into meaningful intervals. This allows us to compare average values across consistent time blocks.
+
+### Health Spending
+
+We created a new variable `Period` in the health spending dataset using `mutate()` and `case_when()`. We then calculated the **average health spending** per region and period.
+
+- **Variables used**: `Spending`, `Region`, `Period`  
+- **Purpose**: Calculates average health spending per region and period.  
+- **Usefulness**: Highlights regional differences and trends in health investment.  
+- **Intended analysis**: Visualize and compare health spending across time and regions.
+
+### DTP Vaccination Coverage
+
+For the DTP dataset, we used an existing variable `PeriodGroup` (created earlier) and calculated the **average vaccination coverage** per region and period.
+
+- **Variables used**: `Coverage`, `Region`, `PeriodGroup`  
+- **Purpose**: Computes average DTP vaccine coverage per region and period.  
+- **Usefulness**: Evaluates immunization program effectiveness.  
+- **Intended analysis**: Track vaccine coverage trends and relate to health outcomes
+
+### Child Mortality
+
+We also created a `Period` variable for the child mortality dataset. We then summarized the **average number of child deaths** per region and period:
+
+- **Variables used**: `Deaths`, `Region`, `Period`  
+- **Purpose**: Calculates average child deaths per region and period.  
+- **Usefulness**: Measures health outcomes and can be linked to spending and coverage.  
+- **Intended analysis**: Identify regions with high or declining child mortality and explore correlations.
+
+These variables allow us to compare trends in health spending, vaccination coverage, and child mortality across WHO regions and over time.
 
 # 3.25 merge datasets together
 
@@ -449,6 +501,34 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
 
+### Temporal Trends in Health Investment and Outcomes
+
+These two line graphs visualize how healthcare efficiency and outcomes have evolved across WHO regions over five-year periods from 2000 to 2022. They align closely with the research question by showing how healthcare spending relates to vaccination coverage and child mortality over time.
+
+#### Graph 1: Child Deaths per Spending over Time
+
+- **What it shows**: The number of child deaths per unit of healthcare spending.
+- **Trend**: A clear downward trend across all regions, indicating improved outcomes per dollar spent.
+- **Notable pattern**: Africa and Europe show the most significant declines, suggesting major gains in healthcare efficiency or effectiveness.
+- **Interpretation**: This trend reflects global progress in reducing child mortality, likely due to better-targeted spending, improved healthcare delivery, and expanded immunization coverage.
+
+#### Graph 2: Dollar per Coverage Point over Time
+
+- **What it shows**: The average cost (in USD) required to increase DTP3 vaccination coverage by one percentage point.
+- **Trend**: Most regions show a relatively stable or slightly increasing cost over time.
+- **Notable pattern**: The Western Pacific region shows a significant increase in cost per coverage point in recent years, suggesting rising marginal costs or reduced efficiency.
+- **Interpretation**: While some regions maintain cost-effectiveness, others may be facing diminishing returns on investment in immunization programs.
+
+#### Comparison and Dynamics
+
+- **Efficiency vs. Outcome**: While the cost of achieving additional vaccination coverage is rising or stabilizing, the impact of spending on reducing child deaths is improving.
+- **Temporal Insight**: These trends highlight the evolving dynamics of global health investment—where spending may be increasing, but so is its effectiveness in saving lives.
+
+#### Implications
+
+- Policymakers should consider both cost and outcome metrics when evaluating healthcare strategies.
+- The rising cost per coverage point in some regions may call for more efficient delivery models or targeted interventions.
+- The declining child deaths per spending metric is a positive signal of global health progress and a justification for continued investment.
 
 ## 3.4 Visualize spatial variation
 
@@ -521,6 +601,22 @@ ggplot(world) +
     legend.position = "bottom"
   )
 ```
+
+### Spatial Analysis of DTP3 Vaccination Coverage (2020–2022)
+
+This world map visualizes average DTP3 vaccination coverage by WHO region from 2020 to 2022, using a color gradient from purple (60%) to yellow (100%). The map reveals clear regional disparities: high-income regions such as Europe and the Western Pacific generally exhibit higher coverage (light green to yellow), while lower-income regions like Africa and parts of the Eastern Mediterranean show lower coverage (purple to blue). 
+
+#### Spatial Anomalies and Regional Comparisons
+
+Notably, some middle-income regions, such as parts of South-East Asia, achieve relatively high coverage despite lower spending levels, suggesting efficient immunization programs. Conversely, certain countries in the Americas show unexpectedly moderate coverage despite higher average spending, indicating potential inefficiencies or access barriers.
+
+#### Interpretation and Mapping Critique
+
+The map effectively communicates broad regional trends but may obscure within-region variation due to aggregation. For example, large countries with internal disparities (e.g., India, Brazil) are represented by a single color, which may oversimplify complex national dynamics. Additionally, the use of discrete color bands may exaggerate differences between countries near category thresholds.
+
+#### Mapping Choices
+
+While the color scheme is intuitive and accessible, a continuous gradient or country-level granularity could enhance interpretability. Including data labels or interactive elements (in a web-based version) would further support detailed analysis. Despite these limitations, the map serves as a compelling visual summary of global immunization equity and supports the research question by highlighting spatial patterns in vaccination coverage relative to regional healthcare investment.
 
 ## 3.5 Visualize sub-population variation
 
@@ -639,7 +735,42 @@ ggplot(plot_data, aes(x = Group, y = Value, fill = FillGroup)) +
   )
 ```
 
-Here you provide a description of why the plot above is relevant to your specific social problem.
+### Subgroup Analysis: Top vs Bottom 3 WHO Regions (2022)
+
+This bar chart compares the top 3 and bottom 3 WHO regions based on average healthcare spending per capita in 2022. It visualizes three key metrics:
+
+- **Average Health Spending (USD per capita)**
+- **Average DTP3 Vaccination Coverage (%)**
+- **Average Child Deaths**
+
+#### Alignment with Research Topic
+
+This visualization directly supports the research question:  
+*"How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunisations?"*
+
+By dividing regions into high- and low-spending groups, the plot highlights how investment levels relate to health outcomes across sub-populations.
+
+#### Group Differences (Quantified)
+
+| Metric       | Top 3 Regions | Bottom 3 Regions | Difference       |
+|--------------|----------------|------------------|------------------|
+| Spending     | \$1852.7       | \$305.9           | +\$1546.8        |
+| Coverage     | 91%            | 82%               | +9%              |
+| Child Deaths | 149,154.7      | 1,516,736.3       | −1,367,581.6     |
+
+- Top 3 regions spend over **6 times more** per capita on healthcare.
+- They achieve **9 percentage points higher** vaccination coverage.
+- They experience nearly **10 times fewer** child deaths.
+
+#### Evaluation of Subgroup Analysis
+
+This subgroup comparison reveals a clear gradient: higher spending is associated with better vaccination outcomes and significantly lower child mortality. The differences are not only statistically meaningful but also socially and ethically significant, especially in the context of global health equity.
+
+#### Implications
+
+- **Policy Insight**: The data suggests that increasing healthcare investment in underfunded regions could substantially improve immunization coverage and reduce child mortality.
+- **Equity Concern**: The stark contrast in child death rates underscores the urgent need for targeted support in low-spending regions.
+- **Further Research**: This analysis invites deeper exploration into how efficiently funds are used and what other systemic factors (e.g., governance, infrastructure) influence outcomes.
 
 ## 3.6 Event analysis
 
