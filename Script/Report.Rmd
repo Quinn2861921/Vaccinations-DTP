@@ -23,6 +23,24 @@ output:
 #install.packages("countrycode")
 ```
 
+```{r Setup pdf}
+install.packages(c("renv", "tinytex"))
+
+# 1. restore the exact package versions used by the course
+renv::restore()        # looks at renv.lock
+
+# 2. check whether a LaTeX compiler is already present
+has_tex <- tinytex::is_tinytex() || nzchar(Sys.which("pdflatex"))
+
+if (!has_tex) {
+  os <- Sys.info()[["sysname"]]
+  message("No LaTeX found → installing TinyTeX for ", os)
+  tinytex::install_tinytex()     # ~250 MB, 100 % automatic
+  message("Restart RStudio after installation finishes.")
+}
+
+```
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(readxl)
