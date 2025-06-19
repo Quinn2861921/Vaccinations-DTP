@@ -91,9 +91,17 @@ This report aims to fill that gap by analyzing how government healthcare spendin
 
 ## 2.1 Load in the data
 
-Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
+Source 1 (DTP vaccination coverage):
+https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=  
 
-```{r}
+Source 2 (Government healthcare spending):
+https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar
+
+Source 3 (Child death rates):
+https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths
+
+
+```{r include=FALSE}
 
 # Load data on health spending  directly from Dropbox (public direct link)
 url_spending <- "https://www.dropbox.com/scl/fi/01df0ly3ornjgcis9kwsk/CHE-per-region.csv?rlkey=nwvmxv33dc3uvp9pnil4tqimk&st=5zgoazd8&dl=1"
@@ -481,7 +489,8 @@ coverage_mapdata <- merged_health_data %>%
 world <- left_join(world, coverage_mapdata, by = "WHORegion")
 ```
 
-```{r visualise_map, echo=FALSE}
+
+```{r echo=FALSE}
 # Plot choropleth map met echte vaccinatiecijfers
 ggplot(world) +
   geom_sf(aes(fill = AvgCoverage), color = "white", size = 0.2) +
