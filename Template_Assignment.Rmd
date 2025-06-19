@@ -7,6 +7,14 @@ output: pdf_document
 
 # Set-up your environment
 
+```{r include=FALSE}
+## sets WD to the file’s folder when you hit ‘Run’ or ‘Knit’
+if (requireNamespace("rstudioapi", quietly = TRUE) &&
+    rstudioapi::isAvailable()) {
+  setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+}
+```
+
 ```{r package_install, include=FALSE}
 install.packages("tidyverse")
 install.packages("readxl")
