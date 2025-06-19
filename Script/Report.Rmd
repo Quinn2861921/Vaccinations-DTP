@@ -1,30 +1,44 @@
 ---
 title: "DTP vaccinations Report"
-author: |
-  G.J.R. Weydemuller (student number)  
-  L. Waaijenberg (2862154)  
-  P. Gandra Rodrigues (2870539)  
-  Q. Faber (2861921)  
-  R.A. Kali (2850680)  
-  T. Adam (student number)  
-  T.M.V. Verbeek (student number)
+author: "G.J.R. Weydemuller (student number)  \nL. Waaijenberg (2862154)  \nP. Gandra
+  Rodrigues (2870539)  \nQ. Faber (2861921)  \nR.A. Kali (2850680)  \nT. Adam (student
+  number)  \nT.M.V. Verbeek (student number)\n"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
 ```{r package_install, include=FALSE}
-options(repos = c(CRAN = "https://cloud.r-project.org"))
-install.packages("tidyverse")
-install.packages("readxl")
-install.packages("dplyr")
-install.packages("sf")
-install.packages("rnaturalearth")
-install.packages("rnaturalearthdata")
-install.packages("ggplot2")
-install.packages("viridis")
-install.packages("grid")
-install.packages("countrycode")
+#options(repos = c(CRAN = "https://cloud.r-project.org"))
+#install.packages("tidyverse")
+#install.packages("readxl")
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("rnaturalearthdata")
+#install.packages("ggplot2")
+#install.packages("viridis")
+#install.packages("grid")
+#install.packages("countrycode")
+```
+
+```{r Setup pdf}
+install.packages(c("renv", "tinytex"))
+
+# 1. restore the exact package versions used by the course
+renv::restore()        # looks at renv.lock
+
+# 2. check whether a LaTeX compiler is already present
+has_tex <- tinytex::is_tinytex() || nzchar(Sys.which("pdflatex"))
+
+if (!has_tex) {
+  os <- Sys.info()[["sysname"]]
+  message("No LaTeX found → installing TinyTeX for ", os)
+  tinytex::install_tinytex()     # ~250 MB, 100 % automatic
+  message("Restart RStudio after installation finishes.")
+}
+
 ```
 
 ```{r setup, include=FALSE}
