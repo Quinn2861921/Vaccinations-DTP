@@ -181,7 +181,7 @@ These limitations mean that while the analysis can reveal correlations, it canno
 
 WHO DTP Vaccination Coverage:
 
--   Antigen: DTP1 and DTP3
+-   Antigen: DTP3
 
 -   Coverage: vaccinated target population
 
@@ -648,7 +648,6 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
   geom_vline(xintercept = 4, size = 0.75) +
   annotate("text", x = 3.5, y = 62500, size = 3.5, label = "Pre- / during\nCOVID-19")
 ```
-
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
