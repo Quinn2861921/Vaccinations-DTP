@@ -45,7 +45,7 @@ Q. Faber (2861921)
 
 R.A. Kali (2850680)
 
-T. Adam (student number)
+T. Adam (2871752)
 
 T.M.V. Verbeek (2864049)
 
@@ -87,15 +87,11 @@ This report aims to fill that gap by analyzing how government healthcare spendin
 
 ## 2.1 Load in the data
 
-Source 1 (DTP vaccination coverage):
-https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=  
+Source 1 (DTP vaccination coverage): [https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=](https://immunizationdata.who.int/global/wiise-detail-page/diphtheria-tetanus-toxoid-and-pertussis-(dtp)-vaccination-coverage?CODE=AFR+EMR+EUR+AMR+SEAR+WPR&ANTIGEN=&YEAR=){.uri}
 
-Source 2 (Government healthcare spending):
-https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar
+Source 2 (Government healthcare spending): [https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar](https://www.who.int/data/gho/data/indicators/indicator-details/GHO/current-health-expenditure-(che)-per-capita-in-us-dollar){.uri}
 
-Source 3 (Child death rates):
-https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths
-
+Source 3 (Child death rates): <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths>
 
 ```{r include=FALSE}
 
@@ -325,10 +321,10 @@ We also prepared the child mortality dataset by selecting and renaming relevant 
 
 During the cleaning process, we encountered several common issues:
 
-- **Missing values (`NA`)**: These were removed using `na.omit()` or filtered out using `filter(!is.na(...))` to ensure clean merges.
-- **Non-numeric values**: Some columns were read as character types and had to be converted using `as.numeric()`.
-- **Inconsistent region names**: We verified that region names matched across datasets. In an ideal scenario, standardized region codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.
-- **Data alignment**: We ensured that all datasets used the same time format and level of aggregation (annual, by WHO region).
+-   **Missing values (`NA`)**: These were removed using `na.omit()` or filtered out using `filter(!is.na(...))` to ensure clean merges.
+-   **Non-numeric values**: Some columns were read as character types and had to be converted using `as.numeric()`.
+-   **Inconsistent region names**: We verified that region names matched across datasets. In an ideal scenario, standardized region codes (e.g., ISO or WHO codes) would be used to avoid ambiguity.
+-   **Data alignment**: We ensured that all datasets used the same time format and level of aggregation (annual, by WHO region).
 
 ## 3.2 Generate necessary variables
 
@@ -391,28 +387,28 @@ To analyze trends over time, we created a **period variable** for each dataset t
 
 We created a new variable `Period` in the health spending dataset using `mutate()` and `case_when()`. We then calculated the **average health spending** per region and period.
 
-- **Variables used**: `Spending`, `Region`, `Period`  
-- **Purpose**: Calculates average health spending per region and period.  
-- **Usefulness**: Highlights regional differences and trends in health investment.  
-- **Intended analysis**: Visualize and compare health spending across time and regions.
+-   **Variables used**: `Spending`, `Region`, `Period` 
+-   **Purpose**: Calculates average health spending per region and period. 
+-   **Usefulness**: Highlights regional differences and trends in health investment. 
+-   **Intended analysis**: Visualize and compare health spending across time and regions.
 
 ### DTP Vaccination Coverage
 
 For the DTP dataset, we used an existing variable `PeriodGroup` (created earlier) and calculated the **average vaccination coverage** per region and period.
 
-- **Variables used**: `Coverage`, `Region`, `PeriodGroup`  
-- **Purpose**: Computes average DTP vaccine coverage per region and period.  
-- **Usefulness**: Evaluates immunization program effectiveness.  
-- **Intended analysis**: Track vaccine coverage trends and relate to health outcomes
+-   **Variables used**: `Coverage`, `Region`, `PeriodGroup` 
+-   **Purpose**: Computes average DTP vaccine coverage per region and period. 
+-   **Usefulness**: Evaluates immunization program effectiveness. 
+-   **Intended analysis**: Track vaccine coverage trends and relate to health outcomes
 
 ### Child Mortality
 
 We also created a `Period` variable for the child mortality dataset. We then summarized the **average number of child deaths** per region and period:
 
-- **Variables used**: `Deaths`, `Region`, `Period`  
-- **Purpose**: Calculates average child deaths per region and period.  
-- **Usefulness**: Measures health outcomes and can be linked to spending and coverage.  
-- **Intended analysis**: Identify regions with high or declining child mortality and explore correlations.
+-   **Variables used**: `Deaths`, `Region`, `Period`\
+-   **Purpose**: Calculates average child deaths per region and period.\
+-   **Usefulness**: Measures health outcomes and can be linked to spending and coverage.\
+-   **Intended analysis**: Identify regions with high or declining child mortality and explore correlations.
 
 These variables allow us to compare trends in health spending, vaccination coverage, and child mortality across WHO regions and over time.
 
@@ -503,28 +499,28 @@ These two line graphs visualize how healthcare efficiency and outcomes have evol
 
 #### Graph 1: Child Deaths per Spending over Time
 
-- **What it shows**: The number of child deaths per unit of healthcare spending.
-- **Trend**: A clear downward trend across all regions, indicating improved outcomes per dollar spent.
-- **Notable pattern**: Africa and Europe show the most significant declines, suggesting major gains in healthcare efficiency or effectiveness.
-- **Interpretation**: This trend reflects global progress in reducing child mortality, likely due to better-targeted spending, improved healthcare delivery, and expanded immunization coverage.
+-   **What it shows**: The number of child deaths per unit of healthcare spending.
+-   **Trend**: A clear downward trend across all regions, indicating improved outcomes per dollar spent.
+-   **Notable pattern**: Africa and Europe show the most significant declines, suggesting major gains in healthcare efficiency or effectiveness.
+-   **Interpretation**: This trend reflects global progress in reducing child mortality, likely due to better-targeted spending, improved healthcare delivery, and expanded immunization coverage.
 
 #### Graph 2: Dollar per Coverage Point over Time
 
-- **What it shows**: The average cost (in USD) required to increase DTP3 vaccination coverage by one percentage point.
-- **Trend**: Most regions show a relatively stable or slightly increasing cost over time.
-- **Notable pattern**: The Western Pacific region shows a significant increase in cost per coverage point in recent years, suggesting rising marginal costs or reduced efficiency.
-- **Interpretation**: While some regions maintain cost-effectiveness, others may be facing diminishing returns on investment in immunization programs.
+-   **What it shows**: The average cost (in USD) required to increase DTP3 vaccination coverage by one percentage point.
+-   **Trend**: Most regions show a relatively stable or slightly increasing cost over time.
+-   **Notable pattern**: The Western Pacific region shows a significant increase in cost per coverage point in recent years, suggesting rising marginal costs or reduced efficiency.
+-   **Interpretation**: While some regions maintain cost-effectiveness, others may be facing diminishing returns on investment in immunization programs.
 
 #### Comparison and Dynamics
 
-- **Efficiency vs. Outcome**: While the cost of achieving additional vaccination coverage is rising or stabilizing, the impact of spending on reducing child deaths is improving.
-- **Temporal Insight**: These trends highlight the evolving dynamics of global health investment—where spending may be increasing, but so is its effectiveness in saving lives.
+-   **Efficiency vs. Outcome**: While the cost of achieving additional vaccination coverage is rising or stabilizing, the impact of spending on reducing child deaths is improving.
+-   **Temporal Insight**: These trends highlight the evolving dynamics of global health investment—where spending may be increasing, but so is its effectiveness in saving lives.
 
 #### Implications
 
-- Policymakers should consider both cost and outcome metrics when evaluating healthcare strategies.
-- The rising cost per coverage point in some regions may call for more efficient delivery models or targeted interventions.
-- The declining child deaths per spending metric is a positive signal of global health progress and a justification for continued investment.
+-   Policymakers should consider both cost and outcome metrics when evaluating healthcare strategies.
+-   The rising cost per coverage point in some regions may call for more efficient delivery models or targeted interventions.
+-   The declining child deaths per spending metric is a positive signal of global health progress and a justification for continued investment.
 
 ## 3.4 Visualize spatial variation
 
@@ -561,7 +557,6 @@ coverage_mapdata <- merged_health_data %>%
 # Voeg echte vaccinatiecijfers toe aan wereldkaart
 world <- left_join(world, coverage_mapdata, by = "WHORegion")
 ```
-
 
 ```{r echo=FALSE}
 # Plot choropleth map met echte vaccinatiecijfers
@@ -600,7 +595,7 @@ ggplot(world) +
 
 ### Spatial Analysis of DTP3 Vaccination Coverage (2020–2022)
 
-This world map visualizes average DTP3 vaccination coverage by WHO region from 2020 to 2022, using a color gradient from purple (60%) to yellow (100%). The map reveals clear regional disparities: high-income regions such as Europe and the Western Pacific generally exhibit higher coverage (light green to yellow), while lower-income regions like Africa and parts of the Eastern Mediterranean show lower coverage (purple to blue). 
+This world map visualizes average DTP3 vaccination coverage by WHO region from 2020 to 2022, using a color gradient from purple (60%) to yellow (100%). The map reveals clear regional disparities: high-income regions such as Europe and the Western Pacific generally exhibit higher coverage (light green to yellow), while lower-income regions like Africa and parts of the Eastern Mediterranean show lower coverage (purple to blue).
 
 #### Spatial Anomalies and Regional Comparisons
 
@@ -735,28 +730,28 @@ ggplot(plot_data, aes(x = Group, y = Value, fill = FillGroup)) +
 
 This bar chart compares the top 3 and bottom 3 WHO regions based on average healthcare spending per capita in 2022. It visualizes three key metrics:
 
-- **Average Health Spending (USD per capita)**
-- **Average DTP3 Vaccination Coverage (%)**
-- **Average Child Deaths**
+-   **Average Health Spending (USD per capita)**
+-   **Average DTP3 Vaccination Coverage (%)**
+-   **Average Child Deaths**
 
 #### Alignment with Research Topic
 
-This visualization directly supports the research question:  
+This visualization directly supports the research question:\
 *"How does government healthcare spending per capita correlate with national vaccination coverage rates for routine immunisations?"*
 
 By dividing regions into high- and low-spending groups, the plot highlights how investment levels relate to health outcomes across sub-populations.
 
 #### Group Differences (Quantified)
 
-| Metric       | Top 3 Regions | Bottom 3 Regions | Difference       |
-|--------------|----------------|------------------|------------------|
-| Spending     | \$1852.7       | \$305.9           | +\$1546.8        |
-| Coverage     | 91%            | 82%               | +9%              |
-| Child Deaths | 149,154.7      | 1,516,736.3       | −1,367,581.6     |
+| Metric       | Top 3 Regions | Bottom 3 Regions | Difference   |
+|--------------|---------------|------------------|--------------|
+| Spending     | \$1852.7      | \$305.9          | +\$1546.8    |
+| Coverage     | 91%           | 82%              | +9%          |
+| Child Deaths | 149,154.7     | 1,516,736.3      | −1,367,581.6 |
 
-- Top 3 regions spend over **6 times more** per capita on healthcare.
-- They achieve **9 percentage points higher** vaccination coverage.
-- They experience nearly **10 times fewer** child deaths.
+-   Top 3 regions spend over **6 times more** per capita on healthcare.
+-   They achieve **9 percentage points higher** vaccination coverage.
+-   They experience nearly **10 times fewer** child deaths.
 
 #### Evaluation of Subgroup Analysis
 
@@ -764,9 +759,9 @@ This subgroup comparison reveals a clear gradient: higher spending is associated
 
 #### Implications
 
-- **Policy Insight**: The data suggests that increasing healthcare investment in underfunded regions could substantially improve immunization coverage and reduce child mortality.
-- **Equity Concern**: The stark contrast in child death rates underscores the urgent need for targeted support in low-spending regions.
-- **Further Research**: This analysis invites deeper exploration into how efficiently funds are used and what other systemic factors (e.g., governance, infrastructure) influence outcomes.
+-   **Policy Insight**: The data suggests that increasing healthcare investment in underfunded regions could substantially improve immunization coverage and reduce child mortality.
+-   **Equity Concern**: The stark contrast in child death rates underscores the urgent need for targeted support in low-spending regions.
+-   **Further Research**: This analysis invites deeper exploration into how efficiently funds are used and what other systemic factors (e.g., governance, infrastructure) influence outcomes.
 
 ## 3.6 Event analysis
 
@@ -798,19 +793,20 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
   geom_vline(xintercept = 4, size = 0.75) +
   annotate("text", x = 3.5, y = 62500, size = 3.5, label = "Pre- / during\nCOVID-19")
 ```
-Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2020 to 2022 which relates to the COVID-19 pandemic. Unlike gradual policy reforms during the 2010-2014 period such as GAVI's (source https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015) innovative financing mechanisms which introduced market-based incentives to lower vaccine pricing and availability structure, the pandemic created an acute simultaneous shock to every healtchare system worldwide. This situation enables a unique opportunity to examine how external crises affect government healthcare spending per capita and national vaccination coverage rates worldwide.
 
-During COVID-19 routine immunizations were suspended or decreased as worldwide healthcare systems had to respond to the pandemic, meaning that regardless of funding levels directed to vaccinations, their coverage still dropped. (source https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef).
+Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2020 to 2022 which relates to the COVID-19 pandemic. Unlike gradual policy reforms during the 2010-2014 period such as GAVI's (source <https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015>) innovative financing mechanisms which introduced market-based incentives to lower vaccine pricing and availability structure, the pandemic created an acute simultaneous shock to every healthcare system worldwide. This situation enables a unique opportunity to examine how external crises affect government healthcare spending per capita and national vaccination coverage rates worldwide.
 
-Due to global lockdowns and border restrictions another major disruption was on the supply chain, as the struggle to transport vaccinations across borders and maintain cold storage systems increased, leading to decreased vaccination availability. Increasingly relevant to this study, a decrease in 7.7% DTP3 vaccine coverage worldwide was recognized compared to expected doses delivered in the absence of COVID. (source https://www.thelancet.com/article/S0140-6736%2821%2901337-4/fulltext)
+During COVID-19 routine immunizations were suspended or decreased as worldwide healthcare systems had to respond to the pandemic, meaning that regardless of funding levels directed to vaccinations, their coverage still dropped. (source <https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef>).
 
-The child deaths per spending data reveals a steady improvement trajectory up until before COVID-19 where regions started to show signs of stagnation. African regions kept stable child deaths per spending through the pandemic which suggests this region had resilience strategies such as communtiy health worker programs which focused on under-five care while more formal systems were focused on COVID related health issues. Regardless of staffing shortages and movement restriction, these pre-established networks prevented many childrens' deaths in this region. (source https://pubmed.ncbi.nlm.nih.gov/38963883/) This data might however have overstated results as it may reflect COVID-19 related deaths and healthcare access disruptions which caused an increased number of infant mortality, complciating the interepretation of spending efficiency across this time period.
+Due to global lockdowns and border restrictions another major disruption was on the supply chain, as the struggle to transport vaccinations across borders and maintain cold storage systems increased, leading to decreased vaccination availability. Increasingly relevant to this study, a decrease in 7.7% DTP3 vaccine coverage worldwide was recognized compared to expected doses delivered in the absence of COVID. (source <https://www.thelancet.com/article/S0140-6736%2821%2901337-4/fulltext>)
 
-The global coverage map strucks with regional disparities during the 2020-2022 period, ranging from 60% to close to 100% in some WHO regions. This suggests that pre-existing health care systems' resilience and adaptive mechanisms worldwide varied greatly upon facing the pandemic. Whereas most childhood vaccines declined in coverage worldwide, it was more prominent in low and lower-middle income countries (source https://pmc.ncbi.nlm.nih.gov/articles/PMC10249397/?) , which reinstates that more developed countries with better precautionary health systems can keep a more stable vaccination coverage even during more strenuous moments on the healthcare system.
+The child deaths per spending data reveals a steady improvement trajectory up until before COVID-19 where regions started to show signs of stagnation. African regions kept stable child deaths per spending through the pandemic which suggests this region had resilience strategies such as community health worker programs which focused on under-five care while more formal systems were focused on COVID related health issues. Regardless of staffing shortages and movement restriction, these pre-established networks prevented many children' deaths in this region. (source <https://pubmed.ncbi.nlm.nih.gov/38963883/>) This data might however have overstated results as it may reflect COVID-19 related deaths and healthcare access disruptions which caused an increased number of infant mortality, complicating the interpretation of spending efficiency across this time period.
 
-Similarly the comparison between subpopulations shows how bottom performing regions, namely africa, maintained a 82% coverage during the pandemic while top performing regions achieved 91%. This data aligns with the previous graph, showing that stronger health systems in Europe can much better mitigate coverage maintenance challenges compared to African regions. 
+The global coverage map strucks with regional disparities during the 2020-2022 period, ranging from 60% to close to 100% in some WHO regions. This suggests that pre-existing health care systems' resilience and adaptive mechanisms worldwide varied greatly upon facing the pandemic. Whereas most childhood vaccines declined in coverage worldwide, it was more prominent in low and lower-middle income countries (source <https://pmc.ncbi.nlm.nih.gov/articles/PMC10249397/>?) , which reinstates that more developed countries with better precautionary health systems can keep a more stable vaccination coverage even during more strenuous moments on the healthcare system.
 
-Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. The aforementioned supply chain disruption provides an explanation to this spike. Service suspensions and supply-chain delays caused vaccination volumes to drop, meaning that the delivery costs such as personnel and cold chains had to be spread over fewer doses, signficantly increasing the per-point cost. 
+Similarly the comparison between sub populations shows how bottom performing regions, namely Africa, maintained a 82% coverage during the pandemic while top performing regions achieved 91%. This data aligns with the previous graph, showing that stronger health systems in Europe can much better mitigate coverage maintenance challenges compared to African regions.
+
+Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. The aforementioned supply chain disruption provides an explanation to this spike. Service suspensions and supply-chain delays caused vaccination volumes to drop, meaning that the delivery costs such as personnel and cold chains had to be spread over fewer doses, significantly increasing the per-point cost.
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
@@ -820,21 +816,21 @@ Over the course of the analysis of the relation between all four graphs and COVI
 
 Crisis-state exception: Traditional vaccination coverage models operate under the assumption of stability and predictability, meaning that major disruptions such as COVID-19 can crumble healthcare systems if these are not equipped with dynamic frameworks addressing both normal and crisis-states.
 
-System resilience hierarchy: An unrecognized hiearchy of system resilience between regions emerged with this study, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (source https://pubmed.ncbi.nlm.nih.gov/38963883/) demonstrated certain poorer areas have superior crisis adaptability compared to other highly bureacratic systems in richer countries. This insights allows for the discussion diving into the potential vulnerability that comes with highly institutionalized systems.
+System resilience hierarchy: An unrecognized hierarchy of system resilience between regions emerged with this study, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (source <https://pubmed.ncbi.nlm.nih.gov/38963883/>) demonstrated certain poorer areas have superior crisis adaptability compared to other highly bureaucratic systems in richer countries. This insights allows for the discussion diving into the potential vulnerability that comes with highly institutionalized systems.
 
 Resource Mobilization Capacity: The cost spike related to supply chain disruptions highlights the importance of rapidly scaling spending in response to crises. Similar to Keynes' view, this insight challenges static spending-outcome models by introducing varied increase in resources as a better option.
 
-One key takeaway from the study is how resilient delivery systems are key to react to sudden disruptors. The superior performance of community-based systems might lead to conversations on how even more developed countries should emphasize on decentralized, locally-controlled delivery mechanisms to maintain healthcare standards during major events. 
+One key takeaway from the study is how resilient delivery systems are key to react to sudden disruptors. The superior performance of community-based systems might lead to conversations on how even more developed countries should emphasize on decentralized, locally-controlled delivery mechanisms to maintain healthcare standards during major events.
 
-Furthemore over-sophisticated health systems and its shortcomings could direct policy makers to evaluate the efficiency advantages or disadvantages of complex and integrated systems. Finally, the varied regional responses to the pandemic era disclose poor international coordination, with each region managing responses independently. Advocating once more for more flexible, decentralized international response frameworks. 
+Furthermore over-sophisticated health systems and its shortcomings could direct policy makers to evaluate the efficiency advantages or disadvantages of complex and integrated systems. Finally, the varied regional responses to the pandemic era disclose poor international coordination, with each region managing responses independently. Advocating once more for more flexible, decentralized international response frameworks.
 
 ## 4.1 Discuss your findings
 
-Our most significant finding was that sophisticated, well-funded healthcare systems suffered the greatest efficiency losses during the pandemic, whereas simpler, less-funded systems proved resilience. Europe maintained >90% coverage but had dramatic cost increases from $25 to $31 per coverage point during COVID. On the other hand, african regions maintained stable child deaths per spending ratios despite having the lowest spending levels.
+Our most significant finding was that sophisticated, well-funded healthcare systems suffered the greatest efficiency losses during the pandemic, whereas simpler, less-funded systems proved resilience. Europe maintained \>90% coverage but had dramatic cost increases from \$25 to \$31 per coverage point during COVID. On the other hand, African regions maintained stable child deaths per spending ratios despite having the lowest spending levels.
 
 Traditional income classifications were deemed flawed to predict pandemic resilience. In turn, system design characteristics such as degree of centralization and institutional complexity became the main differentiator between regions' adaptability to extremely impactful events. Community-based systems' adaptive capacity prevailed over highly institutionalized systems' tendency to create multiple failure points, requiring major resource mobilization.
 
-Pre-pandemic data showed a predictable improvement amongst all regions, but when the pandemic struck, dramatic changes were observed that altered spending-outcome relationships. 
+Pre-pandemic data showed a predictable improvement amongst all regions, but when the pandemic struck, dramatic changes were observed that altered spending-outcome relationships.
 
 The findings of this study challenge core health economics assumptions and suggests the need for dynamic models, capable to adapt to stable and unstable environments. For policy implementation, the superior performance of community-based systems drags the topic of pandemic preparedness to a more decentralized approach.
 
