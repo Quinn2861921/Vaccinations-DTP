@@ -838,7 +838,7 @@ The findings of this study challenge core health economics assumptions and sugge
 
 ## 5.1 Github repository link
 
-Provide the link to your PUBLIC repository here: ...
+Provide the link to your PUBLIC repository here: <https://github.com/Quinn2861921/Vaccinations-DTP>
 
 ## 5.2 Reference list
 
