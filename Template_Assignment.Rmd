@@ -18,8 +18,6 @@ output:
     latex_engine: xelatex
 ---
 
-
-
 ```{r include=FALSE}
 ## sets WD to the file’s folder when you hit ‘Run’ or ‘Knit’
 if (requireNamespace("rstudioapi", quietly = TRUE) &&
@@ -44,10 +42,10 @@ library(tidyverse)
 library(readxl)
 ```
 
-
 # Part 1 – Identify a Social Problem
 
 ## 1.1 Describe the Social Problem
+
 DTP vaccination protects against diphtheria, tetanus, and pertussis and is one of the most cost-effective public health interventions, preventing an estimated 4.4 million deaths annually (UNICEF, 2024). Despite its inclusion in most national immunization programs, around 21 million children were under- or unvaccinated in 2023, with 14.5 million receiving no vaccines at all (UNICEF, 2024). This gap is most severe in low- and middle-income countries and reflects broader social inequalities in healthcare, education, and infrastructure (Our World in Data, n.d.; UNICEF, 2024).
 
 Low DTP coverage often signals systemic issues such as poverty, conflict, and misinformation, making it a key indicator of healthcare system strength and social equity (UNICEF, 2024).
@@ -55,14 +53,16 @@ Low DTP coverage often signals systemic issues such as poverty, conflict, and mi
 Research question: How does government healthcare spending per capita correlate with national DTP vaccination coverage across income groups?
 
 ## 1.2 Sources Identifying DTP Vaccination as a Social Problem
+
 WHO and UNICEF warn of rising vaccine-preventable diseases due to declining coverage, misinformation, and funding cuts (WHO Media Team, 2025). DTP-preventable diseases remain deadly, especially in low-resource settings (UNICEF, n.d.). UNICEF data also show high dropout rates in DTP series completion, linked to systemic barriers like poor healthcare access and infrastructure (Wang et al., 2019).
 
 ## 1.3 Research Gap
+
 While DTP coverage has been widely studied, few analyses directly link it to government healthcare spending across income levels. Most research focuses on micro-level factors or broad trends, often overlooking economic policy variables (UNICEF, 2024).
 
 ## 1.4 Contribution of This Report
-This report explores the relationship between public healthcare spending and DTP coverage across income groups. It aims to provide insights into whether increased investment leads to better immunization outcomes, informing global health and development policy.
 
+This report explores the relationship between public healthcare spending and DTP coverage across income groups. It aims to provide insights into whether increased investment leads to better immunization outcomes, informing global health and development policy.
 
 # Part 2 - Data Sourcing
 
@@ -104,7 +104,6 @@ head(raw_coverage_data)
 
 ```
 
-
 ## 2.2 Provide a short summary of the dataset(s)
 
 ```{r}
@@ -112,78 +111,84 @@ head(raw_coverage_data)
 head(raw_healthspending_data)
 ```
 
-**Source 1: DTP Vaccination Coverage**  
-- **Credibility**: Published by WHO/UNICEF (WUENIC), the leading global authority on immunization data (World Health Organization, 2024).  
-- **Data Quality**: Combines administrative records, surveys, and expert review, enhancing reliability.  
-- **Relevance**: Provides DTP3 coverage rates by region and year—central to the research question.
+**Source 1: DTP Vaccination Coverage**
 
-**Source 2: Government Healthcare Spending**  
-- **Credibility**: Provided by the World Bank, using WHO’s Global Health Expenditure Database (World Bank, 2024).  
-- **Data Quality**: Based on standardized, internationally accepted methods; updated annually.  
-- **Relevance**: Supplies the key independent variable—health spending per capita—for correlation analysis.
+- **Credibility:** Published by WHO/UNICEF (WUENIC), the leading global authority on immunization data (World Health Organization, 2024).
+- **Data Quality:** Combines administrative records, surveys, and expert review, enhancing reliability.
+- **Relevance:** Provides DTP3 coverage rates by region and year—central to the research question.
 
-**Source 3: Child Death Rates**  
-- **Credibility**: From WHO’s Global Health Observatory, a trusted source for global health statistics (World Health Organization, 2024).  
-- **Data Quality**: Derived from national systems, surveys, and statistical modeling.  
-- **Relevance**: Offers contextual insight into the broader social impact of vaccination and healthcare investment.
+**Source 2: Government Healthcare Spending**
+
+- **Credibility:** Provided by the World Bank, using WHO’s Global Health Expenditure Database (World Bank, 2024).
+- **Data Quality:** Based on standardized, internationally accepted methods; updated annually.
+- **Relevance:** Supplies the key independent variable—health spending per capita—for correlation analysis.
+
+**Source 3: Child Death Rates**
+
+- **Credibility:** From WHO’s Global Health Observatory, a trusted source for global health statistics (World Health Organization, 2024).
+- **Data Quality:** Derived from national systems, surveys, and statistical modeling.
+- **Relevance:** Offers contextual insight into the broader social impact of vaccination and healthcare investment.
+
 
 ## 2.2.1 Complementarity of the Datasets
-These datasets are complementary in structure and purpose:
-- The **DTP dataset** provides the **dependent variable** (vaccination coverage).
-- The **health spending dataset** provides the **independent variable** (government health expenditure per capita).
-- The **child death dataset** provides the **independent variable** (child death).
 
-Together, they allow for a cross-country analysis of how public investment in health and child death correlates with immunization outcomes.
+These datasets are complementary in structure and purpose:\
+- **DTP dataset**: Provides the **dependent variable** (vaccination coverage)\
+- **Health spending dataset**: Provides the **independent variable** (government health expenditure per capita)\
+- **Child death dataset**: Provides the **independent variable** (child mortality)
+
+Together, they support cross-country analysis of how public investment and child mortality relate to immunization outcomes.
 
 ## 2.2.2 Suitability for the Research Topic
-The research question investigates the relationship between government healthcare spending and DTP vaccination coverage across income groups. These datasets are ideal because:
-- They are **comprehensive and global**, enabling cross-country comparisons.
-- They are **updated annually**, supporting time-series or cross-sectional analysis.
-- They are **standardized and well-documented**, ensuring data quality and reproducibility.
+
+The research question explores the link between healthcare spending and DTP coverage across income groups. These datasets are suitable because:\
+- **Comprehensive and global**: Enable cross-country comparisons\
+- **Updated annually**: Support time-series and cross-sectional analysis\
+- **Standardized and well-documented**: Ensure data quality and reproducibility
 
 ## 2.2.3 Data Limitations
+
 Despite their strengths, the datasets have some limitations:
 
-**WHO DTP Coverage & Child Death Data**  
-- Missing or estimated values in conflict-affected countries  
-- Potential reporting bias and survey recall errors  
-- Limited insight into subnational disparities  
+**WHO DTP Coverage & Child Death Data**\
+- Missing or estimated values in conflict-affected countries\
+- Potential reporting bias and survey recall errors\
+- Limited insight into subnational disparities
 
-**World Bank Health Spending**  
-- Reported in current USD, affected by inflation and exchange rates  
-- No detail on spending allocation (e.g., immunization vs. other services)  
-- Some countries have incomplete or outdated records  
+**World Bank Health Spending**\
+- Reported in current USD, affected by inflation and exchange rates\
+- No detail on spending allocation (e.g., immunization vs. other services)\
+- Some countries have incomplete or outdated records
 
 These limitations mean the analysis shows correlations, not causation, and may not capture all contextual factors.
 
 ## 2.3 Describe the type of variables included
 
-**WHO DTP Vaccination Coverage**  
-- **Antigen**: DTP1, DTP3  
-- **Coverage**: % of vaccinated target population  
-- **Target Pop.**: Eligible population for vaccine  
-- **Years**: 1980–2023  
-- **Region**: WHO regions  
-- **Frequency**: Annual  
-- **Source**: WHO/UNICEF Joint Reporting, DHS, MICS  
-- **Method**: Admin data + surveys + expert review  
+**WHO DTP Vaccination Coverage**\
+- **Antigen**: DTP1, DTP3\
+- **Coverage**: % of vaccinated target population\
+- **Target Pop.**: Eligible population for vaccine\
+- **Years**: 1980–2023\
+- **Region**: WHO regions\
+- **Frequency**: Annual\
+- **Source**: WHO/UNICEF Joint Reporting, DHS, MICS\
+- **Method**: Admin data + surveys + expert review
 
-**World Bank Health Spending**  
-- **Indicator**: Health expenditure per capita (USD)  
-- **Years**: 2000–2023  
-- **Region**: WHO regions  
-- **Frequency**: Annual  
-- **Source**: WHO Global Health Expenditure Database  
+**World Bank Health Spending**\
+- **Indicator**: Health expenditure per capita (USD)\
+- **Years**: 2000–2023\
+- **Region**: WHO regions\
+- **Frequency**: Annual\
+- **Source**: WHO Global Health Expenditure Database
 
-**WHO Child Deaths (Under 5)**  
-- **Indicator**: Under-five mortality rate  
-- **Target Pop.**: Children aged 0–4  
-- **Years**: 1980–2023  
-- **Region**: WHO regions  
-- **Frequency**: Annual  
-- **Source**: WHO/UNICEF GHO, CRVS, DHS, MICS  
-- **Method**: National data + statistical adjustments + expert review  
-
+**WHO Child Deaths (Under 5)**\
+- **Indicator**: Under-five mortality rate\
+- **Target Pop.**: Children aged 0–4\
+- **Years**: 1980–2023\
+- **Region**: WHO regions\
+- **Frequency**: Annual\
+- **Source**: WHO/UNICEF GHO, CRVS, DHS, MICS\
+- **Method**: National data + statistical adjustments + expert review
 
 # Part 3 - Quantifying
 
@@ -236,26 +241,33 @@ childdeath_typed <- childdeath_selected %>%
     Deaths = as.numeric(Deaths)
   )
 ```
-### 3.1.1 Health Spending Data  
+
+### 3.1.1 Health Spending Data
+
 Selected and renamed relevant columns; ensured `Year` and `Spending` were numeric for time-based analysis. This aligned the dataset with DTP data using `Region` and `Year`.
 
-### 3.1.2 DTP Vaccination Coverage Data  
+### 3.1.2 DTP Vaccination Coverage Data
+
 Filtered for WHO regions and WUENIC estimates. Created `PeriodGroup` to group years into intervals for clearer trend analysis.
 
-### 3.1.3 Child Mortality Data  
+### 3.1.3 Child Mortality Data
+
 Selected and renamed key columns; converted values to numeric. Prepared for merging on `Region` and `Year`.
 
-### 3.1.4 Trade-offs  
-- Aggregating into 5-year periods reduces detail but clarifies trends  
-- Averages may mask outliers or skewed data  
+### 3.1.4 Trade-offs
 
-### 3.1.5 Error Handling and Fixes  
-- **Missing values**: Removed using `na.omit()` or `filter(!is.na(...))`  
-- **Non-numeric values**: Converted with `as.numeric()`  
-- **Inconsistent region names**: Standardized for merging  
-- **Data alignment**: Ensured consistent time format and regional aggregation
+-   Aggregating into 5-year periods reduces detail but clarifies trends
+-   Averages may mask outliers or skewed data
+
+### 3.1.5 Error Handling and Fixes
+
+-   **Missing values**: Removed using `na.omit()` or `filter(!is.na(...))`
+-   **Non-numeric values**: Converted with `as.numeric()`
+-   **Inconsistent region names**: Standardized for merging
+-   **Data alignment**: Ensured consistent time format and regional aggregation
 
 ## 3.2 Generate necessary variables
+
 ```{r include=FALSE}
 # Create period variable to group years
 healthspending_with_period <- cleaned_healthspending_data %>%
@@ -308,29 +320,34 @@ filter(!is.na(Period)) %>%
     .groups = "drop"
   )
 ```
+
 To analyze trends, we created a `Period` variable to group years into 5-year intervals, enabling comparison of averages across consistent time blocks.
 
-### 3.2.1 Average Health Spending  
-- **Variables**: `Spending`, `Region`, `Period`  
-- **Purpose**: Calculate average spending per region/period  
-- **Use**: Highlight investment trends  
-- **Analysis**: Compare across time and regions  
+### 3.2.1 Average Health Spending
 
-### 3.2.2 Average DTP Coverage  
-- **Variables**: `Coverage`, `Region`, `PeriodGroup`  
-- **Purpose**: Compute average DTP coverage  
-- **Use**: Assess immunization performance  
-- **Analysis**: Track trends, link to outcomes  
+-   **Variables**: `Spending`, `Region`, `Period`
+-   **Purpose**: Calculate average spending per region/period
+-   **Use**: Highlight investment trends
+-   **Analysis**: Compare across time and regions
 
-### 3.2.3 Average Child Mortality  
-- **Variables**: `Deaths`, `Region`, `Period`  
-- **Purpose**: Calculate average child deaths  
-- **Use**: Measure health outcomes  
-- **Analysis**: Identify trends, explore correlations  
+### 3.2.2 Average DTP Coverage
+
+-   **Variables**: `Coverage`, `Region`, `PeriodGroup`
+-   **Purpose**: Compute average DTP coverage
+-   **Use**: Assess immunization performance
+-   **Analysis**: Track trends, link to outcomes
+
+### 3.2.3 Average Child Mortality
+
+-   **Variables**: `Deaths`, `Region`, `Period`
+-   **Purpose**: Calculate average child deaths
+-   **Use**: Measure health outcomes
+-   **Analysis**: Identify trends, explore correlations
 
 These transformations support cross-regional and temporal comparisons of health spending, vaccination coverage, and child mortality.
 
 ## 3.3 merge datasets together
+
 ```{r include=FALSE}
 # Recode WHO region codes to match full region names used in other datasets
 DTPcoverage <- DTPcoverage %>%
@@ -372,21 +389,23 @@ class(merged_health_data)
 merged_healthdata_df <- as.data.frame(merged_health_data)
 ```
 
+### 3.3.1 Rationale for Merging Datasets
 
-### 3.3.1 Rationale for Merging Datasets  
-Merging the DTP coverage, health spending, and child mortality datasets enables a comprehensive analysis of global health system performance. Aligning by `Region` and `Period` allows exploration of relationships between investment, service delivery, and outcomes. Key derived indicators:  
-- **Coverage per dollar spent**  
-- **Cost per coverage point**  
-- **Child deaths per dollar spent**  
+Merging the DTP coverage, health spending, and child mortality datasets enables a comprehensive analysis of global health system performance. Aligning by `Region` and `Period` allows exploration of relationships between investment, service delivery, and outcomes. Key derived indicators:\
+- **Coverage per dollar spent**\
+- **Cost per coverage point**\
+- **Child deaths per dollar spent**
 
 These metrics help assess health system efficiency across WHO regions over time.
 
-### 3.3.2 Critique and Suggestions for Refinement  
-- **Period Grouping**: Replace repeated `case_when()` with a reusable function  
-- **Missing Data**: Consider imputation or flagging missing values before merging  
-- **Join Strategy**: Use `left_join` or `full_join` to retain more data and allow sensitivity analysis
+### 3.3.2 Critique and Suggestions for Refinement
 
-## 3.4
+-   **Period Grouping**: Replace repeated `case_when()` with a reusable function
+-   **Missing Data**: Consider imputation or flagging missing values before merging
+-   **Join Strategy**: Use `left_join` or `full_join` to retain more data and allow sensitivity analysis
+
+## 3.4 Visualization
+
 ```{r include=FALSE}
 library(ggplot2)
 library(hrbrthemes)
@@ -422,39 +441,43 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
 
 #vaccinatiegraad vergelijken met childdeath & vaccinatiegraad vergelijken met healthspending. Normale lijngrafieken.
 ```
-```{r echo=FALSE, out.width="80%"}
-knitr::include_graphics("USD_per_coverage.png")
-```
 
-```{r echo=FALSE, out.width="80%"}
+```{r echo=FALSE, out.width="50%"}
+knitr::include_graphics("USD_per_coverage.png")
 knitr::include_graphics("USD_per_CD.png")
 ```
 
 ### 3.4.1 Temporal Trends in Health Investment and Outcomes
+
 These two line graphs visualize how healthcare efficiency and outcomes have evolved across WHO regions over five-year periods from 2000 to 2022. They align closely with the research question by showing how healthcare spending relates to vaccination coverage and child mortality over time.
 
 ### 3.4.2 Graph 1: Dollar per Coverage Point over Time
+
 -   **What it shows**: The average cost (in USD) required to increase DTP3 vaccination coverage by one percentage point.
 -   **Trend**: Most regions show a relatively stable or slightly increasing cost over time.
 -   **Notable pattern**: The Western Pacific region shows a significant increase in cost per coverage point in recent years, suggesting rising marginal costs or reduced efficiency.
 -   **Interpretation**: While some regions maintain cost-effectiveness, others may be facing diminishing returns on investment in immunization programs.
 
 ### 3.4.3 Graph 2: Child Deaths per Spending over Time
+
 -   **What it shows**: The number of child deaths per unit of healthcare spending.
 -   **Trend**: A clear downward trend across all regions, indicating improved outcomes per dollar spent.
 -   **Notable pattern**: Africa and Europe show the most significant declines, suggesting major gains in healthcare efficiency or effectiveness.
 -   **Interpretation**: This trend reflects global progress in reducing child mortality, likely due to better-targeted spending, improved healthcare delivery, and expanded immunization coverage.
 
 ### 3.4.4 Comparison and Dynamics
+
 -   **Efficiency vs. Outcome**: While the cost of achieving additional vaccination coverage is rising or stabilizing, the impact of spending on reducing child deaths is improving.
 -   **Temporal Insight**: These trends highlight the evolving dynamics of global health investment—where spending may be increasing, but so is its effectiveness in saving lives.
 
 ### 3.4.5 Implications
+
 -   Policymakers should consider both cost and outcome metrics when evaluating healthcare strategies.
 -   The rising cost per coverage point in some regions may call for more efficient delivery models or targeted interventions.
 -   The declining child deaths per spending metric is a positive signal of global health progress and a justification for continued investment.
 
 ## 3.5 Visualize spatial variation
+
 ```{r include=FALSE}
 library(sf)
 library(rnaturalearth)
@@ -523,23 +546,29 @@ ggplot(world) +
     legend.position = "bottom"
   )
 ```
+
 ```{r echo=FALSE, out.width="80%"}
 knitr::include_graphics("World_map.png")
 ```
 
 ### 3.5.1 Spatial Analysis of DTP3 Vaccination Coverage (2020–2022)
+
 This world map visualizes average DTP3 vaccination coverage by WHO region from 2020 to 2022, using a color gradient from purple (60%) to yellow (100%). The map reveals clear regional disparities: high-income regions such as Europe and the Western Pacific generally exhibit higher coverage (light green to yellow), while lower-income regions like Africa and parts of the Eastern Mediterranean show lower coverage (purple to blue).
 
 ### 3.5.2 Spatial Anomalies and Regional Comparisons
+
 Notably, some middle-income regions, such as parts of South-East Asia, achieve relatively high coverage despite lower spending levels, suggesting efficient immunization programs. Conversely, certain countries in the Americas show unexpectedly moderate coverage despite higher average spending, indicating potential inefficiencies or access barriers.
 
 ### 3.5.3 Interpretation and Mapping Critique
+
 The map effectively communicates broad regional trends but may obscure within-region variation due to aggregation. For example, large countries with internal disparities (e.g., India, Brazil) are represented by a single color, which may oversimplify complex national dynamics. Additionally, the use of discrete color bands may exaggerate differences between countries near category thresholds.
 
 ### 3.5.4 Mapping Choices
+
 While the color scheme is intuitive and accessible, a continuous gradient or country-level granularity could enhance interpretability. Including data labels or interactive elements (in a web-based version) would further support detailed analysis. Despite these limitations, the map serves as a compelling visual summary of global immunization equity and supports the research question by highlighting spatial patterns in vaccination coverage relative to regional healthcare investment.
 
 ## 3.6 Visualize sub-population variation
+
 ```{r include=FALSE}
 library(tidyverse)
 library(readxl)
@@ -654,20 +683,21 @@ ggplot(plot_data, aes(x = Group, y = Value, fill = FillGroup)) +
     axis.text = element_text(color = "#333333")
   )
 ```
+
 ```{r echo=FALSE, out.width="80%"}
 knitr::include_graphics("sub_pop.png")
 ```
 
 ### 3.6.1 Subgroup Analysis: Top vs Bottom 3 WHO Regions (2022)
-This bar chart compares the top 3 and bottom 3 WHO regions based on average healthcare spending per capita in 2022. It visualizes three key metrics:
--   **Average Health Spending (USD per capita)**
--   **Average DTP3 Vaccination Coverage (%)**
--   **Average Child Deaths**
+
+This bar chart compares the top 3 and bottom 3 WHO regions based on average healthcare spending per capita in 2022. It visualizes three key metrics: - **Average Health Spending (USD per capita)** - **Average DTP3 Vaccination Coverage (%)** - **Average Child Deaths**
 
 ### 3.6.2 Alignment with Research Topic
+
 This visualization directly supports the research question by dividing regions into high- and low-spending groups, the plot highlights how investment levels relate to health outcomes across sub-populations.
 
 ### 3.6.3 Group Differences (Quantified)
+
 | Metric       | Top 3 Regions | Bottom 3 Regions | Difference   |
 |--------------|---------------|------------------|--------------|
 | Spending     | \$1852.7      | \$305.9          | +\$1546.8    |
@@ -679,14 +709,17 @@ This visualization directly supports the research question by dividing regions i
 -   They experience nearly **10 times fewer** child deaths.
 
 ### 3.6.4 Evaluation of Subgroup Analysis
+
 This subgroup comparison reveals a clear gradient: higher spending is associated with better vaccination outcomes and significantly lower child mortality. The differences are not only statistically meaningful but also socially and ethically significant, especially in the context of global health equity.
 
 ### 3.6.5 Implications
+
 -   **Policy Insight**: The data suggests that increasing healthcare investment in underfunded regions could substantially improve immunization coverage and reduce child mortality.
 -   **Equity Concern**: The stark contrast in child death rates underscores the urgent need for targeted support in low-spending regions.
 -   **Further Research**: This analysis invites deeper exploration into how efficiently funds are used and what other systemic factors (e.g., governance, infrastructure) influence outcomes.
 
 ## 3.7 Event analysis
+
 ```{r include=FALSE}
 # Take the temporal variation plots and add a vertical line at 2015-2019
 ggplot(merged_healthdata_df, aes(x = Period, y = DollarPerCoveragePoint, group = Region, color = Region)) +
@@ -715,11 +748,9 @@ ggplot(merged_healthdata_df, aes(x = Period, y = DeathsPerSpending, group = Regi
   geom_vline(xintercept = 4, size = 0.75) +
   annotate("text", x = 3.5, y = 62500, size = 3.5, label = "Pre- / during\nCOVID-19")
 ```
-```{r echo=FALSE, out.width="80%"}
-knitr::include_graphics("USD_per_cov_event.png")
-```
 
-```{r echo=FALSE, out.width="80%"}
+```{r echo=FALSE, out.width="50%"}
+knitr::include_graphics("USD_per_cov_event.png")
 knitr::include_graphics("CD_per_spending_event.png")
 ```
 
@@ -743,14 +774,13 @@ Over the course of the analysis of the relation between all four graphs and COVI
 
 Crisis-state exception: Traditional vaccination coverage models operate under the assumption of stability and predictability, meaning that major disruptions such as COVID-19 can crumble healthcare systems if these are not equipped with dynamic frameworks addressing both normal and crisis-states.
 
-System resilience hierarchy: An unrecognized hiearchy of system resilience between regions emerged with this study, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (source https://pubmed.ncbi.nlm.nih.gov/38963883/) demonstrated certain poorer areas have superior crisis adaptability compared to other highly bureacratic systems in richer countries. This insights allows for the discussion diving into the potential vulnerability that comes with highly institutionalized systems.
+System resilience hierarchy: An unrecognized hiearchy of system resilience between regions emerged with this study, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (source <https://pubmed.ncbi.nlm.nih.gov/38963883/>) demonstrated certain poorer areas have superior crisis adaptability compared to other highly bureacratic systems in richer countries. This insights allows for the discussion diving into the potential vulnerability that comes with highly institutionalized systems.
 
 Resource Mobilization Capacity: The cost spike related to supply chain disruptions highlights the importance of rapidly scaling spending in response to crises. Similar to Keynes' view, this insight challenges static spending-outcome models by introducing varied increase in resources as a better option.
 
-One key takeaway from the study is how resilient delivery systems are key to react to sudden disruptors. The superior performance of community-based systems might lead to conversations on how even more developed countries should emphasize on decentralized, locally-controlled delivery mechanisms to maintain healthcare standards during major events. 
+One key takeaway from the study is how resilient delivery systems are key to react to sudden disruptors. The superior performance of community-based systems might lead to conversations on how even more developed countries should emphasize on decentralized, locally-controlled delivery mechanisms to maintain healthcare standards during major events.
 
-Furthemore over-sophisticated health systems and its shortcomings could direct policy makers to evaluate the efficiency advantages or disadvantages of complex and integrated systems. Finally, the varied regional responses to the pandemic era disclose poor international coordination, with each region managing responses independently. Advocating once more for more flexible, decentralized international response frameworks. 
-
+Furthemore over-sophisticated health systems and its shortcomings could direct policy makers to evaluate the efficiency advantages or disadvantages of complex and integrated systems. Finally, the varied regional responses to the pandemic era disclose poor international coordination, with each region managing responses independently. Advocating once more for more flexible, decentralized international response frameworks.
 
 # Part 4 - Discussion
 
