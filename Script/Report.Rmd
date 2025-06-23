@@ -268,39 +268,14 @@ To analyze the relationship between healthcare spending, DTP vaccination coverag
 Standardizing Region Names
 The Region variable in the DTP dataset used full WHO region names (e.g., "African Region"), while the other datasets used shorter or slightly different labels (e.g., "Africa"). To ensure consistency, I used mutate() and recode() to align the region names across datasets:
 
-```{r}
-DTPcoverage <- DTPcoverage %>%
-mutate( Region = recode(Region, "African Region" = "Africa", "Eastern Mediterranean Region" = "Eastern Mediterranean", "European Region" = "Europe", "Region of the Americas" = "Americas", "South-East Asia Region" = "South-East Asia", "Western Pacific Region" = "Western Pacific" ) )
-```
-
-Renaming the Time Variable
-The DTP dataset used PeriodGroup to represent grouped years (e.g., "2000–2004"), while the other datasets used Period. To match the column names for merging, I renamed PeriodGroup to Period:
-
-```{r}
-DTPcoverage <- DTPcoverage %>% rename(Period = PeriodGroup)
-```
-
 Merging the Datasets
 I used inner_join() to merge the three datasets by Region and Period. This ensures that only rows with matching region-period combinations across all datasets are included:
-
-```{r} 
-merged_health_data <- avg_healthspending_by_period %>% inner_join(DTPcoverage, by = c("Region", "Period")) %>% inner_join(avg_childdeath_by_period, by = c("Region", "Period"))
-```
 
 Creating New Variables
 To enrich the analysis, we constructed new variables that express relationships between the indicators:
 
-```{r} 
-merged_health_data <- merged_health_data %>%
-  mutate( CoveragePerDollar = AvgCoverage / AvgSpending, DollarPerCoveragePoint = AvgSpending / AvgCoverage, DeathsPerSpending = AvgChildDeath / AvgSpending )
-```
-
 Final Formatting
 The merged tibble was converted to a standard data frame for compatibility with certain functions:
-
-```{r} 
-merged_healthdata_df <- as.data.frame(merged_health_data)
-```
 
 This merged dataset forms the foundation for the correlation analysis and visualizations that follow.
 
