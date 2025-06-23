@@ -113,22 +113,21 @@ head(raw_healthspending_data)
 
 **Source 1: DTP Vaccination Coverage**
 
-- **Credibility:** Published by WHO/UNICEF (WUENIC), the leading global authority on immunization data (World Health Organization, 2024).
-- **Data Quality:** Combines administrative records, surveys, and expert review, enhancing reliability.
-- **Relevance:** Provides DTP3 coverage rates by region and year—central to the research question.
+-   **Credibility:** Published by WHO/UNICEF (WUENIC), the leading global authority on immunization data (World Health Organization, 2024).
+-   **Data Quality:** Combines administrative records, surveys, and expert review, enhancing reliability.
+-   **Relevance:** Provides DTP3 coverage rates by region and year—central to the research question.
 
 **Source 2: Government Healthcare Spending**
 
-- **Credibility:** Provided by the World Bank, using WHO’s Global Health Expenditure Database (World Bank, 2024).
-- **Data Quality:** Based on standardized, internationally accepted methods; updated annually.
-- **Relevance:** Supplies the key independent variable—health spending per capita—for correlation analysis.
+-   **Credibility:** Provided by the World Bank, using WHO’s Global Health Expenditure Database (World Bank, 2024).
+-   **Data Quality:** Based on standardized, internationally accepted methods; updated annually.
+-   **Relevance:** Supplies the key independent variable—health spending per capita—for correlation analysis.
 
 **Source 3: Child Death Rates**
 
-- **Credibility:** From WHO’s Global Health Observatory, a trusted source for global health statistics (World Health Organization, 2024).
-- **Data Quality:** Derived from national systems, surveys, and statistical modeling.
-- **Relevance:** Offers contextual insight into the broader social impact of vaccination and healthcare investment.
-
+-   **Credibility:** From WHO’s Global Health Observatory, a trusted source for global health statistics (World Health Organization, 2024).
+-   **Data Quality:** Derived from national systems, surveys, and statistical modeling.
+-   **Relevance:** Offers contextual insight into the broader social impact of vaccination and healthcare investment.
 
 ## 2.2.1 Complementarity of the Datasets
 
