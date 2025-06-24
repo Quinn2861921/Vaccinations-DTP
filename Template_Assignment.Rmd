@@ -753,7 +753,7 @@ knitr::include_graphics("USD_per_cov_event.png")
 knitr::include_graphics("CD_per_spending_event.png")
 ```
 
-Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2020 to 2022 which relates to the COVID-19 pandemic. Unlike earlier gradual reforms such as GAVI's 2011-2015 financing activities (Phase 3 (2011–2015), 2025),  the pandemic created an acute simultaneous shock to every healthcare system worldwide. This situation enables a unique opportunity to examine how external crises affect  healthcare spending and vaccination coverage rates worldwide.
+Applying the findings related to the correlation between government healthcare spending per capita and national vaccination coverage rates worldwide, we can analyse a critical event period from 2020 to 2022 which relates to the COVID-19 pandemic. Unlike earlier gradual reforms such as GAVI's 2011-2015 financing activities (Phase 3 (2011–2015), 2025), the pandemic created an acute simultaneous shock to every healthcare system worldwide. This situation enables a unique opportunity to examine how external crises affect healthcare spending and vaccination coverage rates worldwide.
 
 During COVID-19 routine immunizations were suspended or decreased as healthcare systems focused on pandemic response, meaning coverage declined regardless of funding. (Abad-Vergara, 2020).
 
@@ -763,9 +763,9 @@ The child deaths per spending data reveals a steady improvement pre COVID-19, bu
 
 The global coverage map reveals sharp regional disparities during 2020-2022, ranging from 60% to close to 100%. Underscoring, the disparity of pre-existing health care systems' resilience and adaptive mechanisms. Childhood vaccines declines were more prominent in low and lower-middle income countries (Lai & et., 2023), reaffirming that more developed countries with better resourced health systems managed to sustain coverage more effectively under strain.
 
-Subpopulation comparisons show African regions maintained a 82% coverage during the pandemic while top performing regions achieved 91%. This supports the argument that stronger systems, such as the ones in Europe, were better equipped  to mitigate coverage maintenance challenges.
+Subpopulation comparisons show African regions maintained a 82% coverage during the pandemic while top performing regions achieved 91%. This supports the argument that stronger systems, such as the ones in Europe, were better equipped to mitigate coverage maintenance challenges.
 
-Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. Disrupted supply chains and service suspensions meant fewer doses were delivered while, while fixed costs such as cold chains remained. This then signficantly increased the per-point cost. 
+Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. Disrupted supply chains and service suspensions meant fewer doses were delivered while, while fixed costs such as cold chains remained. This then signficantly increased the per-point cost.
 
 ### 3.7.1 Interpretation and Relevance
 
@@ -787,7 +787,7 @@ Moreover, the shortcomings of highly complex systems could direct policy makers 
 
 ## 4.1 Discuss our findings
 
-Our most significant finding is that complex, well-funded healthcare systems experienced the greatest efficiency losses during the pandemic, whereas simpler, less-funded systems proved resilience. Europe maintained >90% coverage but had dramatic cost increases from \$25 to \$31 per coverage point during COVID. On the other hand, African regions maintained stable child deaths per spending ratios despite having the lowest spending levels.
+Our most significant finding is that complex, well-funded healthcare systems experienced the greatest efficiency losses during the pandemic, whereas simpler, less-funded systems proved resilience. Europe maintained \>90% coverage but had dramatic cost increases from \$25 to \$31 per coverage point during COVID. On the other hand, African regions maintained stable child deaths per spending ratios despite having the lowest spending levels.
 
 Traditional income classifications were deemed flawed to predict pandemic resilience. In turn, system design characteristics such as degree of centralization and institutional complexity became the main differentiator between regions' adaptability to disruptions. Community-based systems' adaptive capacity prevailed over highly institutionalized systems' tendency to create multiple failure points, requiring major resource mobilization.
 
@@ -803,15 +803,15 @@ Provide the link to your PUBLIC repository here: <https://github.com/Quinn286192
 
 **References**
 
-Abad-Vergara, D. (2020, May 22). At least 80 million children under one at risk of diseases such as diphtheria, measles and polio as COVID-19 disrupts routine vaccination efforts, warn Gavi, WHO and UNICEF. Www.who.int. https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef
+Abad-Vergara, D. (2020, May 22). At least 80 million children under one at risk of diseases such as diphtheria, measles and polio as COVID-19 disrupts routine vaccination efforts, warn Gavi, WHO and UNICEF. Www.who.int. <https://www.who.int/news/item/22-05-2020-at-least-80-million-children-under-one-at-risk-of-diseases-such-as-diphtheria-measles-and-polio-as-covid-19-disrupts-routine-vaccination-efforts-warn-gavi-who-and-unicef>
 
-Causey, K., & et., al. (2021). Estimating global and regional disruptions to routine childhood vaccine coverage during the COVID-19 pandemic in 2020: a modelling study. The Lancet, 398(10299). https://doi.org/10.1016/s0140-6736(21)01337-4
+Causey, K., & et., al. (2021). Estimating global and regional disruptions to routine childhood vaccine coverage during the COVID-19 pandemic in 2020: a modelling study. The Lancet, 398(10299). [https://doi.org/10.1016/s0140-6736(21)01337-4](https://doi.org/10.1016/s0140-6736(21)01337-4){.uri}
 
 Our World in Data. (n.d.). *Deaths caused by vaccine-preventable diseases, World*. Retrieved from Our World in Data: <https://ourworldindata.org/grapher/deaths-caused-by-vaccine-preventable-diseases-over-time>
 
-Lai, X., & et., al. (2023). Estimating global and regional between-country inequality in routine childhood vaccine coverage in 195 countries and territories from 2019 to 2021: a longitudinal study. EClinicalMedicine, 60, 102042. https://doi.org/10.1016/j.eclinm.2023.102042
+Lai, X., & et., al. (2023). Estimating global and regional between-country inequality in routine childhood vaccine coverage in 195 countries and territories from 2019 to 2021: a longitudinal study. EClinicalMedicine, 60, 102042. <https://doi.org/10.1016/j.eclinm.2023.102042>
 
-Phase 3 (2011–2015). (2025, June 23). Gavi.org. https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015
+Phase 3 (2011–2015). (2025, June 23). Gavi.org. <https://www.gavi.org/our-alliance/strategy/phase-3-2011-2015>
 
 unicef. (2024, July). *Immunization*. Retrieved from unicef: <https://data.unicef.org/topic/child-health/immunization/>
 
@@ -819,7 +819,7 @@ UNICEF. (2024, March). *Vaccination & Immunization Statistics - UNICEF Data*. Re
 
 UNICEF. (n.d.). *Vaccines and the diseases they prevent*. Retrieved from UNICEF: <https://www.unicef.org/parenting/health/vaccines-and-diseases-they-prevent>
 
-VanderZanden, A., & et., al. (2024). Evidence of health system resilience in primary health care for preventing under-five mortality in Rwanda and Bangladesh: Lessons from an implementation study during the Millennium Development Goal period and the early period of COVID-19. Journal of Global Health, 14. https://doi.org/10.7189/jogh.14.05023
+VanderZanden, A., & et., al. (2024). Evidence of health system resilience in primary health care for preventing under-five mortality in Rwanda and Bangladesh: Lessons from an implementation study during the Millennium Development Goal period and the early period of COVID-19. Journal of Global Health, 14. <https://doi.org/10.7189/jogh.14.05023>
 
 WHO. (2023). *Indicators.* Retrieved from who: <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/number-of-under-five-deaths>
 
