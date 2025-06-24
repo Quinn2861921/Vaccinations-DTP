@@ -1,7 +1,7 @@
 ---
 title: "DTP Coverage"
 author: |
-  G.J.R. Weydemuller (student number)  
+  G.J.R. Weydemuller (2832171)  
   L. Waaijenberg (2862154)  
   P. Gandra Rodrigues (2870539)  
   Q. Faber (2861921)  
