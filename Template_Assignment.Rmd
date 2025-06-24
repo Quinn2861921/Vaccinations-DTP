@@ -7,7 +7,7 @@ author: |
   Q. Faber (2861921)  
   R.A. Kali (2850680)  
   T. Adam (2871752)  
-  T.M.V. Verbeek (2864049)  
+  T.M.V. Verbeek (2864069)  
   **Tutor:** J.F. Fitzgerald  
   **Tutorial group:** Tutorial group 1  
   **Course:** Programming for Economists  
@@ -765,11 +765,11 @@ The global coverage map reveals sharp regional disparities during 2020-2022, ran
 
 Subpopulation comparisons show African regions maintained a 82% coverage during the pandemic while top performing regions achieved 91%. This supports the argument that stronger systems, such as the ones in Europe, were better equipped to mitigate coverage maintenance challenges.
 
-Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. Disrupted supply chains and service suspensions meant fewer doses were delivered while, while fixed costs such as cold chains remained. This then signficantly increased the per-point cost.
+Finally, the dollar per coverage point data shows a sudden spike in costs, which suggests that it became much more expensive to maintain coverage during the pandemic. Disrupted supply chains and service suspensions meant fewer doses were delivered while, while fixed costs such as cold chains remained. This then significantly increased the per-point cost.
 
 ### 3.7.1 Interpretation and Relevance
 
-The data reveals a relationship between healthcare spending and improved vaccination coverage, which broke down during COVID-19. The sharp decline of cost-efficiency, highlighted the vulnerability of highyl bureaucratic, centralized systems. Meanwhile, low-income regions maintained results through crisis proof, community-based delivery models. Though causality is inferred rather than proven, the timing supports a strong link. These findings stress that adaptability, not just funding, is crucial for sustaining vaccination efforts during systemic shocks.
+The data reveals a relationship between healthcare spending and improved vaccination coverage, which broke down during COVID-19. The sharp decline of cost-efficiency, highlighted the vulnerability of highly bureaucratic, centralized systems. Meanwhile, low-income regions maintained results through crisis proof, community-based delivery models. Though causality is inferred rather than proven, the timing supports a strong link. These findings stress that adaptability, not just funding, is crucial for sustaining vaccination efforts during systemic shocks.
 
 # Part 4 - Discussion
 
@@ -777,7 +777,7 @@ Over the course of the analysis linking vaccination coverage trends to COVID-19,
 
 Crisis-state exception: Traditional vaccination coverage models operate assume stability and predictability, yet COVID-19 expose that without dynamic frameworks addressing both normal and crisis-states, systems can collapse under acute pressure.
 
-System resilience hierarchy: A new hierarchy of system resilience emerged, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (VanderZanden & et., 2024) outperformend more institutionalized systems in wealthier nations. This reveals the vulnerability that comes with highly institutionalized systems during crisis.
+System resilience hierarchy: A new hierarchy of system resilience emerged, slicing through traditional income classifications. Community-based delivery systems such as the ones in Rwanda and Bangladesh (Van der Zanden & et., 2024) outperformed more institutionalized systems in wealthier nations. This reveals the vulnerability that comes with highly institutionalized systems during crisis.
 
 Resource Mobilization Capacity: The cost spike due to supply chain disruptions underscores the need for rapid, flexible spending responses. Echoing Keynes' view, static spending-outcome models are insufficient in volatile contexts.
 
